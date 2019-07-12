@@ -16,8 +16,21 @@ class MandalaChartHomeActivity : AppCompatActivity() {
         supportActionBar?.title="MandalaChart"
 
         button_new.setOnClickListener{
-            val intent= Intent(this,MandalaChartActivity::class.java)
-            startActivity(intent)
+            if(themeText.length()!=0){
+                println(themeText.text)
+
+                val intent= Intent(this,MandalaChartActivity::class.java)
+
+                intent.putExtra("THEME_KEY",themeText.text.toString())
+
+                startActivity(intent)
+
+            }
+            else{
+                themeText.setError("テーマを入力してください")
+                println("0000000")
+            }
+
         }
 
     }

@@ -12,48 +12,56 @@
 
 
         <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:orientation="vertical">
+                          android:orientation="horizontal">
 
 
                 <include layout="@layout/mandala_chart_table"
+                         android:id="@+id/table1"
                 />
                 <include layout="@layout/mandala_chart_table"
+                         android:id="@+id/table2"
                 />
                 <include layout="@layout/mandala_chart_table"
-                />
-
-
-            </LinearLayout>
-            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:orientation="vertical">
-
-
-                <include layout="@layout/mandala_chart_table"
-                />
-
-                <include layout="@layout/mandala_chart_table"
-                />
-                <include layout="@layout/mandala_chart_table"
+                         android:id="@+id/table3"
                 />
 
 
             </LinearLayout>
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:orientation="vertical">
+                          android:orientation="horizontal">
 
 
                 <include layout="@layout/mandala_chart_table"
+                         android:id="@+id/table4"
                 />
 
                 <include layout="@layout/mandala_chart_table"
+                         android:id="@+id/table5"
                 />
                 <include layout="@layout/mandala_chart_table"
+                         android:id="@+id/table6"
+                />
+
+
+            </LinearLayout>
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:orientation="horizontal">
+
+
+                <include layout="@layout/mandala_chart_table"
+                         android:id="@+id/table7"
+                />
+
+                <include layout="@layout/mandala_chart_table"
+                         android:id="@+id/table8"
+                />
+                <include layout="@layout/mandala_chart_table"
+                         android:id="@+id/table9"
                 />
 
 
