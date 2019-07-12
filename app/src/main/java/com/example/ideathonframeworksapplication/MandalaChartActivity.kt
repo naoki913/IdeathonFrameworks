@@ -1,14 +1,19 @@
 package com.example.ideathonframeworksapplication
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_mandala_chart.*
 
 
@@ -17,10 +22,17 @@ class MandalaChartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mandala_chart)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title="MandalaChart"
+
         val words=Array(9,{""})
         val words_9x9 =Array(9,{Array<String>(9,{""})})
         val theme=intent.getStringExtra("THEME_KEY")
         println(theme)
+
+        val dataStore: SharedPreferences =getSharedPreferences("DataStore", Context.MODE_PRIVATE)
+        val editor = dataStore.edit()
 
         val vg = findViewById<View>(R.id.TableLayout) as ViewGroup
         getLayoutInflater().inflate(R.layout.mandala_chart_table, vg)
@@ -31,7 +43,6 @@ class MandalaChartActivity : AppCompatActivity() {
 
         for(i in(0..2)){
             val tr=ll.getChildAt(i)as TableRow
-
 
             for(j in(0..2)){
                 val fl1=tr.getChildAt(j)as FrameLayout
@@ -71,9 +82,11 @@ class MandalaChartActivity : AppCompatActivity() {
             }
         }
 
+
+
         button_next.setOnClickListener {
             var isFinished=true
-            println("a")
+
             for(i in(0..2)){
                 for(j in(0..2)){
                     if(words[i*3+j].length==0){
@@ -144,22 +157,30 @@ class MandalaChartActivity : AppCompatActivity() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
                 })
                 dialog.setNegativeButton("いいえ", null)
                 dialog.show()
             }
         }
 
+        button_save.setOnClickListener {
+            val gson= Gson()
+            val jsonString:String=gson.toJson(words_9x9)
+            editor.putString("words",jsonString)
+            Log.d("input",jsonString)
+            editor.apply()
+
+
+
+        }
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            android.R.id.home->finish()
+            else ->return super.onOptionsItemSelected(item)
+        }
+        return true
     }
 }
