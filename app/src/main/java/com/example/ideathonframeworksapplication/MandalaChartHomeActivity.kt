@@ -11,8 +11,12 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_mandala_chart_home.*
 import kotlinx.android.synthetic.main.activity_mandala_chart_home.button_load
+import org.json.JSONArray
+import kotlin.properties.Delegates
 
 class MandalaChartHomeActivity : AppCompatActivity() {
+    var  themes : ArrayList<String> = arrayListOf()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,12 +28,33 @@ class MandalaChartHomeActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title="MandalaChart"
 
+        //val jsonString=dataStore.getString("themes","nothing")
+        //Log.d("log",jsonString)
+        val gson= Gson()
+        val jsonArray = JSONArray(dataStore.getString("theme","[]"))
+        println(jsonArray)
+        for(t in 0 .. jsonArray.length()-1){
+            themes.add(t.toString())
+        }
+
+        val intent= Intent(this,MandalaChartActivity::class.java)
+        println(themes)
+
         button_new.setOnClickListener{
             if(themeText.length()!=0){
                 println(themeText.text)
+                themes.add(themeText.text.toString())
+                /*
+                val gson= Gson()
+                val jsonString:String =gson.toJson(themes)
+                editor.putString("theme",jsonString)
+                */
 
-                val intent= Intent(this,MandalaChartActivity::class.java)
+                val jsonArray =JSONArray(themes)
+                editor.putString("theme",jsonArray.toString())
+                editor.apply()
 
+                intent.putExtra("IS_NEW",true)
                 intent.putExtra("THEME_KEY",themeText.text.toString())
 
                 startActivity(intent)
@@ -37,19 +62,14 @@ class MandalaChartHomeActivity : AppCompatActivity() {
             }
             else{
                 themeText.setError("テーマを入力してください")
-                println("0000000")
             }
 
         }
 
         button_load.setOnClickListener {
-            val jsonString=dataStore.getString("words","nothing")
-            Log.d("log",jsonString)
-            val gson= Gson()
 
-            val str = gson.fromJson(jsonString,Array<Array<String>>::class.java)
-
-            Log.d("log",str[0][0])
+            intent.putExtra("IS_NEW",false)
+            startActivity(intent)
 
         }
 
