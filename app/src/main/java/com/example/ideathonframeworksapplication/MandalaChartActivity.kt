@@ -74,25 +74,33 @@ class MandalaChartActivity : AppCompatActivity() {
 
         button_next.setOnClickListener {
             var isFinished=true
+            when (isExtended){
+                true->{
 
-            for(i in(0..2)){
-                for(j in(0..2)){
-                    if(words[i*3+j].length==0){
-                        isFinished=false
+                }
+                false->{
+                    for(i in(0..2)){
+                        for(j in(0..2)){
+                            if(words[i*3+j].length==0){
+                                isFinished=false
+                            }
+                        }
+                    }
+
+                    if(isFinished){
+                        val dialog = AlertDialog.Builder(this)
+                        dialog.setTitle("チャートを拡大しますか")
+                        dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
+                            // OKボタン押したときの処理
+                            extendBoard()
+                        })
+                        dialog.setNegativeButton("いいえ", null)
+                        dialog.show()
                     }
                 }
             }
 
-            if(isFinished){
-                val dialog = AlertDialog.Builder(this)
-                dialog.setTitle("チャートを拡大しますか")
-                dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
-                    // OKボタン押したときの処理
-                    extendBoard()
-                })
-                dialog.setNegativeButton("いいえ", null)
-                dialog.show()
-            }
+
         }
 
         button_save.setOnClickListener {

@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import com.google.gson.Gson
+//import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_mandala_chart_home.*
 import kotlinx.android.synthetic.main.activity_mandala_chart_home.button_load
@@ -30,7 +30,7 @@ class MandalaChartHomeActivity : AppCompatActivity() {
 
         //val jsonString=dataStore.getString("themes","nothing")
         //Log.d("log",jsonString)
-        val gson= Gson()
+        //val gson= Gson()
         val jsonArray = JSONArray(dataStore.getString("theme","[]"))
         println(jsonArray)
         for(t in 0 .. jsonArray.length()-1){
