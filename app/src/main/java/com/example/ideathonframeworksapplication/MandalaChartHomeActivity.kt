@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -22,23 +23,35 @@ import kotlin.properties.Delegates
 
 class MandalaChartHomeActivity : AppCompatActivity() {
     var  themes : ArrayList<String> = arrayListOf()
+    lateinit var vg:ViewGroup
+    lateinit var dataStore: SharedPreferences
+    lateinit var editor:SharedPreferences.Editor
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mandala_chart_home)
 
-        val dataStore: SharedPreferences =getSharedPreferences("DataStore", Context.MODE_PRIVATE)
-        val editor = dataStore.edit()
+        dataStore =getSharedPreferences("DataStore", Context.MODE_PRIVATE)
+        editor = dataStore.edit()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title="MandalaChart"
         val intent= Intent(this,MandalaChartActivity::class.java)
-        val vg = findViewById<View>(R.id.TableLayout) as ViewGroup
+        vg = findViewById<View>(R.id.TableLayout) as ViewGroup
+        println(intent)
+
+        val jsonArray = JSONArray(dataStore.getString("theme","[]"))
+        for(t in 0 .. jsonArray.length()-1) {
+            themes.add(jsonArray.get(t).toString())
+        }
 
         //val jsonString=dataStore.getString("themes","nothing")
         //Log.d("log",jsonString)
         //val gson= Gson()
+
+
+        /*
         val jsonArray = JSONArray(dataStore.getString("theme","[]"))
         println(jsonArray)
 
@@ -71,7 +84,7 @@ class MandalaChartHomeActivity : AppCompatActivity() {
             println(t)
         }
 
-
+*/
 
 
         println(themes)
@@ -79,7 +92,9 @@ class MandalaChartHomeActivity : AppCompatActivity() {
         button_new.setOnClickListener{
             if(themeText.length()!=0){
                 println(themeText.text)
+                println("themes:89"+themes)
                 themes.add(themeText.text.toString())
+                println("themes:91"+themes)
                 /*
                 val gson= Gson()
                 val jsonString:String =gson.toJson(themes)
@@ -89,6 +104,7 @@ class MandalaChartHomeActivity : AppCompatActivity() {
 
                 val jsonArray =JSONArray(themes)
                 editor.putString("theme",jsonArray.toString())
+                println("jsonArray:101"+jsonArray)
                 editor.apply()
 
 
@@ -106,7 +122,7 @@ class MandalaChartHomeActivity : AppCompatActivity() {
 
         button_load.setOnClickListener {
 
-            getLayoutInflater().inflate(R.layout.mandala_chart_load_item, vg)
+            //getLayoutInflater().inflate(R.layout.mandala_chart_load_item, vg)
 
         }
 /*
@@ -119,6 +135,47 @@ class MandalaChartHomeActivity : AppCompatActivity() {
         }
   */
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val intent= Intent(this,MandalaChartActivity::class.java)
+        //editor.remove("theme")
+        editor.apply()
+        val jsonArray = JSONArray(dataStore.getString("theme","[]"))
+        println(jsonArray)
+
+        vg.removeAllViews()
+        for(t in 0 .. jsonArray.length()-1){
+            println("themes:144"+themes)
+            //themes.add(jsonArray.get(t).toString())
+            println("themes:146"+themes)
+            getLayoutInflater().inflate(R.layout.mandala_chart_load_item, vg)
+            val tr=vg.getChildAt(t) as TableRow
+            val ll=tr.getChildAt(0) as LinearLayout
+            (ll.getChildAt(0)as Button).setText(themes[t])
+            (ll.getChildAt(0)as Button).setOnClickListener {
+                intent.putExtra("IS_NEW",false)
+                intent.putExtra("THEME_KEY",themes[t])
+                startActivity(intent)
+            }
+
+            (ll.getChildAt(1)as TextView).setText(themes[t]+"に関する説明")
+
+            (ll.getChildAt(2)as Button).setOnClickListener {
+                val keyWords=themes[t]+"_words"
+                editor.remove(keyWords)
+                val keyIsExtended=themes[t]+"_isExtended"
+                editor.remove(keyIsExtended)
+                themes.remove(themes[t])
+                val jsonArray =JSONArray(themes)
+                editor.putString("theme",jsonArray.toString())
+                editor.apply()
+
+            }
+
+            println(t)
+        }
     }
 
 
