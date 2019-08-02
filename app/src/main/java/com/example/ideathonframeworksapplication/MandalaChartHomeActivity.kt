@@ -55,6 +55,19 @@ class MandalaChartHomeActivity : AppCompatActivity() {
             }
 
             (ll.getChildAt(1)as TextView).setText(themes[t]+"に関する説明")
+
+            (ll.getChildAt(2)as Button).setOnClickListener {
+                val keyWords=themes[t]+"_words"
+                editor.remove(keyWords)
+                val keyIsExtended=themes[t]+"_isExtended"
+                editor.remove(keyIsExtended)
+                themes.remove(themes[t])
+                val jsonArray =JSONArray(themes)
+                editor.putString("theme",jsonArray.toString())
+                editor.apply()
+
+            }
+
             println(t)
         }
 
@@ -77,6 +90,7 @@ class MandalaChartHomeActivity : AppCompatActivity() {
                 val jsonArray =JSONArray(themes)
                 editor.putString("theme",jsonArray.toString())
                 editor.apply()
+
 
                 intent.putExtra("IS_NEW",true)
                 intent.putExtra("THEME_KEY",themeText.text.toString())
