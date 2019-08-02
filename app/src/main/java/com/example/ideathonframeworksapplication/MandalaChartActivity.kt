@@ -44,16 +44,14 @@ class MandalaChartActivity : AppCompatActivity() {
         vg = findViewById<View>(R.id.TableLayout) as ViewGroup
         isNew=intent.getBooleanExtra("IS_NEW",true)
         theme=intent.getStringExtra("THEME_KEY")
-        editor.putString("THEME",theme)
-        editor.apply()
+        //editor.putString("THEME",theme)
+        //editor.apply()
 
         when(isNew){
             true->{
-
                 initBoard()
             }
             false->{
-
                 loadBoard()
             }
 
@@ -114,9 +112,11 @@ class MandalaChartActivity : AppCompatActivity() {
                     jsonString=gson.toJson(words)
                 }
             }
-            editor.putString("words",jsonString)
+            val keyWords=theme+"_words"
+            editor.putString(keyWords,jsonString)
             Log.d("input",jsonString)
-            editor.putBoolean("isExtended",isExtended)
+            val keyIsExtended=theme+"_isExtended"
+            editor.putBoolean(keyIsExtended,isExtended)
             editor.apply()
         }
 
@@ -164,8 +164,8 @@ class MandalaChartActivity : AppCompatActivity() {
     }
 
     fun loadBoard(){
-
-        isExtended=dataStore.getBoolean("isExtended",false)
+        val keyIsExtended=theme+"_isExtended"
+        isExtended=dataStore.getBoolean(keyIsExtended,false)
         println(isExtended)
         when(isExtended){
             true->{
@@ -177,7 +177,8 @@ class MandalaChartActivity : AppCompatActivity() {
         }
     }
     fun loadBoard_3x3(){
-        val jsonString=dataStore.getString("words","nothing")
+        val keyWords=theme+"_words"
+        val jsonString=dataStore.getString(keyWords,"nothing")
         Log.d("log",jsonString)
         val gson= Gson()
         words = gson.fromJson(jsonString,Array<String>::class.java)
@@ -220,7 +221,8 @@ class MandalaChartActivity : AppCompatActivity() {
         }
     }
     fun loadBoard_9x9(){
-        val jsonString=dataStore.getString("words","nothing")
+        val keyWords=theme+"_words"
+        val jsonString=dataStore.getString(keyWords,"nothing")
         Log.d("log",jsonString)
         val gson= Gson()
         words_9x9 = gson.fromJson(jsonString,Array<Array<String>>::class.java)

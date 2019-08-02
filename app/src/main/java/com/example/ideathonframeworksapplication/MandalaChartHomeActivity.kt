@@ -7,6 +7,12 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.TableRow
+import android.widget.TextView
 //import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_mandala_chart_home.*
@@ -27,17 +33,34 @@ class MandalaChartHomeActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title="MandalaChart"
+        val intent= Intent(this,MandalaChartActivity::class.java)
+        val vg = findViewById<View>(R.id.TableLayout) as ViewGroup
 
         //val jsonString=dataStore.getString("themes","nothing")
         //Log.d("log",jsonString)
         //val gson= Gson()
         val jsonArray = JSONArray(dataStore.getString("theme","[]"))
         println(jsonArray)
+
         for(t in 0 .. jsonArray.length()-1){
-            themes.add(t.toString())
+            themes.add(jsonArray.get(t).toString())
+            getLayoutInflater().inflate(R.layout.mandala_chart_load_item, vg)
+            val tr=vg.getChildAt(t) as TableRow
+            val ll=tr.getChildAt(0) as LinearLayout
+            (ll.getChildAt(0)as Button).setText(themes[t])
+            (ll.getChildAt(0)as Button).setOnClickListener {
+                intent.putExtra("IS_NEW",false)
+                intent.putExtra("THEME_KEY",themes[t])
+                startActivity(intent)
+            }
+
+            (ll.getChildAt(1)as TextView).setText(themes[t]+"に関する説明")
+            println(t)
         }
 
-        val intent= Intent(this,MandalaChartActivity::class.java)
+
+
+
         println(themes)
 
         button_new.setOnClickListener{
@@ -49,6 +72,7 @@ class MandalaChartHomeActivity : AppCompatActivity() {
                 val jsonString:String =gson.toJson(themes)
                 editor.putString("theme",jsonString)
                 */
+
 
                 val jsonArray =JSONArray(themes)
                 editor.putString("theme",jsonArray.toString())
@@ -68,10 +92,18 @@ class MandalaChartHomeActivity : AppCompatActivity() {
 
         button_load.setOnClickListener {
 
+            getLayoutInflater().inflate(R.layout.mandala_chart_load_item, vg)
+
+        }
+/*
+        button_load_0.setOnClickListener {
+
             intent.putExtra("IS_NEW",false)
+            intent.putExtra("THEME_KEY",themes[0])
             startActivity(intent)
 
         }
+  */
 
     }
 
