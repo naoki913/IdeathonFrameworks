@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.method.DialerKeyListener
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -15,6 +16,8 @@ import android.view.ViewGroup
 import android.widget.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_mandala_chart.*
+import kotlinx.android.synthetic.main.activity_mandala_chart_home.*
+import org.json.JSONArray
 import kotlin.properties.Delegates
 
 
@@ -26,7 +29,10 @@ class MandalaChartActivity : AppCompatActivity() {
     var isNew:Boolean by Delegates.notNull()
     var isExtended:Boolean by Delegates.notNull()
     lateinit var dataStore: SharedPreferences
+    lateinit var editor:SharedPreferences.Editor
     var theme:String by Delegates.notNull()
+    var isChanged:Boolean =false
+    var isFirstSave:Boolean=true
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,15 +43,12 @@ class MandalaChartActivity : AppCompatActivity() {
         supportActionBar?.title="MandalaChart"
 
         dataStore =getSharedPreferences("DataStore", Context.MODE_PRIVATE)
-        val editor = dataStore.edit()
+        editor = dataStore.edit()
         println(editor)
-
 
         vg = findViewById<View>(R.id.TableLayout) as ViewGroup
         isNew=intent.getBooleanExtra("IS_NEW",true)
         theme=intent.getStringExtra("THEME_KEY")
-        //editor.putString("THEME",theme)
-        //editor.apply()
 
         when(isNew){
             true->{
@@ -54,7 +57,6 @@ class MandalaChartActivity : AppCompatActivity() {
             false->{
                 loadBoard()
             }
-
         }
 
 
@@ -68,12 +70,11 @@ class MandalaChartActivity : AppCompatActivity() {
             }
         }
 
-
-
         button_next.setOnClickListener {
             var isFinished=true
             when (isExtended){
                 true->{
+                    //すでに拡張されている旨の通知
 
                 }
                 false->{
@@ -97,33 +98,54 @@ class MandalaChartActivity : AppCompatActivity() {
                     }
                 }
             }
-
-
         }
 
+
         button_save.setOnClickListener {
-            val gson= Gson()
-            var jsonString:String
-            when(isExtended){
-                true->{
-                    jsonString=gson.toJson(words_9x9)
-                }
-                false->{
-                    jsonString=gson.toJson(words)
-                }
-            }
-            val keyWords=theme+"_words"
-            editor.putString(keyWords,jsonString)
-            Log.d("input",jsonString)
-            val keyIsExtended=theme+"_isExtended"
-            editor.putBoolean(keyIsExtended,isExtended)
-            editor.apply()
+            save()
         }
 
     }
 
+    fun save(){
+        val gson= Gson()
+        var jsonString:String
+        when(isExtended){
+            true->{
+                jsonString=gson.toJson(words_9x9)
+            }
+            false->{
+                jsonString=gson.toJson(words)
+            }
+        }
+        val keyWords=theme+"_words"
+        editor.putString(keyWords,jsonString)
+        Log.d("input",jsonString)
+        val keyIsExtended=theme+"_isExtended"
+        editor.putBoolean(keyIsExtended,isExtended)
+        editor.apply()
+
+        isChanged=false
+
+        if(isFirstSave&&isNew){
+            //theme追加
+            val  themes : ArrayList<String> = arrayListOf()
+            val jsonTempArray = JSONArray(dataStore.getString("theme","[]"))
+            for(t in 0 .. jsonTempArray.length()-1) {
+                themes.add(jsonTempArray.get(t).toString())
+            }
+            themes.add(theme)
+            val jsonArray = JSONArray(themes)
+            editor.putString("theme",jsonArray.toString())
+            editor.apply()
+
+            isFirstSave=false
+        }
+    }
+
     fun initBoard(){
         isExtended=false
+        isChanged=true
 
         getLayoutInflater().inflate(R.layout.mandala_chart_table, vg)
 
@@ -156,7 +178,7 @@ class MandalaChartActivity : AppCompatActivity() {
                     override fun afterTextChanged(s: Editable?) {
                         words[i*3+j]= ed.text.toString()
                         println(ed.text)
-
+                        isChanged=true
                     }
                 })
             }
@@ -215,6 +237,7 @@ class MandalaChartActivity : AppCompatActivity() {
                         words[i*3+j]= ed.text.toString()
                         println(ed.text)
                         println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                        isChanged=true
                     }
                 })
             }
@@ -265,6 +288,7 @@ class MandalaChartActivity : AppCompatActivity() {
                             override fun afterTextChanged(s: Editable?) {
                                 words_9x9[i*3+j][k * 3 + l] = ed.text.toString()
                                 println(ed.text)
+                                isChanged=true
                             }
                         })
                     }
@@ -316,6 +340,7 @@ class MandalaChartActivity : AppCompatActivity() {
                             override fun afterTextChanged(s: Editable?) {
                                 words_9x9[i*3+j][k * 3 + l] = ed.text.toString()
                                 println(ed.text)
+                                isChanged=true
                             }
                         })
                     }
@@ -323,12 +348,25 @@ class MandalaChartActivity : AppCompatActivity() {
             }
         }
         isExtended=true
+        isChanged=true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
-            android.R.id.home->finish()
-            else ->return super.onOptionsItemSelected(item)
+        if(isChanged==true){
+            val dialog = android.support.v7.app.AlertDialog.Builder(this)
+            dialog.setTitle("データを保存しますか？")
+            dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
+                // OKボタン押したときの処理
+                save()
+                finish()
+            })
+            dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { _, _->
+                finish()
+            })
+            dialog.show()
+        }
+        else{
+            finish()
         }
         return true
     }
