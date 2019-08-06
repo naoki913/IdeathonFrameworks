@@ -15,17 +15,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             <Button
-                    android:text="Check"
+                    android:text="Save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/button_save"/>
+            <Button
+                    android:text="up"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/button_check"/>
+                    android:layout_height="wrap_content" android:id="@+id/button_up"/>
+            <Button
+                    android:text="down"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/button_down" android:layout_weight="1"/>
             <Button
                     android:text="Next"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/button_next" android:layout_weight="1"/>
-            <Button
-                    android:text="Save"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/button_save"/>
         </LinearLayout>
         <TableLayout
                 android:layout_width="wrap_content"
@@ -33,6 +37,9 @@
                 android:id="@+id/TableLayout"
         />
     </LinearLayout>
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 </FrameLayout>
 
 

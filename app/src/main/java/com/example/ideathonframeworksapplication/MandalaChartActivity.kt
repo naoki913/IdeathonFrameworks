@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.text.method.DialerKeyListener
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -16,7 +15,6 @@ import android.view.ViewGroup
 import android.widget.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_mandala_chart.*
-import kotlinx.android.synthetic.main.activity_mandala_chart_home.*
 import org.json.JSONArray
 import kotlin.properties.Delegates
 
@@ -26,6 +24,7 @@ class MandalaChartActivity : AppCompatActivity() {
     var words=Array(9,{""})
     var words_9x9 =Array(9,{Array<String>(9,{""})})
     lateinit var vg:ViewGroup
+    lateinit var zoomLayout:LinearLayout
     var isNew:Boolean by Delegates.notNull()
     var isExtended:Boolean by Delegates.notNull()
     lateinit var dataStore: SharedPreferences
@@ -33,6 +32,7 @@ class MandalaChartActivity : AppCompatActivity() {
     var theme:String by Delegates.notNull()
     var isChanged:Boolean =false
     var isFirstSave:Boolean=true
+    var scale:Float = 1.0f
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,14 +60,17 @@ class MandalaChartActivity : AppCompatActivity() {
         }
 
 
-        button_check.setOnClickListener {
-            for (k in (0..8)) {
-                for (i in (0..2)) {
-                    for (j in (0..2)) {
-                        println("k="+k+",i="+i+",j="+j+","+words_9x9[k][i * 3 + j])
-                    }
-                }
-            }
+
+        button_up.setOnClickListener {
+            scale+=0.3f
+            zoomLayout.setScaleX(scale)
+            zoomLayout.setScaleY(scale)
+        }
+        button_down.setOnClickListener {
+            scale-=0.3f
+            zoomLayout.setScaleX(scale)
+            zoomLayout.setScaleY(scale)
+
         }
 
         button_next.setOnClickListener {
@@ -149,8 +152,11 @@ class MandalaChartActivity : AppCompatActivity() {
 
         getLayoutInflater().inflate(R.layout.mandala_chart_table, vg)
 
+        //zoomLayout=vg.getChildAt(0)as TableLayout
         val tl=vg.getChildAt(0)as TableLayout
+        //val fl=zoomLayout.getChildAt(0)as FrameLayout
         val fl=tl.getChildAt(0)as FrameLayout
+
         val ll=fl.getChildAt(1)as LinearLayout
 
         for(i in(0..2)){
@@ -254,10 +260,10 @@ class MandalaChartActivity : AppCompatActivity() {
 
         val scv=vg.getChildAt(0)as ScrollView
         val hscv=scv.getChildAt(0)as HorizontalScrollView
-        val llv=hscv.getChildAt(0)as LinearLayout
+        zoomLayout=hscv.getChildAt(0)as LinearLayout
 
         for(i in(0..2)){
-            val llh=llv.getChildAt(i)as LinearLayout
+            val llh=zoomLayout.getChildAt(i)as LinearLayout
 
             for(j in(0..2)) {
                 val tl = llh.getChildAt(j) as TableLayout
@@ -305,10 +311,11 @@ class MandalaChartActivity : AppCompatActivity() {
 
         val scv=vg.getChildAt(0)as ScrollView
         val hscv=scv.getChildAt(0)as HorizontalScrollView
-        val llv=hscv.getChildAt(0)as LinearLayout
+        zoomLayout=hscv.getChildAt(0)as LinearLayout
 
         for(i in(0..2)){
-            val llh=llv.getChildAt(i)as LinearLayout
+            val llh=zoomLayout.getChildAt(i)as LinearLayout
+
 
             for(j in(0..2)) {
                 val tl = llh.getChildAt(j) as TableLayout
