@@ -45,47 +45,6 @@ class MandalaChartHomeActivity : AppCompatActivity() {
             themes.add(jsonArray.get(t).toString())
         }
 
-        //val jsonString=dataStore.getString("themes","nothing")
-        //Log.d("log",jsonString)
-        //val gson= Gson()
-
-
-        /*
-        val jsonArray = JSONArray(dataStore.getString("theme","[]"))
-        println(jsonArray)
-
-        for(t in 0 .. jsonArray.length()-1){
-            themes.add(jsonArray.get(t).toString())
-            getLayoutInflater().inflate(R.layout.mandala_chart_load_item, vg)
-            val tr=vg.getChildAt(t) as TableRow
-            val ll=tr.getChildAt(0) as LinearLayout
-            (ll.getChildAt(0)as Button).setText(themes[t])
-            (ll.getChildAt(0)as Button).setOnClickListener {
-                intent.putExtra("IS_NEW",false)
-                intent.putExtra("THEME_KEY",themes[t])
-                startActivity(intent)
-            }
-
-            (ll.getChildAt(1)as TextView).setText(themes[t]+"に関する説明")
-
-            (ll.getChildAt(2)as Button).setOnClickListener {
-                val keyWords=themes[t]+"_words"
-                editor.remove(keyWords)
-                val keyIsExtended=themes[t]+"_isExtended"
-                editor.remove(keyIsExtended)
-                themes.remove(themes[t])
-                val jsonArray =JSONArray(themes)
-                editor.putString("theme",jsonArray.toString())
-                editor.apply()
-
-            }
-
-            println(t)
-        }
-
-*/
-
-
         println(themes)
 
         button_new.setOnClickListener{
@@ -111,7 +70,7 @@ class MandalaChartHomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        println("onResumu")
+        println("onResume")
 
         val intent= Intent(this,MandalaChartActivity::class.java)
         //editor.remove("theme")
@@ -151,13 +110,9 @@ class MandalaChartHomeActivity : AppCompatActivity() {
                 val jsonArray =JSONArray(themes)
                 editor.putString("theme",jsonArray.toString())
                 editor.apply()
+
+                onResume()
             }
-
-
-
-            println(t)
-
-
         }
 
     }
