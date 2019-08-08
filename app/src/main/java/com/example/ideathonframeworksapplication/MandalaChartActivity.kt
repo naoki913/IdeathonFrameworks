@@ -59,18 +59,17 @@ class MandalaChartActivity : AppCompatActivity() {
             }
         }
 
-
-
         button_up.setOnClickListener {
-            scale+=0.3f
+            scale+=0.1f
             zoomLayout.setScaleX(scale)
             zoomLayout.setScaleY(scale)
+            println(scale)
         }
         button_down.setOnClickListener {
-            scale-=0.3f
+            scale-=0.1f
             zoomLayout.setScaleX(scale)
             zoomLayout.setScaleY(scale)
-
+            println(scale)
         }
 
         button_next.setOnClickListener {
@@ -107,6 +106,29 @@ class MandalaChartActivity : AppCompatActivity() {
         button_save.setOnClickListener {
             save()
         }
+
+        zoomSeekBar.setProgress(50)
+        zoomSeekBar.setMax(100)
+
+        zoomSeekBar.setOnSeekBarChangeListener(
+            object : SeekBar.OnSeekBarChangeListener{
+                override fun onProgressChanged(
+                    zoomSeekBar:SeekBar,progress:Int,fromUser:Boolean){
+                    println(progress)
+                    scale=(0.3f+ progress/100f)
+                    zoomLayout.setScaleX(scale)
+                    zoomLayout.setScaleY(scale)
+                    println(scale)
+
+                }
+                override fun onStartTrackingTouch(zommSeekBar:SeekBar){
+
+                }
+                override fun onStopTrackingTouch(zoomSeekBar:SeekBar){
+
+                }
+            }
+        )
 
     }
 
@@ -152,11 +174,8 @@ class MandalaChartActivity : AppCompatActivity() {
 
         getLayoutInflater().inflate(R.layout.mandala_chart_table, vg)
 
-        //zoomLayout=vg.getChildAt(0)as TableLayout
         val tl=vg.getChildAt(0)as TableLayout
-        //val fl=zoomLayout.getChildAt(0)as FrameLayout
         val fl=tl.getChildAt(0)as FrameLayout
-
         val ll=fl.getChildAt(1)as LinearLayout
 
         for(i in(0..2)){
@@ -241,8 +260,6 @@ class MandalaChartActivity : AppCompatActivity() {
 
                     override fun afterTextChanged(s: Editable?) {
                         words[i*3+j]= ed.text.toString()
-                        println(ed.text)
-                        println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                         isChanged=true
                     }
                 })
@@ -252,7 +269,6 @@ class MandalaChartActivity : AppCompatActivity() {
     fun loadBoard_9x9(){
         val keyWords=theme+"_words"
         val jsonString=dataStore.getString(keyWords,"nothing")
-        Log.d("log",jsonString)
         val gson= Gson()
         words_9x9 = gson.fromJson(jsonString,Array<Array<String>>::class.java)
 
