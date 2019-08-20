@@ -20,6 +20,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        button_bs.setOnClickListener {
+            val intent = Intent(this,BrainstormingHomeActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 }

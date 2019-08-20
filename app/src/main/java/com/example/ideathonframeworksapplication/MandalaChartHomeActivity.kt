@@ -17,7 +17,7 @@ import android.widget.TextView
 //import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_mandala_chart_home.*
-import kotlinx.android.synthetic.main.activity_mandala_chart_home.button_load
+
 import org.json.JSONArray
 import kotlin.properties.Delegates
 
@@ -60,11 +60,7 @@ class MandalaChartHomeActivity : AppCompatActivity() {
             }
         }
 
-        button_load.setOnClickListener {
 
-            //getLayoutInflater().inflate(R.layout.mandala_chart_load_item, vg)
-
-        }
 
     }
 
