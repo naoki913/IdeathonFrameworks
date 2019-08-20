@@ -27,20 +27,30 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
 
     <EditText
-            android:layout_width="233dp"
-            android:layout_height="40dp"
+            android:layout_width="85dp"
+            android:layout_height="46dp"
             android:inputType="time"
             android:ems="10"
-            android:id="@+id/LimitTimeText"
+            android:id="@+id/LimitTimeMinText"
             android:hint="制限時間を入力してください" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/themeText" app:layout_constraintVertical_bias="0.078"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toBottomOf="@+id/themeText" app:layout_constraintVertical_bias="0.083"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.352"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <EditText
+            android:layout_width="85dp"
+            android:layout_height="46dp"
+            android:inputType="time"
+            android:ems="10"
+            android:id="@+id/LimitTimeSecText"
+            android:hint="制限時間を入力してください" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/themeText" app:layout_constraintVertical_bias="0.083"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.641"
             app:layout_constraintEnd_toEndOf="parent"/>
         <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="30dp"
-                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toBottomOf="@id/LimitTimeText"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toBottomOf="@id/LimitTimeMinText"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintEnd_toEndOf="parent">
 
