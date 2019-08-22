@@ -60,6 +60,7 @@ class BrainstormingActivity : AppCompatActivity() {
             val tr=vg.getChildAt(index)as TableRow
             val text=tr.getChildAt(0)as TextView
             text.text=addCardText.text
+            addCardText.setText("")
         }
     }
 
