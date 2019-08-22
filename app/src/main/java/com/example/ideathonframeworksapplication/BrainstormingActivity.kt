@@ -19,6 +19,7 @@ class BrainstormingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_brainstorming)
 
         lateinit var runnable: Runnable
+        var isNotFinished=true
 
         val min=intent.getIntExtra("MIN",2)
         val sec=intent.getIntExtra("SEC",0)
@@ -51,9 +52,10 @@ class BrainstormingActivity : AppCompatActivity() {
                         dialog.setTitle("制限時間になりました")
                         dialog.setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
                             // OKボタン押したときの処理
-
                         })
                         dialog.show()
+                        isNotFinished=false
+                        addCardText.setKeyListener(null)
                     }
                     else{
                         textView_time.text = it
@@ -68,14 +70,16 @@ class BrainstormingActivity : AppCompatActivity() {
 
 
         button_add.setOnClickListener {
-            println(vg.childCount)
-            if(addCardText.text.toString()!=""){
-                val index = vg.childCount
-                getLayoutInflater().inflate(R.layout.brainstorming_card, vg)
-                val tr = vg.getChildAt(index) as TableRow
-                val text = tr.getChildAt(0) as TextView
-                text.text = addCardText.text
-                addCardText.setText("")
+            if(isNotFinished) {
+                println(vg.childCount)
+                if (addCardText.text.toString() != "") {
+                    val index = vg.childCount
+                    getLayoutInflater().inflate(R.layout.brainstorming_card, vg)
+                    val tr = vg.getChildAt(index) as TableRow
+                    val text = tr.getChildAt(0) as TextView
+                    text.text = addCardText.text
+                    addCardText.setText("")
+                }
             }
         }
     }
