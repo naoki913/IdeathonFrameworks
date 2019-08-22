@@ -1,5 +1,6 @@
 package com.example.ideathonframeworksapplication
 
+import android.content.DialogInterface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -39,13 +40,26 @@ class BrainstormingActivity : AppCompatActivity() {
         }
         runnable= object :Runnable{
             override fun run(){
-                time2Text(timeValue)?.let{
+                time2Text(timeValue).let{
                     if(it=="null") {
+
+                    }
+                    else if(it=="00:00:00"){
+                        textView_time.text = it
+                        timeValue--
+                        val dialog = android.support.v7.app.AlertDialog.Builder(this@BrainstormingActivity)
+                        dialog.setTitle("制限時間になりました")
+                        dialog.setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
+                            // OKボタン押したときの処理
+
+                        })
+                        dialog.show()
                     }
                     else{
                         textView_time.text = it
                         timeValue--
                     }
+
                 }
                 handler.postDelayed(this,1000)
             }
@@ -55,17 +69,19 @@ class BrainstormingActivity : AppCompatActivity() {
 
         button_add.setOnClickListener {
             println(vg.childCount)
-            val index=vg.childCount
-            getLayoutInflater().inflate(R.layout.brainstorming_card,vg)
-            val tr=vg.getChildAt(index)as TableRow
-            val text=tr.getChildAt(0)as TextView
-            text.text=addCardText.text
-            addCardText.setText("")
+            if(addCardText.text.toString()!=""){
+                val index = vg.childCount
+                getLayoutInflater().inflate(R.layout.brainstorming_card, vg)
+                val tr = vg.getChildAt(index) as TableRow
+                val text = tr.getChildAt(0) as TextView
+                text.text = addCardText.text
+                addCardText.setText("")
+            }
         }
     }
 
 
-    private fun time2Text(time:Int =0):String?{
+    private fun time2Text(time:Int =0):String{
         return if(time<0){
             "null"
         }else if(time==0){
