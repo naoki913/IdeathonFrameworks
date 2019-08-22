@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TableRow
+import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_brainstorming.*
 
 class BrainstormingActivity : AppCompatActivity() {
@@ -52,7 +54,12 @@ class BrainstormingActivity : AppCompatActivity() {
 
 
         button_add.setOnClickListener {
+            println(vg.childCount)
+            val index=vg.childCount
             getLayoutInflater().inflate(R.layout.brainstorming_card,vg)
+            val tr=vg.getChildAt(index)as TableRow
+            val text=tr.getChildAt(0)as TextView
+            text.text=addCardText.text
         }
     }
 
