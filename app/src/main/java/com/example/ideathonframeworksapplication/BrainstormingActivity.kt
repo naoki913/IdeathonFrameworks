@@ -43,7 +43,6 @@ class BrainstormingActivity : AppCompatActivity() {
             override fun run(){
                 time2Text(timeValue).let{
                     if(it=="null") {
-
                     }
                     else if(it=="00:00:00"){
                         textView_time.text = it
@@ -61,25 +60,43 @@ class BrainstormingActivity : AppCompatActivity() {
                         textView_time.text = it
                         timeValue--
                     }
-
                 }
                 handler.postDelayed(this,1000)
             }
         }
         start()
 
+        var isOnce=true
+        lateinit var vg2:ViewGroup
+        var num=1
 
         button_add.setOnClickListener {
             if(isNotFinished) {
                 println(vg.childCount)
+
                 if (addCardText.text.toString() != "") {
-                    val index = vg.childCount
-                    getLayoutInflater().inflate(R.layout.brainstorming_card, vg)
-                    val tr = vg.getChildAt(index) as TableRow
+                    if(isOnce){
+                        getLayoutInflater().inflate(R.layout.vertical_layout, vg)
+                        vg2=vg.getChildAt(num) as ViewGroup
+                        isOnce=false
+                    }
+
+                    val index = vg2.childCount
+                    getLayoutInflater().inflate(R.layout.brainstorming_card, vg2)
+                    val tr = vg2.getChildAt(index) as TableRow
                     val text = tr.getChildAt(0) as TextView
                     text.text = addCardText.text
                     addCardText.setText("")
+
+                    if(index==5){
+                        isOnce=true
+                        num++
+                    }
+
+
+
                 }
+
             }
         }
     }
