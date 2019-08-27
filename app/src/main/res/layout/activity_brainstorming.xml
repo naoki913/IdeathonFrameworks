@@ -34,24 +34,27 @@
             app:layout_constraintVertical_bias="0.958" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"/>
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="356dp"
-            android:layout_height="448dp"
-            android:id="@+id/LinearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintHorizontal_bias="0.454"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.312"
-            android:layout_marginTop="32dp">
-        <Button
-                android:text="Button"
+    <HorizontalScrollView
+            android:layout_width="0dp"
+            android:layout_height="648dp"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.483"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_time" app:layout_constraintVertical_bias="0.0">
+        <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/button3"/>
-    </LinearLayout>
+                android:layout_height="match_parent"
+                android:id="@+id/LinearLayout"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp">
+            <Button
+                    android:text="Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/button3"/>
+        </LinearLayout>
+    </HorizontalScrollView>
     <EditText
             android:layout_width="277dp"
             android:layout_height="42dp"

@@ -28,7 +28,6 @@ class BrainstormingActivity : AppCompatActivity() {
         textView_time.text=timeValue.toString()
 
 
-
         val vg = findViewById<View>(R.id.LinearLayout) as ViewGroup
 
         fun start(){
@@ -92,8 +91,6 @@ class BrainstormingActivity : AppCompatActivity() {
                         isOnce=true
                         num++
                     }
-
-
 
                 }
 
