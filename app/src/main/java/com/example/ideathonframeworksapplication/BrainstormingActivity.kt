@@ -1,6 +1,8 @@
 package com.example.ideathonframeworksapplication
 
+import android.content.Context
 import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -8,21 +10,33 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TableRow
 import android.widget.TextView
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_brainstorming.*
+import org.json.JSONArray
+import kotlin.properties.Delegates
 
 class BrainstormingActivity : AppCompatActivity() {
     val handler= Handler()
     var timeValue=0
+    var words:ArrayList<String> =arrayListOf()
+    //var theme:String by Delegates.notNull()
+    lateinit var dataStore: SharedPreferences
+    lateinit var editor: SharedPreferences.Editor
+    var isFirstSave:Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_brainstorming)
 
+        dataStore=getSharedPreferences("DataStore", Context.MODE_PRIVATE)
+        editor=dataStore.edit()
+
         lateinit var runnable: Runnable
         var isNotFinished=true
 
-        val min=intent.getIntExtra("MIN",2)
+        val min=intent.getIntExtra("MIN",0)
         val sec=intent.getIntExtra("SEC",0)
+        val theme=intent.getStringExtra("THEME")
 
         timeValue=min*60+sec
         textView_time.text=timeValue.toString()
@@ -33,6 +47,7 @@ class BrainstormingActivity : AppCompatActivity() {
         fun start(){
             handler.post(runnable)
         }
+
 
         fun stop(){
             println("stop")
@@ -85,6 +100,7 @@ class BrainstormingActivity : AppCompatActivity() {
                     val tr = vg2.getChildAt(index) as TableRow
                     val text = tr.getChildAt(0) as TextView
                     text.text = addCardText.text
+                    words.add(addCardText.text.toString())
                     addCardText.setText("")
 
                     if(index==5){
@@ -96,6 +112,32 @@ class BrainstormingActivity : AppCompatActivity() {
 
             }
         }
+        fun save(){
+            val gson= Gson()
+            val jsonString=gson.toJson(words)
+            val keyWords="BS_"+theme+"_words"
+            editor.putString(keyWords,jsonString)
+            editor.apply()
+        }
+
+        button_save.setOnClickListener {
+            println(words)
+            save()
+
+        }
+
+        button_load.setOnClickListener {
+            val keyWords="BS_"+theme+"_words"
+            val jsonArray= JSONArray(dataStore.getString(keyWords,"[]"))
+            words.clear()
+            for(t in 0 .. jsonArray.length()-1){
+                words.add(jsonArray.get(t).toString())
+            }
+            println(words)
+        }
+
+
+
     }
 
 

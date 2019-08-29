@@ -47,8 +47,8 @@ class MandalaChartActivity : AppCompatActivity() {
         println(editor)
 
         vg = findViewById<View>(R.id.TableLayout) as ViewGroup
-        isNew=intent.getBooleanExtra("IS_NEW",true)
-        theme=intent.getStringExtra("THEME_KEY")
+        isNew=intent.getBooleanExtra("MC_IS_NEW",true)
+        theme=intent.getStringExtra("MC_THEME_KEY")
 
         when(isNew){
             true->{
@@ -143,10 +143,10 @@ class MandalaChartActivity : AppCompatActivity() {
                 jsonString=gson.toJson(words)
             }
         }
-        val keyWords=theme+"_words"
+        val keyWords="MC_"+theme+"_words"
         editor.putString(keyWords,jsonString)
         Log.d("input",jsonString)
-        val keyIsExtended=theme+"_isExtended"
+        val keyIsExtended="MC_"+theme+"_isExtended"
         editor.putBoolean(keyIsExtended,isExtended)
         editor.apply()
 
@@ -155,13 +155,13 @@ class MandalaChartActivity : AppCompatActivity() {
         if(isFirstSave&&isNew){
             //theme追加
             val  themes : ArrayList<String> = arrayListOf()
-            val jsonTempArray = JSONArray(dataStore.getString("theme","[]"))
+            val jsonTempArray = JSONArray(dataStore.getString("MC_theme","[]"))
             for(t in 0 .. jsonTempArray.length()-1) {
                 themes.add(jsonTempArray.get(t).toString())
             }
             themes.add(theme)
             val jsonArray = JSONArray(themes)
-            editor.putString("theme",jsonArray.toString())
+            editor.putString("MC_theme",jsonArray.toString())
             editor.apply()
 
             isFirstSave=false
@@ -211,7 +211,7 @@ class MandalaChartActivity : AppCompatActivity() {
     }
 
     fun loadBoard(){
-        val keyIsExtended=theme+"_isExtended"
+        val keyIsExtended="MC_"+theme+"_isExtended"
         isExtended=dataStore.getBoolean(keyIsExtended,false)
         println(isExtended)
         when(isExtended){
@@ -224,7 +224,7 @@ class MandalaChartActivity : AppCompatActivity() {
         }
     }
     fun loadBoard_3x3(){
-        val keyWords=theme+"_words"
+        val keyWords="MC_"+theme+"_words"
         val jsonString=dataStore.getString(keyWords,"nothing")
         Log.d("log",jsonString)
         val gson= Gson()
@@ -267,7 +267,7 @@ class MandalaChartActivity : AppCompatActivity() {
         }
     }
     fun loadBoard_9x9(){
-        val keyWords=theme+"_words"
+        val keyWords="MC_"+theme+"_words"
         val jsonString=dataStore.getString(keyWords,"nothing")
         val gson= Gson()
         words_9x9 = gson.fromJson(jsonString,Array<Array<String>>::class.java)

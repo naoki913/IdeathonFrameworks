@@ -40,7 +40,7 @@ class MandalaChartHomeActivity : AppCompatActivity() {
         val intent= Intent(this,MandalaChartActivity::class.java)
         vg = findViewById<View>(R.id.TableLayout) as ViewGroup
 
-        val jsonArray = JSONArray(dataStore.getString("theme","[]"))
+        val jsonArray = JSONArray(dataStore.getString("MC_theme","[]"))
         for(t in 0 .. jsonArray.length()-1) {
             themes.add(jsonArray.get(t).toString())
         }
@@ -50,8 +50,8 @@ class MandalaChartHomeActivity : AppCompatActivity() {
         button_new.setOnClickListener{
             if(themeText.length()!=0){
                 println(themeText.text)
-                intent.putExtra("IS_NEW",true)
-                intent.putExtra("THEME_KEY",themeText.text.toString())
+                intent.putExtra("MC_IS_NEW",true)
+                intent.putExtra("MC_THEME_KEY",themeText.text.toString())
 
                 startActivity(intent)
             }
@@ -72,7 +72,7 @@ class MandalaChartHomeActivity : AppCompatActivity() {
         //editor.remove("theme")
         editor.apply()
 
-        val jsonArray = JSONArray(dataStore.getString("theme","[]"))
+        val jsonArray = JSONArray(dataStore.getString("MC_theme","[]"))
         println(jsonArray)
 
 
@@ -90,21 +90,21 @@ class MandalaChartHomeActivity : AppCompatActivity() {
 
             (ll.getChildAt(0)as Button).setText(themes[t])
             (ll.getChildAt(0)as Button).setOnClickListener {
-                intent.putExtra("IS_NEW",false)
-                intent.putExtra("THEME_KEY",themes[t])
+                intent.putExtra("MC_IS_NEW",false)
+                intent.putExtra("MC_THEME_KEY",themes[t])
                 startActivity(intent)
             }
 
             (ll.getChildAt(1)as TextView).setText(themes[t]+"に関する説明")
 
             (ll.getChildAt(2)as Button).setOnClickListener {
-                val keyWords=themes[t]+"_words"
+                val keyWords="MC_"+themes[t]+"_words"
                 editor.remove(keyWords)
-                val keyIsExtended=themes[t]+"_isExtended"
+                val keyIsExtended="MC_"+themes[t]+"_isExtended"
                 editor.remove(keyIsExtended)
                 themes.remove(themes[t])
                 val jsonArray =JSONArray(themes)
-                editor.putString("theme",jsonArray.toString())
+                editor.putString("MC_theme",jsonArray.toString())
                 editor.apply()
 
                 onResume()
