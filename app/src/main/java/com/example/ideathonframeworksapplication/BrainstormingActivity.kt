@@ -118,6 +118,19 @@ class BrainstormingActivity : AppCompatActivity() {
             val keyWords="BS_"+theme+"_words"
             editor.putString(keyWords,jsonString)
             editor.apply()
+
+            if(isFirstSave){
+                val themes : ArrayList<String> =arrayListOf()
+                val jsonTempArray=JSONArray(dataStore.getString("BS_theme","[]"))
+                for(t in 0 .. jsonTempArray.length()-1){
+                    themes.add(jsonTempArray.get(t).toString())
+                }
+                themes.add(theme)
+                val jsonArray = JSONArray(themes)
+                editor.putString("MC_theme",jsonArray.toString())
+                editor.apply()
+                isFirstSave=false
+            }
         }
 
         button_save.setOnClickListener {
