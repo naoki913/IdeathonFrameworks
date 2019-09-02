@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -15,6 +16,9 @@ import kotlinx.android.synthetic.main.activity_mandala_chart_home.*
 import kotlinx.android.synthetic.main.activity_mandala_chart_home.button_new
 import kotlinx.android.synthetic.main.activity_mandala_chart_home.themeText
 import org.json.JSONArray
+import android.view.KeyEvent.KEYCODE_BACK
+
+
 
 class BrainstormingHomeActivity : AppCompatActivity() {
     var themes : ArrayList<String> = arrayListOf()
@@ -54,6 +58,7 @@ class BrainstormingHomeActivity : AppCompatActivity() {
     }
 
 
+
     override fun onResume(){
         super.onResume()
 
@@ -77,6 +82,15 @@ class BrainstormingHomeActivity : AppCompatActivity() {
             }
         }
     }
+
+
+    override fun onBackPressed() {
+        //中身を空にすることで戻るキーが無効化されます。
+    }
+
+
+
+
 
 
 }
