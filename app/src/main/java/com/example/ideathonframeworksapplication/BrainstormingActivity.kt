@@ -166,4 +166,8 @@ class BrainstormingActivity : AppCompatActivity() {
             "%1$02d:%2$02d:%3$02d".format(h,m,s)
         }
     }
+
+    override fun onBackPressed(){
+
+    }
 }

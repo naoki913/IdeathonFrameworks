@@ -121,4 +121,9 @@ class MandalaChartHomeActivity : AppCompatActivity() {
         }
         return true
     }
+
+
+    override fun onBackPressed(){
+
+    }
 }
