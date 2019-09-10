@@ -32,9 +32,10 @@ class MandalaChartActivity : AppCompatActivity() {
     var isChanged:Boolean =false
     var isFirstSave:Boolean=true
     var scale:Int=0
+    var base:Int =0
     val zoom:ArrayList<EditText> =arrayListOf()
 
-    //FrameLayout型の配列を宣言→盤面構成時に格納→ボタンorシークバーで変更
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,16 +65,15 @@ class MandalaChartActivity : AppCompatActivity() {
         button_up.setOnClickListener {
             println(zoom)
 
-
-            for(i in(0..80)){
-                //zoom[i].setEms(4)
-                zoom[i].setHeight(600)
-                zoom[i].setWidth(600)
+            scale=(120+150)
+            for (i in (0 .. zoom.size-1)){
+                zoom[i].setHeight(scale)
+                zoom[i].setWidth(scale)
             }
         }
         button_down.setOnClickListener {
 
-            for(i in(0..80)){
+            for(i in(0..zoom.size-1)){
                 //zoom[i].setEms(2)
                 zoom[i].setHeight(100)
                 zoom[i].setWidth(100)
@@ -99,11 +99,12 @@ class MandalaChartActivity : AppCompatActivity() {
                     if(isFinished){
                         val dialog = AlertDialog.Builder(this)
                         dialog.setTitle("チャートを拡大しますか")
+                        dialog.setNegativeButton("いいえ", null)
                         dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
                             // OKボタン押したときの処理
                             extendBoard()
                         })
-                        dialog.setNegativeButton("いいえ", null)
+
                         dialog.show()
                     }
                 }
@@ -116,17 +117,16 @@ class MandalaChartActivity : AppCompatActivity() {
             save()
         }
 
-        zoomSeekBar.setProgress(150)
-        zoomSeekBar.setMax(550)
+
 
 
         zoomSeekBar.setOnSeekBarChangeListener(
             object : SeekBar.OnSeekBarChangeListener{
                 override fun onProgressChanged(
                     zoomSeekBar:SeekBar,progress:Int,fromUser:Boolean){
-                    println(progress)
-                    scale=(120+progress)
-                    println(zoom.size)
+
+                    scale=(base+progress)
+
                     for (i in (0 .. zoom.size-1)){
                         zoom[i].setHeight(scale)
                         zoom[i].setWidth(scale)
@@ -187,6 +187,9 @@ class MandalaChartActivity : AppCompatActivity() {
 
         getLayoutInflater().inflate(R.layout.mandala_chart_table, vg)
         zoom.clear()
+        base=345
+        zoomSeekBar.setProgress(0)
+        zoomSeekBar.setMax(325)
 
         val tl=vg.getChildAt(0)as TableLayout
         val fl=tl.getChildAt(0)as FrameLayout
@@ -223,6 +226,13 @@ class MandalaChartActivity : AppCompatActivity() {
                 })
             }
         }
+
+        scale=base
+        for (i in (0 .. zoom.size-1)){
+            zoom[i].setHeight(scale)
+            zoom[i].setWidth(scale)
+
+        }
     }
 
     fun loadBoard(){
@@ -232,9 +242,15 @@ class MandalaChartActivity : AppCompatActivity() {
         zoom.clear()
         when(isExtended){
             true->{
+                base=120
+                zoomSeekBar.setProgress(0)
+                zoomSeekBar.setMax(550)
                 loadBoard_9x9()
             }
             false->{
+                base=345
+                zoomSeekBar.setProgress(0)
+                zoomSeekBar.setMax(325)
                 loadBoard_3x3()
             }
         }
@@ -282,6 +298,14 @@ class MandalaChartActivity : AppCompatActivity() {
                 })
             }
         }
+        scale=base
+        for (i in (0 .. zoom.size-1)) {
+            zoom[i].setHeight(scale)
+            zoom[i].setWidth(scale)
+        }
+
+
+
     }
     fun loadBoard_9x9(){
         val keyWords="MC_"+theme+"_words"
@@ -335,6 +359,11 @@ class MandalaChartActivity : AppCompatActivity() {
                 }
             }
         }
+        scale=base
+        for (i in (0 .. zoom.size-1)) {
+            zoom[i].setHeight(scale)
+            zoom[i].setWidth(scale)
+        }
 
     }
 
@@ -342,6 +371,9 @@ class MandalaChartActivity : AppCompatActivity() {
         println("OK")
         vg.removeAllViews()
         zoom.clear()
+        base=120
+        zoomSeekBar.setProgress(0)
+        zoomSeekBar.setMax(550)
         getLayoutInflater().inflate(R.layout.mandala_chart_table_9x9, vg)
 
         val scv=vg.getChildAt(0)as ScrollView
@@ -390,6 +422,11 @@ class MandalaChartActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+        scale=base
+        for (i in (0 .. zoom.size-1)) {
+            zoom[i].setHeight(scale)
+            zoom[i].setWidth(scale)
         }
         isExtended=true
         isChanged=true
