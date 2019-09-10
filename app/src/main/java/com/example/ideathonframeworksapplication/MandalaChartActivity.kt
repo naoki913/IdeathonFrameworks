@@ -111,6 +111,7 @@ class MandalaChartActivity : AppCompatActivity() {
         }
 
 
+
         button_save.setOnClickListener {
             save()
         }
@@ -118,13 +119,15 @@ class MandalaChartActivity : AppCompatActivity() {
         zoomSeekBar.setProgress(150)
         zoomSeekBar.setMax(550)
 
+
         zoomSeekBar.setOnSeekBarChangeListener(
             object : SeekBar.OnSeekBarChangeListener{
                 override fun onProgressChanged(
                     zoomSeekBar:SeekBar,progress:Int,fromUser:Boolean){
                     println(progress)
                     scale=(120+progress)
-                    for (i in (0 .. 80)){
+                    println(zoom.size)
+                    for (i in (0 .. zoom.size-1)){
                         zoom[i].setHeight(scale)
                         zoom[i].setWidth(scale)
                     }
@@ -183,6 +186,7 @@ class MandalaChartActivity : AppCompatActivity() {
         isChanged=true
 
         getLayoutInflater().inflate(R.layout.mandala_chart_table, vg)
+        zoom.clear()
 
         val tl=vg.getChildAt(0)as TableLayout
         val fl=tl.getChildAt(0)as FrameLayout
@@ -196,6 +200,7 @@ class MandalaChartActivity : AppCompatActivity() {
                 val scv=fl1.getChildAt(0)as ScrollView
                 val hscv=scv.getChildAt(0)as HorizontalScrollView
                 val ed=hscv.getChildAt(0)as EditText
+                zoom.add(ed)
 
                 if(i==1&&j==1){
                     ed.setText(theme)
@@ -224,6 +229,7 @@ class MandalaChartActivity : AppCompatActivity() {
         val keyIsExtended="MC_"+theme+"_isExtended"
         isExtended=dataStore.getBoolean(keyIsExtended,false)
         println(isExtended)
+        zoom.clear()
         when(isExtended){
             true->{
                 loadBoard_9x9()
@@ -255,6 +261,7 @@ class MandalaChartActivity : AppCompatActivity() {
                 val scv=fl1.getChildAt(0)as ScrollView
                 val hscv=scv.getChildAt(0)as HorizontalScrollView
                 val ed=hscv.getChildAt(0)as EditText
+                zoom.add(ed)
 
                 ed.setText(words[i*3+j])
                 if(i==1&&j==1){
@@ -304,6 +311,7 @@ class MandalaChartActivity : AppCompatActivity() {
                         val scv = fl1.getChildAt(0) as ScrollView
                         val hscv = scv.getChildAt(0) as HorizontalScrollView
                         val ed = hscv.getChildAt(0) as EditText
+                        zoom.add(ed)
 
                         ed.setText(words_9x9[i*3+j][k*3+l])
                         if (k == 1 && l == 1) {
@@ -333,6 +341,7 @@ class MandalaChartActivity : AppCompatActivity() {
     fun extendBoard(){
         println("OK")
         vg.removeAllViews()
+        zoom.clear()
         getLayoutInflater().inflate(R.layout.mandala_chart_table_9x9, vg)
 
         val scv=vg.getChildAt(0)as ScrollView
