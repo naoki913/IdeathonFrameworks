@@ -124,6 +124,9 @@ class MandalaChartHomeActivity : AppCompatActivity() {
 
 
     override fun onBackPressed(){
-
+        /*　ひとつ前の画面に戻る(default)　or　指定のアクティビティを開始
+        val intent= Intent(this,MainActivity::class.java)
+        startActivity(intent)
+        */
     }
 }

@@ -1,32 +1,32 @@
 <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <FrameLayout>
+    <FrameLayout android:layout_width="wrap_content">
 
         <!--枠線を記述する-->
         <TextView
                 android:text="TextView"
-                android:layout_width="333dp"
-                android:layout_height="231dp" android:id="@+id/textView2"/>
+                android:layout_width="wrap_content"
+                android:layout_height="61dp" android:id="@+id/textView2"/>
 
         <!--枠線終了-->
 
         <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
-            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+            <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
 
                 <FrameLayout
-                        android:layout_width="117dp"
-                        android:layout_height="109dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginTop="60dp">
+                >
 
                     <ScrollView
                             android:layout_width="wrap_content"
@@ -38,23 +38,23 @@
 
                             <EditText
                                     android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:inputType="textPersonName|textMultiLine"
                                     android:text=""
                                     android:id="@+id/no1"
-                                    android:ems="5"
+                                    android:ems="2"
 
                             />
                         </HorizontalScrollView>
                     </ScrollView>
                 </FrameLayout>
                 <FrameLayout
-                        android:layout_width="117dp"
-                        android:layout_height="109dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginTop="60dp">
+                >
 
                     <ScrollView
                             android:layout_width="wrap_content"
@@ -66,22 +66,22 @@
 
                             <EditText
                                     android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:inputType="textPersonName|textMultiLine"
                                     android:text=""
                                     android:id="@+id/no2"
-                                    android:ems="5"
-                                    />
+                                    android:ems="2"
+                            />
                         </HorizontalScrollView>
                     </ScrollView>
                 </FrameLayout>
                 <FrameLayout
-                        android:layout_width="117dp"
-                        android:layout_height="109dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginTop="60dp">
+                >
 
                     <ScrollView
                             android:layout_width="wrap_content"
@@ -96,20 +96,20 @@
                                     android:layout_height="match_parent"
                                     android:inputType="textPersonName|textMultiLine"
                                     android:text=""
-                                    android:ems="5"
+                                    android:ems="2"
                                     android:id="@+id/no3"/>
                         </HorizontalScrollView>
                     </ScrollView>
                 </FrameLayout>
             </TableRow>
-            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+            <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
                 <FrameLayout
-                        android:layout_width="121dp"
-                        android:layout_height="111dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginTop="60dp">
+                >
 
                     <ScrollView
                             android:layout_width="wrap_content"
@@ -121,21 +121,21 @@
 
                             <EditText
                                     android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:inputType="textPersonName|textMultiLine"
                                     android:text=""
-                                    android:ems="5"
+                                    android:ems="2"
                                     android:id="@+id/no4"/>
                         </HorizontalScrollView>
                     </ScrollView>
                 </FrameLayout>
                 <FrameLayout
-                        android:layout_width="117dp"
-                        android:layout_height="109dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginTop="60dp">
+                >
 
                     <ScrollView
                             android:layout_width="wrap_content"
@@ -147,23 +147,23 @@
 
                             <EditText
                                     android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:inputType="textPersonName|textMultiLine"
                                     android:text=""
-                                    android:ems="5"
+                                    android:ems="2"
                                     android:id="@+id/no5"
-                                    />
+                            />
 
                         </HorizontalScrollView>
                     </ScrollView>
                 </FrameLayout>
                 <FrameLayout
-                        android:layout_width="117dp"
-                        android:layout_height="109dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginTop="60dp">
+                >
 
                     <ScrollView
                             android:layout_width="wrap_content"
@@ -175,23 +175,23 @@
 
                             <EditText
                                     android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:inputType="textPersonName|textMultiLine"
                                     android:text=""
-                                    android:ems="5"
+                                    android:ems="2"
                                     android:id="@+id/no6"/>
                         </HorizontalScrollView>
                     </ScrollView>
                 </FrameLayout>
             </TableRow>
-            <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+            <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
                 <FrameLayout
-                        android:layout_width="108dp"
-                        android:layout_height="111dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginTop="60dp">
+                >
 
                     <ScrollView
                             android:layout_width="wrap_content"
@@ -203,21 +203,21 @@
 
                             <EditText
                                     android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:inputType="textPersonName|textMultiLine"
                                     android:text=""
-                                    android:ems="5"
+                                    android:ems="2"
                                     android:id="@+id/no7"/>
                         </HorizontalScrollView>
                     </ScrollView>
                 </FrameLayout>
                 <FrameLayout
-                        android:layout_width="117dp"
-                        android:layout_height="109dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginTop="60dp">
+                >
 
                     <ScrollView
                             android:layout_width="wrap_content"
@@ -229,21 +229,21 @@
 
                             <EditText
                                     android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:inputType="textPersonName|textMultiLine"
                                     android:text=""
-                                    android:ems="5"
+                                    android:ems="2"
                                     android:id="@+id/no8"/>
                         </HorizontalScrollView>
                     </ScrollView>
                 </FrameLayout>
                 <FrameLayout
-                        android:layout_width="117dp"
-                        android:layout_height="109dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginTop="60dp">
+                >
 
                     <ScrollView
                             android:layout_width="wrap_content"
@@ -255,10 +255,10 @@
 
                             <EditText
                                     android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
+                                    android:layout_height="wrap_content"
                                     android:inputType="textPersonName|textMultiLine"
                                     android:text=""
-                                    android:ems="5"
+                                    android:ems="2"
                                     android:id="@+id/no9"/>
                         </HorizontalScrollView>
                     </ScrollView>
@@ -268,7 +268,6 @@
 
         </LinearLayout>
     </FrameLayout>
-
 
 
 </TableLayout>

@@ -24,7 +24,6 @@ class MandalaChartActivity : AppCompatActivity() {
     var words=Array(9,{""})
     var words_9x9 =Array(9,{Array<String>(9,{""})})
     lateinit var vg:ViewGroup
-    lateinit var zoomLayout:LinearLayout
     var isNew:Boolean by Delegates.notNull()
     var isExtended:Boolean by Delegates.notNull()
     lateinit var dataStore: SharedPreferences
@@ -32,7 +31,10 @@ class MandalaChartActivity : AppCompatActivity() {
     var theme:String by Delegates.notNull()
     var isChanged:Boolean =false
     var isFirstSave:Boolean=true
-    var scale:Float = 1.0f
+    var scale:Int=0
+    val zoom:ArrayList<EditText> =arrayListOf()
+
+    //FrameLayout型の配列を宣言→盤面構成時に格納→ボタンorシークバーで変更
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,16 +62,22 @@ class MandalaChartActivity : AppCompatActivity() {
         }
 
         button_up.setOnClickListener {
-            scale+=0.1f
-            zoomLayout.setScaleX(scale)
-            zoomLayout.setScaleY(scale)
-            println(scale)
+            println(zoom)
+
+
+            for(i in(0..80)){
+                //zoom[i].setEms(4)
+                zoom[i].setHeight(600)
+                zoom[i].setWidth(600)
+            }
         }
         button_down.setOnClickListener {
-            scale-=0.1f
-            zoomLayout.setScaleX(scale)
-            zoomLayout.setScaleY(scale)
-            println(scale)
+
+            for(i in(0..80)){
+                //zoom[i].setEms(2)
+                zoom[i].setHeight(100)
+                zoom[i].setWidth(100)
+            }
         }
 
         button_next.setOnClickListener {
@@ -107,17 +115,19 @@ class MandalaChartActivity : AppCompatActivity() {
             save()
         }
 
-        zoomSeekBar.setProgress(50)
-        zoomSeekBar.setMax(100)
+        zoomSeekBar.setProgress(150)
+        zoomSeekBar.setMax(550)
 
         zoomSeekBar.setOnSeekBarChangeListener(
             object : SeekBar.OnSeekBarChangeListener{
                 override fun onProgressChanged(
                     zoomSeekBar:SeekBar,progress:Int,fromUser:Boolean){
                     println(progress)
-                    scale=(0.3f+ progress/100f)
-                    zoomLayout.setScaleX(scale)
-                    zoomLayout.setScaleY(scale)
+                    scale=(120+progress)
+                    for (i in (0 .. 80)){
+                        zoom[i].setHeight(scale)
+                        zoom[i].setWidth(scale)
+                    }
                     println(scale)
 
                 }
@@ -276,18 +286,18 @@ class MandalaChartActivity : AppCompatActivity() {
 
         val scv=vg.getChildAt(0)as ScrollView
         val hscv=scv.getChildAt(0)as HorizontalScrollView
-        zoomLayout=hscv.getChildAt(0)as LinearLayout
+        val ll1=hscv.getChildAt(0)as LinearLayout
 
         for(i in(0..2)){
-            val llh=zoomLayout.getChildAt(i)as LinearLayout
+            val llh=ll1.getChildAt(i)as LinearLayout
 
             for(j in(0..2)) {
                 val tl = llh.getChildAt(j) as TableLayout
                 val fl = tl.getChildAt(0) as FrameLayout
-                val ll = fl.getChildAt(1) as LinearLayout
+                val ll2 = fl.getChildAt(1) as LinearLayout
 
                 for (k in (0..2)) {
-                    val tr = ll.getChildAt(k) as TableRow
+                    val tr = ll2.getChildAt(k) as TableRow
 
                     for (l in (0..2)) {
                         val fl1 = tr.getChildAt(l) as FrameLayout
@@ -327,25 +337,27 @@ class MandalaChartActivity : AppCompatActivity() {
 
         val scv=vg.getChildAt(0)as ScrollView
         val hscv=scv.getChildAt(0)as HorizontalScrollView
-        zoomLayout=hscv.getChildAt(0)as LinearLayout
+        val ll1=hscv.getChildAt(0)as LinearLayout
 
         for(i in(0..2)){
-            val llh=zoomLayout.getChildAt(i)as LinearLayout
+            val llh=ll1.getChildAt(i)as LinearLayout
 
 
             for(j in(0..2)) {
                 val tl = llh.getChildAt(j) as TableLayout
                 val fl = tl.getChildAt(0) as FrameLayout
-                val ll = fl.getChildAt(1) as LinearLayout
+                val ll2 = fl.getChildAt(1) as LinearLayout
 
                 for (k in (0..2)) {
-                    val tr = ll.getChildAt(k) as TableRow
+                    val tr = ll2.getChildAt(k) as TableRow
 
                     for (l in (0..2)) {
                         val fl1 = tr.getChildAt(l) as FrameLayout
+
                         val scv = fl1.getChildAt(0) as ScrollView
                         val hscv = scv.getChildAt(0) as HorizontalScrollView
                         val ed = hscv.getChildAt(0) as EditText
+                        zoom.add(ed)
 
                         if (k == 1 && l == 1) {
                             ed.setText(words[i*3+j])
