@@ -9,6 +9,7 @@ import android.os.Handler
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TableRow
 import android.widget.TextView
 import com.google.gson.Gson
@@ -46,7 +47,7 @@ class BrainstormingActivity : AppCompatActivity() {
         textView_time.text=timeValue.toString()
 
 
-        val vg = findViewById<View>(R.id.LinearLayout) as ViewGroup
+        val vg = findViewById<View>(R.id.LinearLayout1) as ViewGroup
 
         fun start(){
             handler.post(runnable)
@@ -85,21 +86,25 @@ class BrainstormingActivity : AppCompatActivity() {
         start()
 
         var isOnce=true
-        lateinit var vg2:ViewGroup
+        lateinit var vg2:LinearLayout
         var num=1
 
         button_add.setOnClickListener {
             if(isNotFinished) {
                 println(vg.childCount)
 
+
                 if (addCardText.text.toString() != "") {
+
                     if(isOnce){
-                        getLayoutInflater().inflate(R.layout.vertical_layout, vg)
-                        vg2=vg.getChildAt(num) as ViewGroup
+                        vg2 = LinearLayout (this)
+                        vg2.orientation = LinearLayout.VERTICAL
+                        vg.addView(vg2)
                         isOnce=false
                     }
 
                     val index = vg2.childCount
+
                     getLayoutInflater().inflate(R.layout.brainstorming_card, vg2)
                     val tr = vg2.getChildAt(index) as TableRow
                     val text = tr.getChildAt(0) as TextView
@@ -111,9 +116,7 @@ class BrainstormingActivity : AppCompatActivity() {
                         isOnce=true
                         num++
                     }
-
                 }
-
             }
         }
         fun save(){
