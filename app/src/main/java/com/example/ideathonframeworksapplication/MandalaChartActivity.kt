@@ -201,8 +201,8 @@ class MandalaChartActivity : AppCompatActivity() {
             for(j in(0..2)){
                 val fl1=tr.getChildAt(j)as FrameLayout
                 val scv=fl1.getChildAt(0)as ScrollView
-                val hscv=scv.getChildAt(0)as HorizontalScrollView
-                val ed=hscv.getChildAt(0)as EditText
+                //val hscv=scv.getChildAt(0)as HorizontalScrollView
+                val ed=scv.getChildAt(0)as EditText
                 zoom.add(ed)
 
                 if(i==1&&j==1){
@@ -275,8 +275,8 @@ class MandalaChartActivity : AppCompatActivity() {
             for(j in(0..2)){
                 val fl1=tr.getChildAt(j)as FrameLayout
                 val scv=fl1.getChildAt(0)as ScrollView
-                val hscv=scv.getChildAt(0)as HorizontalScrollView
-                val ed=hscv.getChildAt(0)as EditText
+                //val hscv=scv.getChildAt(0)as HorizontalScrollView
+                val ed=scv.getChildAt(0)as EditText
                 zoom.add(ed)
 
                 ed.setText(words[i*3+j])
@@ -333,8 +333,8 @@ class MandalaChartActivity : AppCompatActivity() {
                     for (l in (0..2)) {
                         val fl1 = tr.getChildAt(l) as FrameLayout
                         val scv = fl1.getChildAt(0) as ScrollView
-                        val hscv = scv.getChildAt(0) as HorizontalScrollView
-                        val ed = hscv.getChildAt(0) as EditText
+                        //val hscv = scv.getChildAt(0) as HorizontalScrollView
+                        val ed = scv.getChildAt(0) as EditText
                         zoom.add(ed)
 
                         ed.setText(words_9x9[i*3+j][k*3+l])
@@ -396,8 +396,8 @@ class MandalaChartActivity : AppCompatActivity() {
                         val fl1 = tr.getChildAt(l) as FrameLayout
 
                         val scv = fl1.getChildAt(0) as ScrollView
-                        val hscv = scv.getChildAt(0) as HorizontalScrollView
-                        val ed = hscv.getChildAt(0) as EditText
+                        //val hscv = scv.getChildAt(0) as HorizontalScrollView
+                        val ed = scv.getChildAt(0) as EditText
                         zoom.add(ed)
 
                         if (k == 1 && l == 1) {
