@@ -53,6 +53,8 @@ class MandalaChartActivity : AppCompatActivity() {
         isNew=intent.getBooleanExtra("MC_IS_NEW",true)
         theme=intent.getStringExtra("MC_THEME_KEY")
 
+
+
         when(isNew){
             true->{
                 initBoard()
@@ -185,13 +187,18 @@ class MandalaChartActivity : AppCompatActivity() {
         isExtended=false
         isChanged=true
 
-        getLayoutInflater().inflate(R.layout.mandala_chart_table, vg)
+        val scr : ScrollView = ScrollView(this)
+        val hscr : HorizontalScrollView=HorizontalScrollView(this)
+        vg.addView(scr)
+        scr.addView(hscr)
+
+        getLayoutInflater().inflate(R.layout.mandala_chart_table, hscr)
         zoom.clear()
         base=345
         zoomSeekBar.setProgress(0)
         zoomSeekBar.setMax(325)
 
-        val tl=vg.getChildAt(0)as TableLayout
+        val tl=hscr.getChildAt(0)as TableLayout
         val fl=tl.getChildAt(0)as FrameLayout
         val ll=fl.getChildAt(1)as LinearLayout
 
@@ -262,10 +269,14 @@ class MandalaChartActivity : AppCompatActivity() {
         val gson= Gson()
         words = gson.fromJson(jsonString,Array<String>::class.java)
 
+        val scr : ScrollView = ScrollView(this)
+        val hscr : HorizontalScrollView=HorizontalScrollView(this)
+        vg.addView(scr)
+        scr.addView(hscr)
 
-        getLayoutInflater().inflate(R.layout.mandala_chart_table, vg)
+        getLayoutInflater().inflate(R.layout.mandala_chart_table, hscr)
 
-        val tl=vg.getChildAt(0)as TableLayout
+        val tl=hscr.getChildAt(0)as TableLayout
         val fl=tl.getChildAt(0)as FrameLayout
         val ll=fl.getChildAt(1)as LinearLayout
 
