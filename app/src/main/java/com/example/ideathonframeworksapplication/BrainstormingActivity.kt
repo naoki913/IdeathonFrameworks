@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TableRow
@@ -27,6 +28,9 @@ class BrainstormingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_brainstorming)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title="BrainStorming"
 
         dataStore=getSharedPreferences("DataStore", Context.MODE_PRIVATE)
         editor=dataStore.edit()
@@ -169,5 +173,13 @@ class BrainstormingActivity : AppCompatActivity() {
 
     override fun onBackPressed(){
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            android.R.id.home->finish()
+            else ->return super.onOptionsItemSelected(item)
+        }
+        return true
     }
 }

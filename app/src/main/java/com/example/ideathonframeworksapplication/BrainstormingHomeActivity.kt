@@ -17,7 +17,8 @@ import kotlinx.android.synthetic.main.activity_mandala_chart_home.button_new
 import kotlinx.android.synthetic.main.activity_mandala_chart_home.themeText
 import org.json.JSONArray
 import android.view.KeyEvent.KEYCODE_BACK
-
+import android.view.MenuItem
+import android.widget.TextView
 
 
 class BrainstormingHomeActivity : AppCompatActivity() {
@@ -42,12 +43,20 @@ class BrainstormingHomeActivity : AppCompatActivity() {
 
 
 
+
         button_new.setOnClickListener{
             if(themeText.length()!=0){
                 println(themeText.text)
                 intent.putExtra("MIN",LimitTimeMinText.text.toString().toInt())
                 intent.putExtra("SEC",LimitTimeSecText.text.toString().toInt())
                 intent.putExtra("THEME",themeText.text.toString())
+
+                //仮
+                themes.add(themeText.text.toString())
+                val tempJsonArray = JSONArray(themes)
+                editor.putString("BS_theme",tempJsonArray.toString())
+                editor.apply()
+                //仮
 
                 startActivity(intent)
             }
@@ -63,12 +72,19 @@ class BrainstormingHomeActivity : AppCompatActivity() {
         super.onResume()
 
         val jsonArray = JSONArray(dataStore.getString("BS_theme","[]"))
+        vg.removeAllViews()
+        themes.clear()
+
         for(t in 0 .. jsonArray.length()-1) {
             themes.add(jsonArray.get(t).toString())
             getLayoutInflater().inflate(R.layout.mandala_chart_load_item, vg)
 
             val tr=vg.getChildAt(t) as TableRow
             val ll=tr.getChildAt(0) as LinearLayout
+
+            (ll.getChildAt(0)as Button).setText(themes[t])
+
+            (ll.getChildAt(1)as TextView).setText(themes[t]+"に関する説明")
 
             (ll.getChildAt(2)as Button).setOnClickListener {
                 val keyWords="BS_"+themes[t]+"_words"
@@ -89,6 +105,13 @@ class BrainstormingHomeActivity : AppCompatActivity() {
     }
 
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            android.R.id.home->finish()
+            else ->return super.onOptionsItemSelected(item)
+        }
+        return true
+    }
 
 
 

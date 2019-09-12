@@ -40,10 +40,6 @@ class MandalaChartHomeActivity : AppCompatActivity() {
         val intent= Intent(this,MandalaChartActivity::class.java)
         vg = findViewById<View>(R.id.TableLayout) as ViewGroup
 
-        val jsonArray = JSONArray(dataStore.getString("MC_theme","[]"))
-        for(t in 0 .. jsonArray.length()-1) {
-            themes.add(jsonArray.get(t).toString())
-        }
 
         println(themes)
 
