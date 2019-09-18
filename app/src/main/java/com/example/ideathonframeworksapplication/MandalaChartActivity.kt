@@ -9,9 +9,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_mandala_chart.*
@@ -34,6 +32,8 @@ class MandalaChartActivity : AppCompatActivity() {
     var scale:Int=0
     var base:Int =0
     val zoom:ArrayList<EditText> =arrayListOf()
+    lateinit var mScaleGestureDetector: ScaleGestureDetector
+    var mScaleFactor = 2.0f
 
 
 
@@ -41,6 +41,8 @@ class MandalaChartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mandala_chart)
+
+        mScaleGestureDetector = ScaleGestureDetector(this, ScaleListener())
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title="MandalaChart"
@@ -65,13 +67,14 @@ class MandalaChartActivity : AppCompatActivity() {
         }
 
         button_up.setOnClickListener {
-            println(zoom)
-
+            println(mScaleFactor)
+            /*
             scale=(120+150)
             for (i in (0 .. zoom.size-1)){
                 zoom[i].setHeight(scale)
                 zoom[i].setWidth(scale)
             }
+            */
         }
         button_down.setOnClickListener {
 
@@ -127,13 +130,16 @@ class MandalaChartActivity : AppCompatActivity() {
                 override fun onProgressChanged(
                     zoomSeekBar:SeekBar,progress:Int,fromUser:Boolean){
 
+
+
                     scale=(base+progress)
 
                     for (i in (0 .. zoom.size-1)){
                         zoom[i].setHeight(scale)
                         zoom[i].setWidth(scale)
                     }
-                    println(scale)
+                    //mScaleFactor=(progress/5).toFloat()
+                    println("zoomSeekBar:scale:"+scale)
 
                 }
                 override fun onStartTrackingTouch(zommSeekBar:SeekBar){
@@ -443,6 +449,14 @@ class MandalaChartActivity : AppCompatActivity() {
         isChanged=true
     }
 
+    fun setScale(){
+        for (i in (0 .. zoom.size-1)){
+            zoom[i].setHeight(scale)
+            zoom[i].setWidth(scale)
+        }
+        println("setScale:scale:"+scale)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if(isChanged==true){
             val dialog = android.support.v7.app.AlertDialog.Builder(this)
@@ -461,6 +475,21 @@ class MandalaChartActivity : AppCompatActivity() {
             finish()
         }
         return true
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        mScaleGestureDetector.onTouchEvent(event)
+        return true
+    }
+
+    private inner class ScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+        override fun onScale(detector: ScaleGestureDetector): Boolean {
+            scale =Math.max(base,Math.min(670,(scale*mScaleGestureDetector.scaleFactor).toInt()))
+            zoomSeekBar.setProgress(scale-base)
+            setScale()
+
+            return true
+        }
     }
 
     override fun onBackPressed(){
