@@ -17,6 +17,8 @@ import kotlinx.android.synthetic.main.activity_brainstorming.*
 import org.json.JSONArray
 import kotlin.properties.Delegates
 
+
+
 class BrainstormingActivity : AppCompatActivity() {
     val handler= Handler()
     var timeValue=0
@@ -89,16 +91,15 @@ class BrainstormingActivity : AppCompatActivity() {
         lateinit var vg2:LinearLayout
         var num=1
 
+
+
         button_add.setOnClickListener {
             if(isNotFinished) {
                 println(vg.childCount)
-
-
                 if (addCardText.text.toString() != "") {
-
                     if(isOnce){
                         vg2 = LinearLayout (this)
-                        vg2.orientation = LinearLayout.VERTICAL
+                        vg2.setOrientation ( LinearLayout.VERTICAL)
                         vg.addView(vg2)
                         isOnce=false
                     }
@@ -155,9 +156,6 @@ class BrainstormingActivity : AppCompatActivity() {
             }
             println(words)
         }
-
-
-
     }
 
 
