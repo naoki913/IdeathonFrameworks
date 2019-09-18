@@ -10,6 +10,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_mandala_chart.*
@@ -54,7 +55,6 @@ class MandalaChartActivity : AppCompatActivity() {
         vg = findViewById<View>(R.id.TableLayout) as ViewGroup
         isNew=intent.getBooleanExtra("MC_IS_NEW",true)
         theme=intent.getStringExtra("MC_THEME_KEY")
-
 
 
         when(isNew){
@@ -224,6 +224,16 @@ class MandalaChartActivity : AppCompatActivity() {
                     ed.setKeyListener(null)
                 }
 
+                ed.setOnKeyListener { v, keyCode, event ->
+                    if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
+                        true
+                    } else {
+                        false
+                    }
+                }
+
                 ed.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                     }
@@ -301,6 +311,16 @@ class MandalaChartActivity : AppCompatActivity() {
                     ed.setKeyListener(null)
                 }
 
+                ed.setOnKeyListener { v, keyCode, event ->
+                    if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                        inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
+                        true
+                    } else {
+                        false
+                    }
+                }
+
                 ed.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                     }
@@ -357,6 +377,16 @@ class MandalaChartActivity : AppCompatActivity() {
                         ed.setText(words_9x9[i*3+j][k*3+l])
                         if (k == 1 && l == 1) {
                             ed.setKeyListener(null)
+                        }
+
+                        ed.setOnKeyListener { v, keyCode, event ->
+                            if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                                val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                                inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
+                                true
+                            } else {
+                                false
+                            }
                         }
 
                         ed.addTextChangedListener(object : TextWatcher {
@@ -421,6 +451,17 @@ class MandalaChartActivity : AppCompatActivity() {
                             ed.setText(words[i*3+j])
                             words_9x9[i*3+j][k*3+l] = ed.text.toString()
                             ed.setKeyListener(null)
+                        }
+
+
+                        ed.setOnKeyListener { v, keyCode, event ->
+                            if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                                val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                                inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
+                                true
+                            } else {
+                                false
+                            }
                         }
 
                         ed.addTextChangedListener(object : TextWatcher {
@@ -495,4 +536,6 @@ class MandalaChartActivity : AppCompatActivity() {
     override fun onBackPressed(){
 
     }
+
 }
+
