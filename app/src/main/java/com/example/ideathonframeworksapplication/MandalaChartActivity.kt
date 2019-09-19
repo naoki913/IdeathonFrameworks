@@ -30,6 +30,7 @@ class MandalaChartActivity : AppCompatActivity() {
     var theme:String by Delegates.notNull()
     var isChanged:Boolean =false
     var isFirstSave:Boolean=true
+    var isAlreadyTheme:Boolean = false
     var scale:Int=0
     var base:Int =0
     val zoom:ArrayList<EditText> =arrayListOf()
@@ -119,7 +120,7 @@ class MandalaChartActivity : AppCompatActivity() {
 
 
         button_save.setOnClickListener {
-            save()
+            save(false)
         }
 
 
@@ -153,7 +154,7 @@ class MandalaChartActivity : AppCompatActivity() {
 
     }
 
-    fun save(){
+    fun save(isFinish:Boolean){
         val gson= Gson()
         var jsonString:String
         when(isExtended){
@@ -179,14 +180,49 @@ class MandalaChartActivity : AppCompatActivity() {
             val jsonTempArray = JSONArray(dataStore.getString("MC_theme","[]"))
             for(t in 0 .. jsonTempArray.length()-1) {
                 themes.add(jsonTempArray.get(t).toString())
+                if(jsonTempArray.get(t).toString()==theme){
+                    isAlreadyTheme=true
+                }
             }
-            themes.add(theme)
-            val jsonArray = JSONArray(themes)
-            editor.putString("MC_theme",jsonArray.toString())
-            editor.apply()
+            if(isAlreadyTheme){
+                val dialog = AlertDialog.Builder(this)
+                dialog.setTitle("既に同じテーマがあります．上書きしますか？")
+                dialog.setNegativeButton("いいえ", null)
+                dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
+                    // OKボタン押したときの処理
 
-            isFirstSave=false
+                    //未実装:themesからthemeの情報を削除
+
+                    themes.add(theme)
+                    val jsonArray = JSONArray(themes)
+                    editor.putString("MC_theme",jsonArray.toString())
+                    editor.apply()
+
+                    isFirstSave=false
+
+                    //どこからsave関数にアクセスしたかで変化
+                    if(isFinish){
+                        finish()
+                    }
+
+
+                })
+
+                dialog.show()
+            }
+            else{
+                themes.add(theme)
+                val jsonArray = JSONArray(themes)
+                editor.putString("MC_theme",jsonArray.toString())
+                editor.apply()
+
+                isFirstSave=false
+            }
+
+
+
         }
+
     }
 
     fun initBoard(){
@@ -504,8 +540,7 @@ class MandalaChartActivity : AppCompatActivity() {
             dialog.setTitle("データを保存しますか？")
             dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
                 // OKボタン押したときの処理
-                save()
-                finish()
+                save(true)
             })
             dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { _, _->
                 finish()
