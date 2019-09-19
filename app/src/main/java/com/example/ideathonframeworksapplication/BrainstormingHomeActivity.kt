@@ -116,6 +116,7 @@ class BrainstormingHomeActivity : AppCompatActivity() {
 
             (ll.getChildAt(0)as Button).setText(themes[t])
             (ll.getChildAt(0)as Button).setOnClickListener {
+                intent.putExtra("MC_IS_NEW",false)
                 intent.putExtra("BS_THEME_KEY",themes[t])
                 startActivity(intent)
                 //println(themes[t])

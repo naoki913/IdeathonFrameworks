@@ -24,10 +24,13 @@ import kotlin.properties.Delegates
 class BrainstormingActivity : AppCompatActivity() {
     val handler= Handler()
     var timeValue=0
+    var passedTime=0
     var words:ArrayList<String> =arrayListOf()
     //var theme:String by Delegates.notNull()
+    var isNew:Boolean by Delegates.notNull()
     lateinit var dataStore: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
+
     var isFirstSave:Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +49,7 @@ class BrainstormingActivity : AppCompatActivity() {
         val min=intent.getIntExtra("MIN",0)
         val sec=intent.getIntExtra("SEC",0)
         val theme=intent.getStringExtra("BS_THEME_KEY")
+        isNew=intent.getBooleanExtra("MC_IS_NEW",true)
 
         timeValue=min*60+sec
         textView_time.text=timeValue.toString()
@@ -66,12 +70,12 @@ class BrainstormingActivity : AppCompatActivity() {
         }
         runnable= object :Runnable{
             override fun run(){
-                time2Text(timeValue).let{
+                time2Text(timeValue-passedTime).let{
                     if(it=="null") {
                     }
                     else if(it=="00:00:00"){
                         textView_time.text = it
-                        timeValue--
+                        passedTime++
                         val dialog = android.support.v7.app.AlertDialog.Builder(this@BrainstormingActivity)
                         dialog.setTitle("制限時間になりました")
                         dialog.setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
@@ -83,7 +87,7 @@ class BrainstormingActivity : AppCompatActivity() {
                     }
                     else{
                         textView_time.text = it
-                        timeValue--
+                        passedTime++
                     }
                 }
                 handler.postDelayed(this,1000)
@@ -141,6 +145,12 @@ class BrainstormingActivity : AppCompatActivity() {
 
 
         fun loadCard(){
+            val keyTimeValue="BS_"+theme+"_timeValue"
+            val keyPassedTime="BS_"+theme+"_passedTime"
+            timeValue=dataStore.getInt(keyTimeValue,0)
+            passedTime=dataStore.getInt(keyPassedTime,0)
+
+
             vg2 = LinearLayout (this)
             vg2.setOrientation ( LinearLayout.VERTICAL)
             vg.addView(vg2)
@@ -159,15 +169,23 @@ class BrainstormingActivity : AppCompatActivity() {
             }
         }
 
-        loadCard()
-        println(words)
+        if(!isNew){
+            loadCard()
+            println(words)
+        }
+
+
 
 
         fun save(){
             val gson= Gson()
             val jsonString=gson.toJson(words)
             val keyWords="BS_"+theme+"_words"
+            val keyTimeValue="BS_"+theme+"_timeValue"
+            val keyPassedTime="BS_"+theme+"_passedTime"
             editor.putString(keyWords,jsonString)
+            editor.putInt(keyTimeValue,timeValue)
+            editor.putInt(keyPassedTime,passedTime)
             editor.apply()
 
             if(isFirstSave){
