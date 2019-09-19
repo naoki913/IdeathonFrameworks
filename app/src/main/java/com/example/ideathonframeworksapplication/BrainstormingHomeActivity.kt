@@ -78,13 +78,15 @@ class BrainstormingHomeActivity : AppCompatActivity() {
                 println(themeText.text)
                 intent.putExtra("MIN",LimitTimeMinText.text.toString().toInt())
                 intent.putExtra("SEC",LimitTimeSecText.text.toString().toInt())
-                intent.putExtra("THEME",themeText.text.toString())
+                intent.putExtra("BS_THEME_KEY",themeText.text.toString())
 
                 //仮
+                /*
                 themes.add(themeText.text.toString())
                 val tempJsonArray = JSONArray(themes)
                 editor.putString("BS_theme",tempJsonArray.toString())
                 editor.apply()
+                */
                 //仮
 
                 startActivity(intent)
@@ -99,6 +101,7 @@ class BrainstormingHomeActivity : AppCompatActivity() {
 
     override fun onResume(){
         super.onResume()
+        val intent= Intent(this,BrainstormingActivity::class.java)
 
         val jsonArray = JSONArray(dataStore.getString("BS_theme","[]"))
         vg.removeAllViews()
@@ -112,6 +115,11 @@ class BrainstormingHomeActivity : AppCompatActivity() {
             val ll=tr.getChildAt(0) as LinearLayout
 
             (ll.getChildAt(0)as Button).setText(themes[t])
+            (ll.getChildAt(0)as Button).setOnClickListener {
+                intent.putExtra("BS_THEME_KEY",themes[t])
+                startActivity(intent)
+                //println(themes[t])
+            }
 
             (ll.getChildAt(1)as TextView).setText(themes[t]+"に関する説明")
 

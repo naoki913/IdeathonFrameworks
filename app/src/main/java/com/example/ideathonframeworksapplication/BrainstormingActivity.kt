@@ -45,13 +45,15 @@ class BrainstormingActivity : AppCompatActivity() {
 
         val min=intent.getIntExtra("MIN",0)
         val sec=intent.getIntExtra("SEC",0)
-        val theme=intent.getStringExtra("THEME")
+        val theme=intent.getStringExtra("BS_THEME_KEY")
 
         timeValue=min*60+sec
         textView_time.text=timeValue.toString()
 
 
         val vg = findViewById<View>(R.id.LinearLayout1) as ViewGroup
+
+
 
         fun start(){
             handler.post(runnable)
@@ -135,6 +137,32 @@ class BrainstormingActivity : AppCompatActivity() {
                 }
             }
         }
+
+
+
+        fun loadCard(){
+            vg2 = LinearLayout (this)
+            vg2.setOrientation ( LinearLayout.VERTICAL)
+            vg.addView(vg2)
+
+            val keyWords = "BS_"+theme+"_words"
+            val jsonArray = JSONArray(dataStore.getString(keyWords,"[]"))
+            println(jsonArray)
+
+            for (t in 0 .. jsonArray.length()-1){
+                getLayoutInflater().inflate(R.layout.brainstorming_card, vg2)
+                val tr = vg2.getChildAt(t) as TableRow
+                val text = tr.getChildAt(0) as TextView
+                text.text = jsonArray.get(t).toString()
+                words.add(text.text.toString())
+
+            }
+        }
+
+        loadCard()
+        println(words)
+
+
         fun save(){
             val gson= Gson()
             val jsonString=gson.toJson(words)
@@ -150,7 +178,7 @@ class BrainstormingActivity : AppCompatActivity() {
                 }
                 themes.add(theme)
                 val jsonArray = JSONArray(themes)
-                editor.putString("MC_theme",jsonArray.toString())
+                editor.putString("BS_theme",jsonArray.toString())
                 editor.apply()
                 isFirstSave=false
             }
