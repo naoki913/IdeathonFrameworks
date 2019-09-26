@@ -494,6 +494,11 @@ class MandalaChartActivity : AppCompatActivity() {
                         val ed = scv.getChildAt(0) as EditText
                         zoom.add(ed)
 
+                        if(i==1&&j==1){
+                            ed.setText(words[k*3+l])
+                            ed.setKeyListener(null)
+                        }
+
                         if (k == 1 && l == 1) {
                             ed.setText(words[i*3+j])
                             words_9x9[i*3+j][k*3+l] = ed.text.toString()
