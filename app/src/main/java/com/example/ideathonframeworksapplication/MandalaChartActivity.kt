@@ -155,6 +155,8 @@ class MandalaChartActivity : AppCompatActivity() {
     }
 
     fun save(isFinish:Boolean){
+        /*
+        //save action start
         val gson= Gson()
         var jsonString:String
         when(isExtended){
@@ -173,6 +175,8 @@ class MandalaChartActivity : AppCompatActivity() {
         editor.apply()
 
         isChanged=false
+        //save action end
+        */
 
         if(isFirstSave&&isNew){
             //theme追加
@@ -187,11 +191,16 @@ class MandalaChartActivity : AppCompatActivity() {
             if(isAlreadyTheme){
                 val dialog = AlertDialog.Builder(this)
                 dialog.setTitle("既に同じテーマがあります．上書きしますか？")
-                dialog.setNegativeButton("いいえ", null)
+                dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { dialog, which ->
+                    if(isFinish){
+                        finish()
+                    }
+                })
                 dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
                     // OKボタン押したときの処理
 
                     //未実装:themesからthemeの情報を削除
+                    themes.remove(theme)
 
                     themes.add(theme)
                     val jsonArray = JSONArray(themes)
@@ -199,6 +208,28 @@ class MandalaChartActivity : AppCompatActivity() {
                     editor.apply()
 
                     isFirstSave=false
+
+                    //save action start
+                    val gson= Gson()
+                    var jsonString:String
+                    when(isExtended){
+                        true->{
+                            jsonString=gson.toJson(words_9x9)
+                        }
+                        false->{
+                            jsonString=gson.toJson(words)
+                        }
+                    }
+                    val keyWords="MC_"+theme+"_words"
+                    editor.putString(keyWords,jsonString)
+                    Log.d("input",jsonString)
+                    val keyIsExtended="MC_"+theme+"_isExtended"
+                    editor.putBoolean(keyIsExtended,isExtended)
+                    editor.apply()
+
+                    isChanged=false
+                    //save action end
+
 
                     //どこからsave関数にアクセスしたかで変化
                     if(isFinish){
@@ -211,15 +242,64 @@ class MandalaChartActivity : AppCompatActivity() {
                 dialog.show()
             }
             else{
+                println(1)
                 themes.add(theme)
                 val jsonArray = JSONArray(themes)
                 editor.putString("MC_theme",jsonArray.toString())
                 editor.apply()
 
+                val gson= Gson()
+                var jsonString:String
+                when(isExtended){
+                    true->{
+                        jsonString=gson.toJson(words_9x9)
+                    }
+                    false->{
+                        jsonString=gson.toJson(words)
+                    }
+                }
+                val keyWords="MC_"+theme+"_words"
+                editor.putString(keyWords,jsonString)
+                Log.d("input",jsonString)
+                val keyIsExtended="MC_"+theme+"_isExtended"
+                editor.putBoolean(keyIsExtended,isExtended)
+                editor.apply()
+
+                isChanged=false
+
                 isFirstSave=false
+                //isChanged=false
             }
 
 
+
+        }
+        else{
+            println("save")
+            //save action start
+            val gson= Gson()
+            var jsonString:String
+            when(isExtended){
+                true->{
+                    jsonString=gson.toJson(words_9x9)
+                }
+                false->{
+                    jsonString=gson.toJson(words)
+                }
+            }
+            val keyWords="MC_"+theme+"_words"
+            editor.putString(keyWords,jsonString)
+            Log.d("input",jsonString)
+            val keyIsExtended="MC_"+theme+"_isExtended"
+            editor.putBoolean(keyIsExtended,isExtended)
+            editor.apply()
+
+            isChanged=false
+            //save action end
+
+            if(isFinish){
+                finish()
+            }
 
         }
 
