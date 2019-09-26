@@ -120,7 +120,7 @@ class MandalaChartActivity : AppCompatActivity() {
 
 
         button_save.setOnClickListener {
-            save(false)
+            saveManage(false)
         }
 
 
@@ -154,9 +154,7 @@ class MandalaChartActivity : AppCompatActivity() {
 
     }
 
-    fun save(isFinish:Boolean){
-        /*
-        //save action start
+    fun save(){
         val gson= Gson()
         var jsonString:String
         when(isExtended){
@@ -173,13 +171,13 @@ class MandalaChartActivity : AppCompatActivity() {
         val keyIsExtended="MC_"+theme+"_isExtended"
         editor.putBoolean(keyIsExtended,isExtended)
         editor.apply()
-
         isChanged=false
-        //save action end
-        */
+    }
 
+
+    fun saveManage(isFinish:Boolean){
         if(isFirstSave&&isNew){
-            //theme追加
+            //add theme
             val  themes : ArrayList<String> = arrayListOf()
             val jsonTempArray = JSONArray(dataStore.getString("MC_theme","[]"))
             for(t in 0 .. jsonTempArray.length()-1) {
@@ -199,7 +197,6 @@ class MandalaChartActivity : AppCompatActivity() {
                 dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
                     // OKボタン押したときの処理
 
-                    //未実装:themesからthemeの情報を削除
                     themes.remove(theme)
 
                     themes.add(theme)
@@ -209,94 +206,28 @@ class MandalaChartActivity : AppCompatActivity() {
 
                     isFirstSave=false
 
-                    //save action start
-                    val gson= Gson()
-                    var jsonString:String
-                    when(isExtended){
-                        true->{
-                            jsonString=gson.toJson(words_9x9)
-                        }
-                        false->{
-                            jsonString=gson.toJson(words)
-                        }
-                    }
-                    val keyWords="MC_"+theme+"_words"
-                    editor.putString(keyWords,jsonString)
-                    Log.d("input",jsonString)
-                    val keyIsExtended="MC_"+theme+"_isExtended"
-                    editor.putBoolean(keyIsExtended,isExtended)
-                    editor.apply()
-
-                    isChanged=false
-                    //save action end
-
+                    save()
 
                     //どこからsave関数にアクセスしたかで変化
                     if(isFinish){
                         finish()
                     }
-
-
                 })
-
                 dialog.show()
             }
             else{
-                println(1)
                 themes.add(theme)
                 val jsonArray = JSONArray(themes)
                 editor.putString("MC_theme",jsonArray.toString())
                 editor.apply()
 
-                val gson= Gson()
-                var jsonString:String
-                when(isExtended){
-                    true->{
-                        jsonString=gson.toJson(words_9x9)
-                    }
-                    false->{
-                        jsonString=gson.toJson(words)
-                    }
-                }
-                val keyWords="MC_"+theme+"_words"
-                editor.putString(keyWords,jsonString)
-                Log.d("input",jsonString)
-                val keyIsExtended="MC_"+theme+"_isExtended"
-                editor.putBoolean(keyIsExtended,isExtended)
-                editor.apply()
-
-                isChanged=false
+                save()
 
                 isFirstSave=false
-                //isChanged=false
             }
-
-
-
         }
         else{
-            println("save")
-            //save action start
-            val gson= Gson()
-            var jsonString:String
-            when(isExtended){
-                true->{
-                    jsonString=gson.toJson(words_9x9)
-                }
-                false->{
-                    jsonString=gson.toJson(words)
-                }
-            }
-            val keyWords="MC_"+theme+"_words"
-            editor.putString(keyWords,jsonString)
-            Log.d("input",jsonString)
-            val keyIsExtended="MC_"+theme+"_isExtended"
-            editor.putBoolean(keyIsExtended,isExtended)
-            editor.apply()
-
-            isChanged=false
-            //save action end
-
+            save()
             if(isFinish){
                 finish()
             }
@@ -620,7 +551,7 @@ class MandalaChartActivity : AppCompatActivity() {
             dialog.setTitle("データを保存しますか？")
             dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
                 // OKボタン押したときの処理
-                save(true)
+                saveManage(true)
             })
             dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { _, _->
                 finish()
