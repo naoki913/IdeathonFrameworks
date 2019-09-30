@@ -45,16 +45,11 @@
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:id="@+id/LinearLayout1"
+                android:id="@+id/BoardParentLayout"
                 android:layout_marginEnd="4dp"
                 android:layout_marginRight="4dp"
                 android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-                android:layout_marginTop="32dp">
-            <Button
-                    android:text="Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/button3"/>
-        </LinearLayout>
+                android:layout_marginTop="32dp"/>
     </HorizontalScrollView>
     <EditText
             android:layout_width="277dp"

@@ -10,11 +10,8 @@ import android.os.Handler
 import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.LinearLayout
-import android.widget.TableRow
-import android.widget.TextView
+import android.widget.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_brainstorming.*
 import org.json.JSONArray
@@ -28,7 +25,9 @@ class BrainstormingActivity : AppCompatActivity() {
     var timeValue=0
     var passedTime=0
     var words:ArrayList<String> =arrayListOf()
-    //var theme:String by Delegates.notNull()
+    var genres:ArrayList<String> =arrayListOf()
+    var bls:ArrayList<LinearLayout> =arrayListOf()
+    var chooseIndex=0
     var isNew:Boolean by Delegates.notNull()
     var isChanged:Boolean =false
     var isAlreadyTheme:Boolean = false
@@ -59,7 +58,7 @@ class BrainstormingActivity : AppCompatActivity() {
         textView_time.text=timeValue.toString()
 
 
-        val vg = findViewById<View>(R.id.LinearLayout1) as ViewGroup
+        val vg = findViewById<View>(R.id.BoardParentLayout) as LinearLayout
 
 
 
@@ -109,15 +108,12 @@ class BrainstormingActivity : AppCompatActivity() {
             }
         }
 
-
-
-
         var isOnce=true
         lateinit var vg2:LinearLayout
         var num=1
 
 
-
+        /*
         button_add.setOnClickListener {
             if(isNotFinished) {
                 println(vg.childCount)
@@ -146,10 +142,12 @@ class BrainstormingActivity : AppCompatActivity() {
                 isChanged=true
             }
         }
+        */
 
 
 
         fun loadCard(){
+            /*
             val keyTimeValue="BS_"+theme+"_timeValue"
             val keyPassedTime="BS_"+theme+"_passedTime"
             timeValue=dataStore.getInt(keyTimeValue,0)
@@ -172,6 +170,7 @@ class BrainstormingActivity : AppCompatActivity() {
                 words.add(text.text.toString())
 
             }
+            */
         }
 
         if(isNew){
@@ -188,19 +187,29 @@ class BrainstormingActivity : AppCompatActivity() {
 
 
         button_save.setOnClickListener {
+            /*
             println(words)
             saveManage(false)
+            */
 
+            getLayoutInflater().inflate(R.layout.brainstorming_card,(bls[chooseIndex-1].getChildAt(1)as ScrollView).getChildAt(0)as LinearLayout)
         }
 
+
         button_load.setOnClickListener {
-            val keyWords="BS_"+theme+"_words"
-            val jsonArray= JSONArray(dataStore.getString(keyWords,"[]"))
-            words.clear()
-            for(t in 0 .. jsonArray.length()-1){
-                words.add(jsonArray.get(t).toString())
+           //add board
+            getLayoutInflater().inflate(R.layout.brain_storming_board,vg)
+            genres.add(genres.size.toString())
+            println(genres)
+
+            bls.add(vg.getChildAt(genres.size-1) as LinearLayout)
+            val bt=bls[genres.size-1].getChildAt(0)as Button
+            val index=genres.size
+
+            bt.text=genres.size.toString()
+            bt.setOnClickListener {
+                chooseIndex=index
             }
-            println(words)
         }
     }
 
