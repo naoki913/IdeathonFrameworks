@@ -1,5 +1,6 @@
 package com.example.ideathonframeworksapplication
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.SharedPreferences
@@ -23,11 +24,14 @@ import kotlin.properties.Delegates
 
 class BrainstormingActivity : AppCompatActivity() {
     val handler= Handler()
+    var theme:String by Delegates.notNull()
     var timeValue=0
     var passedTime=0
     var words:ArrayList<String> =arrayListOf()
     //var theme:String by Delegates.notNull()
     var isNew:Boolean by Delegates.notNull()
+    var isChanged:Boolean =false
+    var isAlreadyTheme:Boolean = false
     lateinit var dataStore: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
 
@@ -48,7 +52,7 @@ class BrainstormingActivity : AppCompatActivity() {
 
         val min=intent.getIntExtra("MIN",0)
         val sec=intent.getIntExtra("SEC",0)
-        val theme=intent.getStringExtra("BS_THEME_KEY")
+        theme=intent.getStringExtra("BS_THEME_KEY")
         isNew=intent.getBooleanExtra("MC_IS_NEW",true)
 
         timeValue=min*60+sec
@@ -139,6 +143,7 @@ class BrainstormingActivity : AppCompatActivity() {
                         num++
                     }
                 }
+                isChanged=true
             }
         }
 
@@ -169,7 +174,10 @@ class BrainstormingActivity : AppCompatActivity() {
             }
         }
 
-        if(!isNew){
+        if(isNew){
+            isChanged=true
+        }
+        else{
             loadCard()
             println(words)
         }
@@ -177,34 +185,11 @@ class BrainstormingActivity : AppCompatActivity() {
 
 
 
-        fun save(){
-            val gson= Gson()
-            val jsonString=gson.toJson(words)
-            val keyWords="BS_"+theme+"_words"
-            val keyTimeValue="BS_"+theme+"_timeValue"
-            val keyPassedTime="BS_"+theme+"_passedTime"
-            editor.putString(keyWords,jsonString)
-            editor.putInt(keyTimeValue,timeValue)
-            editor.putInt(keyPassedTime,passedTime)
-            editor.apply()
 
-            if(isFirstSave){
-                val themes : ArrayList<String> =arrayListOf()
-                val jsonTempArray=JSONArray(dataStore.getString("BS_theme","[]"))
-                for(t in 0 .. jsonTempArray.length()-1){
-                    themes.add(jsonTempArray.get(t).toString())
-                }
-                themes.add(theme)
-                val jsonArray = JSONArray(themes)
-                editor.putString("BS_theme",jsonArray.toString())
-                editor.apply()
-                isFirstSave=false
-            }
-        }
 
         button_save.setOnClickListener {
             println(words)
-            save()
+            saveManage(false)
 
         }
 
@@ -217,6 +202,82 @@ class BrainstormingActivity : AppCompatActivity() {
             }
             println(words)
         }
+    }
+
+    fun save(){
+        val gson= Gson()
+        val jsonString=gson.toJson(words)
+        val keyWords="BS_"+theme+"_words"
+        val keyTimeValue="BS_"+theme+"_timeValue"
+        val keyPassedTime="BS_"+theme+"_passedTime"
+        editor.putString(keyWords,jsonString)
+        editor.putInt(keyTimeValue,timeValue)
+        editor.putInt(keyPassedTime,passedTime)
+        editor.apply()
+        isChanged=false
+    }
+    fun saveManage(_isFinish:Boolean){
+        if(isFirstSave&&isNew){
+            //add theme
+            val  themes : ArrayList<String> = arrayListOf()
+            val jsonTempArray = JSONArray(dataStore.getString("BS_theme","[]"))
+            for(t in 0 .. jsonTempArray.length()-1) {
+                themes.add(jsonTempArray.get(t).toString())
+                if(jsonTempArray.get(t).toString()==theme){
+                    isAlreadyTheme=true
+                }
+            }
+            if(isAlreadyTheme){
+                val dialog = AlertDialog.Builder(this)
+                dialog.setTitle("既に同じテーマがあります．上書きしますか？")
+                dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { dialog, which ->
+                    if(_isFinish){
+                        finish()
+                    }
+                })
+                dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
+                    // OKボタン押したときの処理
+
+                    themes.remove(theme)
+
+                    themes.add(theme)
+                    val jsonArray = JSONArray(themes)
+                    editor.putString("BS_theme",jsonArray.toString())
+                    editor.apply()
+
+                    isFirstSave=false
+
+                    save()
+
+                    //どこからsave関数にアクセスしたかで変化
+                    if(_isFinish){
+                        finish()
+                    }
+                })
+                dialog.show()
+            }
+            else{
+                themes.add(theme)
+                val jsonArray = JSONArray(themes)
+                editor.putString("BS_theme",jsonArray.toString())
+                editor.apply()
+
+                save()
+
+                isFirstSave=false
+                if(_isFinish){
+                    finish()
+                }
+            }
+        }
+        else{
+            save()
+            if(_isFinish){
+                finish()
+            }
+
+        }
+
     }
 
 
@@ -238,9 +299,21 @@ class BrainstormingActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
-            android.R.id.home->finish()
-            else ->return super.onOptionsItemSelected(item)
+
+        if(isChanged==true){
+            val dialog = android.support.v7.app.AlertDialog.Builder(this)
+            dialog.setTitle("データを保存しますか？")
+            dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
+                // OKボタン押したときの処理
+                saveManage(true)
+            })
+            dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { _, _->
+                finish()
+            })
+            dialog.show()
+        }
+        else{
+            finish()
         }
         return true
     }

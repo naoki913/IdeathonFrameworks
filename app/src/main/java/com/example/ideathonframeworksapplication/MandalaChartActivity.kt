@@ -166,16 +166,15 @@ class MandalaChartActivity : AppCompatActivity() {
             }
         }
         val keyWords="MC_"+theme+"_words"
-        editor.putString(keyWords,jsonString)
-        Log.d("input",jsonString)
         val keyIsExtended="MC_"+theme+"_isExtended"
+        editor.putString(keyWords,jsonString)
         editor.putBoolean(keyIsExtended,isExtended)
         editor.apply()
         isChanged=false
     }
 
 
-    fun saveManage(isFinish:Boolean){
+    fun saveManage(_isFinish:Boolean){
         if(isFirstSave&&isNew){
             //add theme
             val  themes : ArrayList<String> = arrayListOf()
@@ -190,7 +189,7 @@ class MandalaChartActivity : AppCompatActivity() {
                 val dialog = AlertDialog.Builder(this)
                 dialog.setTitle("既に同じテーマがあります．上書きしますか？")
                 dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { dialog, which ->
-                    if(isFinish){
+                    if(_isFinish){
                         finish()
                     }
                 })
@@ -209,7 +208,7 @@ class MandalaChartActivity : AppCompatActivity() {
                     save()
 
                     //どこからsave関数にアクセスしたかで変化
-                    if(isFinish){
+                    if(_isFinish){
                         finish()
                     }
                 })
@@ -224,11 +223,14 @@ class MandalaChartActivity : AppCompatActivity() {
                 save()
 
                 isFirstSave=false
+                if(_isFinish){
+                    finish()
+                }
             }
         }
         else{
             save()
-            if(isFinish){
+            if(_isFinish){
                 finish()
             }
 
@@ -573,6 +575,9 @@ class MandalaChartActivity : AppCompatActivity() {
         mScaleGestureDetector.onTouchEvent(event)
         return true
     }
+
+
+
 
     private inner class ScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener() {
         override fun onScale(detector: ScaleGestureDetector): Boolean {
