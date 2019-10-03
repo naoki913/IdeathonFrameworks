@@ -33,16 +33,14 @@ class BrainstormingHomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_brainstorming_home)
 
+        supportActionBar?.hide()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title="Brainstorming"
         val intent= Intent(this,BrainstormingActivity::class.java)
 
-
         dataStore=getSharedPreferences("DataStore", Context.MODE_PRIVATE)
         editor=dataStore.edit()
         vg = findViewById<View>(R.id.TableLayout) as ViewGroup
-
-
 
         themeText.setOnKeyListener { v, keyCode, event ->
             if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -63,6 +61,7 @@ class BrainstormingHomeActivity : AppCompatActivity() {
                 false
             }
         }
+
         LimitTimeSecText.setOnKeyListener { v, keyCode, event ->
             if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                 val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -80,15 +79,6 @@ class BrainstormingHomeActivity : AppCompatActivity() {
                 intent.putExtra("SEC",LimitTimeSecText.text.toString().toInt())
                 intent.putExtra("BS_THEME_KEY",themeText.text.toString())
 
-                //仮
-                /*
-                themes.add(themeText.text.toString())
-                val tempJsonArray = JSONArray(themes)
-                editor.putString("BS_theme",tempJsonArray.toString())
-                editor.apply()
-                */
-                //仮
-
                 startActivity(intent)
             }
             else{
@@ -96,8 +86,6 @@ class BrainstormingHomeActivity : AppCompatActivity() {
             }
         }
     }
-
-
 
     override fun onResume(){
         super.onResume()
@@ -139,7 +127,8 @@ class BrainstormingHomeActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        //中身を空にすることで戻るキーが無効化されます。
+        finish()
+
     }
 
 
@@ -150,9 +139,6 @@ class BrainstormingHomeActivity : AppCompatActivity() {
         }
         return true
     }
-
-
-
 
 }
 

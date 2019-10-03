@@ -38,14 +38,13 @@ class MandalaChartActivity : AppCompatActivity() {
     var mScaleFactor = 2.0f
 
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mandala_chart)
 
         mScaleGestureDetector = ScaleGestureDetector(this, ScaleListener())
 
+        supportActionBar?.hide()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title="MandalaChart"
 
@@ -56,7 +55,6 @@ class MandalaChartActivity : AppCompatActivity() {
         vg = findViewById<View>(R.id.TableLayout) as ViewGroup
         isNew=intent.getBooleanExtra("MC_IS_NEW",true)
         theme=intent.getStringExtra("MC_THEME_KEY")
-
 
         when(isNew){
             true->{
@@ -77,6 +75,7 @@ class MandalaChartActivity : AppCompatActivity() {
             }
             */
         }
+
         button_down.setOnClickListener {
 
             for(i in(0..zoom.size-1)){
@@ -91,6 +90,7 @@ class MandalaChartActivity : AppCompatActivity() {
             when (isExtended){
                 true->{
                     //すでに拡張されている旨の通知
+
 
                 }
                 false->{
@@ -110,28 +110,20 @@ class MandalaChartActivity : AppCompatActivity() {
                             // OKボタン押したときの処理
                             extendBoard()
                         })
-
                         dialog.show()
                     }
                 }
             }
         }
 
-
-
         button_save.setOnClickListener {
             saveManage(false)
         }
-
-
-
 
         zoomSeekBar.setOnSeekBarChangeListener(
             object : SeekBar.OnSeekBarChangeListener{
                 override fun onProgressChanged(
                     zoomSeekBar:SeekBar,progress:Int,fromUser:Boolean){
-
-
 
                     scale=(base+progress)
 
@@ -141,17 +133,17 @@ class MandalaChartActivity : AppCompatActivity() {
                     }
                     //mScaleFactor=(progress/5).toFloat()
                     println("zoomSeekBar:scale:"+scale)
-
                 }
+
                 override fun onStartTrackingTouch(zommSeekBar:SeekBar){
 
                 }
+
                 override fun onStopTrackingTouch(zoomSeekBar:SeekBar){
 
                 }
             }
         )
-
     }
 
     fun save(){
@@ -165,6 +157,7 @@ class MandalaChartActivity : AppCompatActivity() {
                 jsonString=gson.toJson(words)
             }
         }
+
         val keyWords="MC_"+theme+"_words"
         val keyIsExtended="MC_"+theme+"_isExtended"
         editor.putString(keyWords,jsonString)
@@ -197,14 +190,12 @@ class MandalaChartActivity : AppCompatActivity() {
                     // OKボタン押したときの処理
 
                     themes.remove(theme)
-
                     themes.add(theme)
                     val jsonArray = JSONArray(themes)
                     editor.putString("MC_theme",jsonArray.toString())
                     editor.apply()
 
                     isFirstSave=false
-
                     save()
 
                     //どこからsave関数にアクセスしたかで変化
@@ -233,10 +224,9 @@ class MandalaChartActivity : AppCompatActivity() {
             if(_isFinish){
                 finish()
             }
-
         }
-
     }
+
 
     fun initBoard(){
         isExtended=false
@@ -303,9 +293,9 @@ class MandalaChartActivity : AppCompatActivity() {
         for (i in (0 .. zoom.size-1)){
             zoom[i].setHeight(scale)
             zoom[i].setWidth(scale)
-
         }
     }
+
 
     fun loadBoard(){
         val keyIsExtended="MC_"+theme+"_isExtended"
@@ -327,6 +317,8 @@ class MandalaChartActivity : AppCompatActivity() {
             }
         }
     }
+
+
     fun loadBoard_3x3(){
         val keyWords="MC_"+theme+"_words"
         val jsonString=dataStore.getString(keyWords,"nothing")
@@ -361,6 +353,8 @@ class MandalaChartActivity : AppCompatActivity() {
                 }
 
                 ed.setOnKeyListener { v, keyCode, event ->
+                    println("keyCode:"+keyCode)
+                    println("v:"+v)
                     if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                         val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                         inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
@@ -384,6 +378,7 @@ class MandalaChartActivity : AppCompatActivity() {
                 })
             }
         }
+
         scale=base
         for (i in (0 .. zoom.size-1)) {
             zoom[i].setHeight(scale)
@@ -455,6 +450,7 @@ class MandalaChartActivity : AppCompatActivity() {
                 }
             }
         }
+
         scale=base
         for (i in (0 .. zoom.size-1)) {
             zoom[i].setHeight(scale)
@@ -509,6 +505,7 @@ class MandalaChartActivity : AppCompatActivity() {
 
 
                         ed.setOnKeyListener { v, keyCode, event ->
+                            println("keyCode:"+keyCode)
                             if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                                 val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                                 inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
@@ -535,6 +532,7 @@ class MandalaChartActivity : AppCompatActivity() {
                 }
             }
         }
+
         scale=base
         for (i in (0 .. zoom.size-1)) {
             zoom[i].setHeight(scale)
@@ -544,6 +542,7 @@ class MandalaChartActivity : AppCompatActivity() {
         isChanged=true
     }
 
+
     fun setScale(){
         for (i in (0 .. zoom.size-1)){
             zoom[i].setHeight(scale)
@@ -551,6 +550,7 @@ class MandalaChartActivity : AppCompatActivity() {
         }
         println("setScale:scale:"+scale)
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if(isChanged==true){
@@ -576,9 +576,6 @@ class MandalaChartActivity : AppCompatActivity() {
         return true
     }
 
-
-
-
     private inner class ScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener() {
         override fun onScale(detector: ScaleGestureDetector): Boolean {
             scale =Math.max(base,Math.min(670,(scale*mScaleGestureDetector.scaleFactor).toInt()))
@@ -589,9 +586,23 @@ class MandalaChartActivity : AppCompatActivity() {
         }
     }
 
+
     override fun onBackPressed(){
-
+        if(isChanged==true){
+            val dialog = android.support.v7.app.AlertDialog.Builder(this)
+            dialog.setTitle("データを保存しますか？")
+            dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
+                // OKボタン押したときの処理
+                saveManage(true)
+            })
+            dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { _, _->
+                finish()
+            })
+            dialog.show()
+        }
+        else{
+            finish()
+        }
     }
-
 }
 

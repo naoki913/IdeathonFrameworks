@@ -18,7 +18,6 @@ import org.json.JSONArray
 import kotlin.properties.Delegates
 
 
-
 class BrainstormingActivity : AppCompatActivity() {
     val handler= Handler()
     var theme:String by Delegates.notNull()
@@ -34,13 +33,13 @@ class BrainstormingActivity : AppCompatActivity() {
     var isAlreadyTheme:Boolean = false
     lateinit var dataStore: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
-
     var isFirstSave:Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_brainstorming)
 
+        supportActionBar?.hide()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title="BrainStorming"
 
@@ -58,7 +57,6 @@ class BrainstormingActivity : AppCompatActivity() {
         timeValue=min*60+sec
         textView_time.text=timeValue.toString()
 
-
         val vg = findViewById<View>(R.id.BoardParentLayout) as LinearLayout
 
         /* Multidimensional Array example
@@ -72,19 +70,15 @@ class BrainstormingActivity : AppCompatActivity() {
         */
 
 
-
-
-
-
         fun start(){
             handler.post(runnable)
         }
-
 
         fun stop(){
             println("stop")
             handler.removeCallbacks(runnable)
         }
+
         runnable= object :Runnable{
             override fun run(){
                 time2Text(timeValue-passedTime).let{
@@ -127,7 +121,6 @@ class BrainstormingActivity : AppCompatActivity() {
         var num=1
 
 
-
         button_add.setOnClickListener {
             if(isNotFinished) {
                 //println(vg.childCount)
@@ -166,17 +159,13 @@ class BrainstormingActivity : AppCompatActivity() {
         }
 
 
-
-
         fun loadCard(){//絶賛不具合中
 
             /*
-
             val keyTimeValue="BS_"+theme+"_timeValue"
             val keyPassedTime="BS_"+theme+"_passedTime"
             timeValue=dataStore.getInt(keyTimeValue,0)
             passedTime=dataStore.getInt(keyPassedTime,0)
-
 
             vg2 = LinearLayout (this)
             vg2.setOrientation ( LinearLayout.VERTICAL)
@@ -192,7 +181,6 @@ class BrainstormingActivity : AppCompatActivity() {
                 val text = tr.getChildAt(0) as TextView
                 text.text = jsonArray.get(t).toString()
                 words.add(text.text.toString())
-
             }
             */
         }
@@ -205,17 +193,11 @@ class BrainstormingActivity : AppCompatActivity() {
             println(words)
         }
 
-
-
-
-
-
         button_save.setOnClickListener {
             /*
             println(words)
             saveManage(false)
             */
-
             //getLayoutInflater().inflate(R.layout.brainstorming_card,(bls[chooseIndex-1].getChildAt(1)as ScrollView).getChildAt(0)as LinearLayout)
 
             println("wordss.size:"+wordss.size)
@@ -223,7 +205,6 @@ class BrainstormingActivity : AppCompatActivity() {
                 println(wordss[i][0])
                 println(wordss[i][1])
             }
-
         }
 
 
@@ -256,6 +237,7 @@ class BrainstormingActivity : AppCompatActivity() {
         editor.apply()
         isChanged=false
     }
+
     fun saveManage(_isFinish:Boolean){
         if(isFirstSave&&isNew){
             //add theme
@@ -315,9 +297,7 @@ class BrainstormingActivity : AppCompatActivity() {
             if(_isFinish){
                 finish()
             }
-
         }
-
     }
 
 
@@ -335,7 +315,21 @@ class BrainstormingActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed(){
-
+        if(isChanged==true){
+            val dialog = android.support.v7.app.AlertDialog.Builder(this)
+            dialog.setTitle("データを保存しますか？")
+            dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
+                // OKボタン押したときの処理
+                saveManage(true)
+            })
+            dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { _, _->
+                finish()
+            })
+            dialog.show()
+        }
+        else{
+            finish()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

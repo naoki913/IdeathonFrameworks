@@ -37,6 +37,7 @@ class MandalaChartHomeActivity : AppCompatActivity() {
         dataStore =getSharedPreferences("DataStore", Context.MODE_PRIVATE)
         editor = dataStore.edit()
 
+        supportActionBar?.hide()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title="MandalaChart"
         val intent= Intent(this,MandalaChartActivity::class.java)
@@ -67,9 +68,6 @@ class MandalaChartHomeActivity : AppCompatActivity() {
                 themeText.setError("テーマを入力してください")
             }
         }
-
-
-
     }
 
     override fun onResume() {
@@ -82,7 +80,6 @@ class MandalaChartHomeActivity : AppCompatActivity() {
 
         val jsonArray = JSONArray(dataStore.getString("MC_theme","[]"))
         println(jsonArray)
-
 
         vg.removeAllViews()
 
@@ -118,11 +115,6 @@ class MandalaChartHomeActivity : AppCompatActivity() {
                 onResume()
             }
         }
-
-
-
-
-
     }
 
 
@@ -136,6 +128,7 @@ class MandalaChartHomeActivity : AppCompatActivity() {
 
 
     override fun onBackPressed(){
+        finish()
         /*　ひとつ前の画面に戻る(default)　or　指定のアクティビティを開始
         val intent= Intent(this,MainActivity::class.java)
         startActivity(intent)

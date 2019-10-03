@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        supportActionBar?.hide()
 
         button_mandala.setOnClickListener {
             val intent = Intent(this,MandalaChartHomeActivity::class.java)
@@ -24,11 +24,10 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this,BrainstormingHomeActivity::class.java)
             startActivity(intent)
         }
-
     }
+
 
     override fun onBackPressed(){
         super.onBackPressed()
-
     }
 }
