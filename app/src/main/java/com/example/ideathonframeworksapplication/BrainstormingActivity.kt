@@ -25,6 +25,7 @@ class BrainstormingActivity : AppCompatActivity() {
     var timeValue=0
     var passedTime=0
     var words:ArrayList<String> =arrayListOf()
+    var wordss:ArrayList<Array<String>> = arrayListOf()
     var genres:ArrayList<String> =arrayListOf()
     var bls:ArrayList<LinearLayout> =arrayListOf()
     var chooseIndex=0
@@ -59,6 +60,19 @@ class BrainstormingActivity : AppCompatActivity() {
 
 
         val vg = findViewById<View>(R.id.BoardParentLayout) as LinearLayout
+
+        /* Multidimensional Array example
+        val tempArray:Array<String> = Array(2,{index -> index.toString()})
+        wordss.add(tempArray)
+
+        val tempArray2:Array<String> = Array(5,{index -> index.toString()})
+        wordss.add(tempArray2)
+
+        println("words:"+wordss[1].size)
+        */
+
+
+
 
 
 
@@ -113,10 +127,10 @@ class BrainstormingActivity : AppCompatActivity() {
         var num=1
 
 
-        /*
+
         button_add.setOnClickListener {
             if(isNotFinished) {
-                println(vg.childCount)
+                //println(vg.childCount)
                 if (addCardText.text.toString() != "") {
                     if(isOnce){
                         vg2 = LinearLayout (this)
@@ -132,6 +146,10 @@ class BrainstormingActivity : AppCompatActivity() {
                     val text = tr.getChildAt(0) as TextView
                     text.text = addCardText.text
                     words.add(addCardText.text.toString())
+
+                    val tempArray:Array<String> = arrayOf(chooseIndex.toString(),addCardText.text.toString())
+                    wordss.add(tempArray)
+
                     addCardText.setText("")
 
                     if(index==5){
@@ -142,12 +160,14 @@ class BrainstormingActivity : AppCompatActivity() {
                 isChanged=true
             }
         }
-        */
 
 
 
-        fun loadCard(){
+
+        fun loadCard(){//絶賛不具合中
+
             /*
+
             val keyTimeValue="BS_"+theme+"_timeValue"
             val keyPassedTime="BS_"+theme+"_passedTime"
             timeValue=dataStore.getInt(keyTimeValue,0)
@@ -192,7 +212,14 @@ class BrainstormingActivity : AppCompatActivity() {
             saveManage(false)
             */
 
-            getLayoutInflater().inflate(R.layout.brainstorming_card,(bls[chooseIndex-1].getChildAt(1)as ScrollView).getChildAt(0)as LinearLayout)
+            //getLayoutInflater().inflate(R.layout.brainstorming_card,(bls[chooseIndex-1].getChildAt(1)as ScrollView).getChildAt(0)as LinearLayout)
+
+            println("wordss.size:"+wordss.size)
+            for(i in(0..wordss.size-1)){
+                println(wordss[i][0])
+                println(wordss[i][1])
+            }
+
         }
 
 
