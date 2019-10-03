@@ -159,6 +159,10 @@ class BrainstormingActivity : AppCompatActivity() {
                 }
                 isChanged=true
             }
+
+            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(vg.windowToken, 0)
+
         }
 
 
