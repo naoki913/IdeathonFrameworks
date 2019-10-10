@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
@@ -20,6 +21,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
 
+const val DELTA_3x3=0.31944444444
+const val DELTA_9x9=0.11111111111
 
 class MandalaChartActivity : AppCompatActivity() {
 
@@ -38,7 +41,9 @@ class MandalaChartActivity : AppCompatActivity() {
     var base:Int =0
     val zoom:ArrayList<EditText> =arrayListOf()
     lateinit var mScaleGestureDetector: ScaleGestureDetector
-    var mScaleFactor = 2.0f
+    var width:Int=0
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +59,10 @@ class MandalaChartActivity : AppCompatActivity() {
         dataStore =getSharedPreferences("DataStore", Context.MODE_PRIVATE)
         editor = dataStore.edit()
         println(editor)
+
+        val dm = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(dm)
+        val width = dm.widthPixels
 
         vg = findViewById<View>(R.id.TableLayout) as ViewGroup
         isNew=intent.getBooleanExtra("MC_IS_NEW",true)
@@ -76,11 +85,7 @@ class MandalaChartActivity : AppCompatActivity() {
 
         button_down.setOnClickListener {
 
-            for(i in(0..zoom.size-1)){
-                //zoom[i].setEms(2)
-                zoom[i].setHeight(100)
-                zoom[i].setWidth(100)
-            }
+
         }
 
         button_next.setOnClickListener {
@@ -242,7 +247,7 @@ class MandalaChartActivity : AppCompatActivity() {
 
         getLayoutInflater().inflate(R.layout.mandala_chart_table, hscr)
         zoom.clear()
-        base=345
+        base=(DELTA_3x3*width).toInt()
         zoomSeekBar.setProgress(0)
         zoomSeekBar.setMax(325)
 
@@ -305,17 +310,19 @@ class MandalaChartActivity : AppCompatActivity() {
         isExtended=dataStore.getBoolean(keyIsExtended,false)
         println(isExtended)
         zoom.clear()
+
+
         when(isExtended){
             true->{
-                base=120
+                base=(DELTA_9x9*width).toInt()
                 zoomSeekBar.setProgress(0)
-                zoomSeekBar.setMax(550)
+                zoomSeekBar.setMax(500)
                 loadBoard_9x9()
             }
             false->{
-                base=345
+                base=(DELTA_3x3*width).toInt()
                 zoomSeekBar.setProgress(0)
-                zoomSeekBar.setMax(325)
+                zoomSeekBar.setMax(500)
                 loadBoard_3x3()
             }
         }
@@ -466,7 +473,7 @@ class MandalaChartActivity : AppCompatActivity() {
         println("OK")
         vg.removeAllViews()
         zoom.clear()
-        base=120
+        base=(DELTA_9x9*width).toInt()
         zoomSeekBar.setProgress(0)
         zoomSeekBar.setMax(550)
         getLayoutInflater().inflate(R.layout.mandala_chart_table_9x9, vg)
