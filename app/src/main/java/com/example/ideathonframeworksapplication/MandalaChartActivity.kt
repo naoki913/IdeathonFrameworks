@@ -15,6 +15,9 @@ import android.widget.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_mandala_chart.*
 import org.json.JSONArray
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
 
 
@@ -66,14 +69,9 @@ class MandalaChartActivity : AppCompatActivity() {
         }
 
         button_up.setOnClickListener {
-            println(mScaleFactor)
-            /*
-            scale=(120+150)
-            for (i in (0 .. zoom.size-1)){
-                zoom[i].setHeight(scale)
-                zoom[i].setWidth(scale)
-            }
-            */
+            val saveDate:String
+            saveDate=getToday()
+            println(saveDate)
         }
 
         button_down.setOnClickListener {
@@ -147,6 +145,11 @@ class MandalaChartActivity : AppCompatActivity() {
     }
 
     fun save(){
+        val saveDate:String
+        saveDate=getToday()
+        println(saveDate)
+
+
         val gson= Gson()
         var jsonString:String
         when(isExtended){
@@ -549,6 +552,30 @@ class MandalaChartActivity : AppCompatActivity() {
             zoom[i].setWidth(scale)
         }
         println("setScale:scale:"+scale)
+    }
+
+    fun getToday(): String {
+
+        /*
+        val date = Date()
+        println("Locale.getDefault()"+Locale.getDefault())
+        val format = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault())
+        return format.format(date)
+        */
+
+        val calendar = Calendar.getInstance(TimeZone.getDefault(),Locale.getDefault())
+        val year=calendar.get(Calendar.YEAR)
+        val month=calendar.get(Calendar.MONTH)+1
+        val day=calendar.get(Calendar.DATE)
+        val hour=calendar.get(Calendar.HOUR_OF_DAY)
+        val minute=calendar.get(Calendar.MINUTE)
+        val second=calendar.get(Calendar.SECOND)
+        val offset = calendar.get(Calendar.ZONE_OFFSET) + calendar.get(Calendar.DST_OFFSET)
+
+        val date:String="最終更新日："+year +"/"+month+"/"+day+" "+(hour+offset)+":"+minute+":"+second
+
+
+        return date
     }
 
 
