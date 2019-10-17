@@ -8,6 +8,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/button"
+                android:textAllCaps="false"
         />
         <TextView
                 android:text="TextView"
@@ -17,6 +18,7 @@
                 android:text="deleat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-        android:id="@+id/button_deleat"/>
+                android:id="@+id/button_deleat"
+                android:textAllCaps="false"/>
     </LinearLayout>
 </TableRow>

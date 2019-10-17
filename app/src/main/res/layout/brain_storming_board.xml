@@ -8,7 +8,8 @@
     <Button
             android:text="ジャンル名"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/button2"/>
+            android:layout_height="wrap_content" android:id="@+id/button2"
+            android:textAllCaps="false"/>
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="350dp">

@@ -5,7 +5,8 @@
         <Button
                 android:text="Button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/button" android:layout_weight="1"/>
+                android:layout_height="wrap_content" android:id="@+id/button" android:layout_weight="1"
+                android:textAllCaps="false"/>
         <TextView
                 android:text="TextView"
                 android:layout_width="wrap_content"
@@ -13,8 +14,8 @@
         <Button
                 android:text="deleat"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/button_deleat" android:layout_weight="1"/>
-
+                android:layout_height="wrap_content" android:id="@+id/button_deleat" android:layout_weight="1"
+                android:textAllCaps="false"/>
     </LinearLayout>
 
 </TableRow>

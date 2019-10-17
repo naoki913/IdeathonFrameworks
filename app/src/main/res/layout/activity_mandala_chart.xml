@@ -17,19 +17,23 @@
             <Button
                     android:text="Save"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/button_save"/>
+                    android:layout_height="wrap_content" android:id="@+id/button_save"
+                    android:textAllCaps="false"/>
             <Button
                     android:text="up"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/button_up"/>
+                    android:layout_height="wrap_content" android:id="@+id/button_up"
+                    android:textAllCaps="false"/>
             <Button
                     android:text="down"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/button_down" android:layout_weight="1"/>
+                    android:layout_height="wrap_content" android:id="@+id/button_down" android:layout_weight="1"
+                    android:textAllCaps="false"/>
             <Button
                     android:text="Next"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/button_next" android:layout_weight="1"/>
+                    android:layout_height="wrap_content" android:id="@+id/button_next" android:layout_weight="1"
+                    android:textAllCaps="false"/>
         </LinearLayout>
         <TableLayout
                 android:layout_width="wrap_content"
