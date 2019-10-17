@@ -62,7 +62,7 @@ class MandalaChartActivity : AppCompatActivity() {
 
         val dm = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(dm)
-        val width = dm.widthPixels
+        width = dm.widthPixels
 
         vg = findViewById<View>(R.id.TableLayout) as ViewGroup
         isNew=intent.getBooleanExtra("MC_IS_NEW",true)
