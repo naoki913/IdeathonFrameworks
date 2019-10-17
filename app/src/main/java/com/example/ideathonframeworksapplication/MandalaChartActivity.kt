@@ -562,27 +562,10 @@ class MandalaChartActivity : AppCompatActivity() {
     }
 
     fun getToday(): String {
-
-        /*
         val date = Date()
         println("Locale.getDefault()"+Locale.getDefault())
         val format = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault())
         return format.format(date)
-        */
-
-        val calendar = Calendar.getInstance(TimeZone.getDefault(),Locale.getDefault())
-        val year=calendar.get(Calendar.YEAR)
-        val month=calendar.get(Calendar.MONTH)+1
-        val day=calendar.get(Calendar.DATE)
-        val hour=calendar.get(Calendar.HOUR_OF_DAY)
-        val minute=calendar.get(Calendar.MINUTE)
-        val second=calendar.get(Calendar.SECOND)
-        val offset = calendar.get(Calendar.ZONE_OFFSET) + calendar.get(Calendar.DST_OFFSET)
-
-        val date:String="最終更新日："+year +"/"+month+"/"+day+" "+(hour+offset)+":"+minute+":"+second
-
-
-        return date
     }
 
 
