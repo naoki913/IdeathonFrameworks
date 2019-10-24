@@ -52,7 +52,7 @@ class BrainstormingActivity : AppCompatActivity() {
         val min=intent.getIntExtra("MIN",0)
         val sec=intent.getIntExtra("SEC",0)
         theme=intent.getStringExtra("BS_THEME_KEY")
-        isNew=intent.getBooleanExtra("MC_IS_NEW",true)
+        isNew=intent.getBooleanExtra("BS_IS_NEW",true)
 
         timeValue=min*60+sec
         textView_time.text=timeValue.toString()
@@ -239,12 +239,16 @@ class BrainstormingActivity : AppCompatActivity() {
     }
 
     fun saveManage(_isFinish:Boolean){
+        theme="BS_"+theme
+        println("savemanage")
         if(isFirstSave&&isNew){
             //add theme
             val  themes : ArrayList<String> = arrayListOf()
-            val jsonTempArray = JSONArray(dataStore.getString("BS_theme","[]"))
+            val jsonTempArray = JSONArray(dataStore.getString("theme","[]"))
             for(t in 0 .. jsonTempArray.length()-1) {
                 themes.add(jsonTempArray.get(t).toString())
+                println("jsonTempArray.get(t).toString():"+jsonTempArray.get(t).toString())
+                println("theme:"+theme)
                 if(jsonTempArray.get(t).toString()==theme){
                     isAlreadyTheme=true
                 }
@@ -262,9 +266,12 @@ class BrainstormingActivity : AppCompatActivity() {
 
                     themes.remove(theme)
 
+
+
                     themes.add(theme)
                     val jsonArray = JSONArray(themes)
                     editor.putString("BS_theme",jsonArray.toString())
+                    editor.putString("theme",jsonArray.toString())
                     editor.apply()
 
                     isFirstSave=false
@@ -279,9 +286,12 @@ class BrainstormingActivity : AppCompatActivity() {
                 dialog.show()
             }
             else{
+
+
                 themes.add(theme)
                 val jsonArray = JSONArray(themes)
-                editor.putString("BS_theme",jsonArray.toString())
+                //editor.putString("BS_theme",jsonArray.toString())
+                editor.putString("theme",jsonArray.toString())
                 editor.apply()
 
                 save()
@@ -339,6 +349,7 @@ class BrainstormingActivity : AppCompatActivity() {
             dialog.setTitle("データを保存しますか？")
             dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
                 // OKボタン押したときの処理
+                println("back")
                 saveManage(true)
             })
             dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { _, _->

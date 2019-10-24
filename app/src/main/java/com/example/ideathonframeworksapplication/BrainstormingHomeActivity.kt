@@ -78,6 +78,7 @@ class BrainstormingHomeActivity : AppCompatActivity() {
                 intent.putExtra("MIN",LimitTimeMinText.text.toString().toInt())
                 intent.putExtra("SEC",LimitTimeSecText.text.toString().toInt())
                 intent.putExtra("BS_THEME_KEY",themeText.text.toString())
+                intent.putExtra("BS_IS_NEW",true)
 
                 startActivity(intent)
             }
@@ -102,9 +103,9 @@ class BrainstormingHomeActivity : AppCompatActivity() {
             val tr=vg.getChildAt(t) as TableRow
             val ll=tr.getChildAt(0) as LinearLayout
 
-            (ll.getChildAt(0)as Button).setText(themes[t])
+            (ll.getChildAt(0)as Button).setText(themes[t].substring(3))
             (ll.getChildAt(0)as Button).setOnClickListener {
-                intent.putExtra("MC_IS_NEW",false)
+                intent.putExtra("BS_IS_NEW",false)
                 intent.putExtra("BS_THEME_KEY",themes[t])
                 startActivity(intent)
                 //println(themes[t])
@@ -123,6 +124,7 @@ class BrainstormingHomeActivity : AppCompatActivity() {
                 onResume()
             }
         }
+        println(themes)
     }
 
 

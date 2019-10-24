@@ -176,10 +176,12 @@ class MandalaChartActivity : AppCompatActivity() {
 
 
     fun saveManage(_isFinish:Boolean){
+        theme="MC_"+theme
+
         if(isFirstSave&&isNew){
             //add theme
             val  themes : ArrayList<String> = arrayListOf()
-            val jsonTempArray = JSONArray(dataStore.getString("MC_theme","[]"))
+            val jsonTempArray = JSONArray(dataStore.getString("theme","[]"))
             for(t in 0 .. jsonTempArray.length()-1) {
                 themes.add(jsonTempArray.get(t).toString())
                 if(jsonTempArray.get(t).toString()==theme){
@@ -198,9 +200,11 @@ class MandalaChartActivity : AppCompatActivity() {
                     // OKボタン押したときの処理
 
                     themes.remove(theme)
+
                     themes.add(theme)
                     val jsonArray = JSONArray(themes)
                     editor.putString("MC_theme",jsonArray.toString())
+                    editor.putString("theme",jsonArray.toString())
                     editor.apply()
 
                     isFirstSave=false
@@ -214,9 +218,12 @@ class MandalaChartActivity : AppCompatActivity() {
                 dialog.show()
             }
             else{
+
+
                 themes.add(theme)
                 val jsonArray = JSONArray(themes)
                 editor.putString("MC_theme",jsonArray.toString())
+                editor.putString("theme",jsonArray.toString())
                 editor.apply()
 
                 save()
