@@ -5,80 +5,87 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".BrainstormingActivity">
+        tools:context=".BrainstormingActivity" android:id="@+id/Constraint">
 
-    <TextView
-            android:text="残り"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView3" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.173" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.038" android:textSize="24sp"/>
-    <TextView
-            android:text="time"
-            android:layout_width="100dp"
-            android:layout_height="39dp"
-            android:id="@+id/textView_time" app:layout_constraintStart_toEndOf="@+id/textView3"
-            android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_bias="0.226"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="@+id/textView3"
-            app:layout_constraintBottom_toBottomOf="@+id/textView3" app:layout_constraintVertical_bias="0.0"
-            android:inputType="numberSigned"/>
-    <Button
-            android:text="add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button_add"
-            android:textAllCaps="false"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.95" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_bias="0.958" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"/>
-    <HorizontalScrollView
-            android:layout_width="0dp"
-            android:layout_height="648dp"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.483"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_time" app:layout_constraintVertical_bias="0.0"
-            android:id="@+id/horizontalScrollView">
-        <LinearLayout
-                android:orientation="horizontal"
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:text="time"
+                android:layout_width="100dp"
+                android:layout_height="39dp"
+                android:id="@+id/textView_time"
+                android:inputType="numberSigned"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/addCardText" app:layout_constraintVertical_bias="0.043"/>
+        <EditText
+                android:layout_width="277dp"
+                android:layout_height="42dp"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/addCardText"
+                app:layout_constraintStart_toEndOf="@+id/horizontalScrollView"
+                app:layout_constraintHorizontal_bias="1.0" app:layout_constraintEnd_toStartOf="@+id/button_add"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.947"/>
+        <HorizontalScrollView
+                android:layout_width="0dp"
+                android:layout_height="648dp"
+                android:id="@+id/horizontalScrollView"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/addCardText" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/BoardParentLayout"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
+                    android:layout_marginTop="32dp"/>
+        </HorizontalScrollView>
+        <Button
+                android:text="add"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/BoardParentLayout"
-                android:layout_marginEnd="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginLeft="8dp" android:layout_marginStart="8dp"
-                android:layout_marginTop="32dp"/>
-    </HorizontalScrollView>
-    <EditText
-            android:layout_width="277dp"
-            android:layout_height="42dp"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/addCardText" android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.958"
-            android:layout_marginStart="16dp" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="16dp" app:layout_constraintTop_toTopOf="parent"/>
-    <Button
-            android:text="save"
-            android:layout_width="60dp"
-            android:layout_height="33dp"
-            android:id="@+id/button_save"
-            android:textAllCaps="false"
-            app:layout_constraintStart_toEndOf="@+id/textView_time"
-            app:layout_constraintHorizontal_bias="0.123" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
-            app:layout_constraintVertical_bias="0.787"/>
-    <Button
-            android:text="load"
-            android:layout_width="60dp"
-            android:layout_height="37dp" android:id="@+id/button_load"
-            android:textAllCaps="false"
-            app:layout_constraintStart_toEndOf="@+id/button_save" app:layout_constraintHorizontal_bias="0.058"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView" app:layout_constraintVertical_bias="0.896"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/button_add"
+                android:textAllCaps="false"
+                app:layout_constraintStart_toEndOf="@+id/addCardText"
+                app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toBottomOf="@+id/button_load"
+                app:layout_constraintVertical_bias="0.941"/>
+        <Button
+                android:text="save→timer"
+                android:layout_width="70dp"
+                android:layout_height="52dp"
+                android:id="@+id/button_save"
+                android:textAllCaps="false"
+                app:layout_constraintStart_toEndOf="@+id/textView_time"
+                app:layout_constraintHorizontal_bias="0.473" app:layout_constraintEnd_toStartOf="@+id/button_load"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@+id/button_add"
+                app:layout_constraintVertical_bias="0.048"/>
+        <Button
+                android:text="load"
+                android:layout_width="60dp"
+                android:layout_height="37dp" android:id="@+id/button_load"
+                android:textAllCaps="false"
+                app:layout_constraintStart_toEndOf="@+id/button_save"
+                app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.043"/>
+        <TextView
+                android:text="残り"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView3"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@+id/horizontalScrollView"
+                app:layout_constraintHorizontal_bias="0.494" app:layout_constraintEnd_toStartOf="@+id/textView_time"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@+id/addCardText"
+                app:layout_constraintVertical_bias="0.053"/>
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

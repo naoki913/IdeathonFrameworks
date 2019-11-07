@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.support.v4.app.Fragment
 import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
@@ -34,6 +35,7 @@ class BrainstormingActivity : AppCompatActivity() {
     lateinit var dataStore: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
     var isFirstSave:Boolean = true
+    var isTimerStart : Boolean =false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,10 +82,13 @@ class BrainstormingActivity : AppCompatActivity() {
         }
 
         runnable= object :Runnable{
-            override fun run(){
-                time2Text(timeValue-passedTime).let{
-                    if(it=="null") {
-                    }
+            override fun run() {
+
+                if (isTimerStart) {
+                    time2Text(timeValue - passedTime).let {
+                        if (it == "null") {
+                        }
+
                     else if(it=="00:00:00"){
                         textView_time.text = it
                         passedTime++
@@ -96,12 +101,13 @@ class BrainstormingActivity : AppCompatActivity() {
                         isNotFinished=false
                         addCardText.setKeyListener(null)
                     }
-                    else{
-                        textView_time.text = it
-                        passedTime++
+                        else {
+                            textView_time.text = it
+                            passedTime++
+                        }
                     }
+                    handler.postDelayed(this, 1000)
                 }
-                handler.postDelayed(this,1000)
             }
         }
         start()
@@ -194,17 +200,17 @@ class BrainstormingActivity : AppCompatActivity() {
         }
 
         button_save.setOnClickListener {
+            val transaction = supportFragmentManager.beginTransaction()
+            val frag=SetTimerFragment.newInstance()
+            transaction.add(R.id.Constraint,frag)
+            transaction.commit()
             /*
-            println(words)
-            saveManage(false)
-            */
-            //getLayoutInflater().inflate(R.layout.brainstorming_card,(bls[chooseIndex-1].getChildAt(1)as ScrollView).getChildAt(0)as LinearLayout)
-
             println("wordss.size:"+wordss.size)
             for(i in(0..wordss.size-1)){
                 println(wordss[i][0])
                 println(wordss[i][1])
             }
+            */
         }
 
 
