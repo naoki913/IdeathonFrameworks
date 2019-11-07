@@ -4,7 +4,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context=".SetMandalaFragment"
-             android:background="#8FADCDCD"
+             android:background="#FFADCDCD"
 >
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -39,5 +39,11 @@
                 android:id="@+id/mandalaStart" app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toBottomOf="@+id/textView9"/>
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                tools:layout_editor_absoluteY="157dp" tools:layout_editor_absoluteX="98dp" android:id="@+id/themeText"/>
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

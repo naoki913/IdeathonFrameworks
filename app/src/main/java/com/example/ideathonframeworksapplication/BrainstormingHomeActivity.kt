@@ -38,6 +38,7 @@ class BrainstormingHomeActivity : AppCompatActivity() {
         supportActionBar?.title="Brainstorming"
         val intent= Intent(this,BrainstormingActivity::class.java)
 
+
         dataStore=getSharedPreferences("DataStore", Context.MODE_PRIVATE)
         editor=dataStore.edit()
         vg = findViewById<View>(R.id.TableLayout) as ViewGroup

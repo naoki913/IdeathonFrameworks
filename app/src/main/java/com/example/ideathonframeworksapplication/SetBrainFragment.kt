@@ -5,9 +5,11 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import kotlinx.android.synthetic.main.fragment_set_brain.*
 import kotlinx.android.synthetic.main.fragment_set_brain.view.*
 
@@ -47,10 +49,33 @@ class SetBrainFragment : Fragment() {
         // Inflate the layout for this fragment
         val r=inflater.inflate(R.layout.fragment_set_brain, container, false)
 
+        r.themeText.setOnKeyListener { v, keyCode, event ->
+            if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                val inputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
+                true
+            } else {
+                false
+            }
+        }
 
         r.brainStart.setOnClickListener{
+            if(themeText.length()!=0){
+                val intent= Intent(activity,BrainstormingActivity::class.java)
+                intent.putExtra("BS_THEME_KEY",themeText.text.toString())
+                intent.putExtra("BS_IS_NEW",true)
+
+                startActivity(intent)
+            }
+            else{
+                themeText.setError("テーマを入力してください")
+            }
+
+
+            /*
             val intent = Intent(activity,BrainstormingHomeActivity::class.java)
             startActivity(intent)
+            */
         }
 
 

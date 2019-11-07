@@ -1,12 +1,18 @@
 package com.example.ideathonframeworksapplication
 
+import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat.getSystemService
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import kotlinx.android.synthetic.main.activity_mandala_chart_home.*
 import kotlinx.android.synthetic.main.fragment_set_mandala.view.*
 
 
@@ -45,10 +51,36 @@ class SetMandalaFragment : Fragment() {
 
         val r=inflater.inflate(R.layout.fragment_set_mandala, container, false)
 
+        r.themeText.setOnKeyListener { v, keyCode, event ->
+            if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                val inputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
+                true
+            } else {
+                false
+            }
+        }
+
 
         r.mandalaStart.setOnClickListener {
+            if(themeText.length()!=0){
+                val intent= Intent(activity,MandalaChartActivity::class.java)
+                println(themeText.text)
+                intent.putExtra("MC_IS_NEW",true)
+                intent.putExtra("MC_THEME_KEY",themeText.text.toString())
+
+                startActivity(intent)
+            }
+            else{
+                themeText.setError("テーマを入力してください")
+            }
+
+
+
+            /*
             val intent = Intent(activity,MandalaChartHomeActivity::class.java)
             startActivity(intent)
+            */
         }
 
 
