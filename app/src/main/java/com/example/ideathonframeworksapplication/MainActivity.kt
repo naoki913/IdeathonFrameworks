@@ -5,6 +5,10 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.ViewPager
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
@@ -30,14 +34,49 @@ class MainActivity : AppCompatActivity() {
         editor=dataStore.edit()
         vg = findViewById<View>(R.id.TableLayout) as ViewGroup
 
+        val transaction = supportFragmentManager.beginTransaction()
+        lateinit var frag : Fragment
+
         button_mandala.setOnClickListener {
+            val pager : ViewPager = findViewById<ViewPager>(R.id.pager)
+            val fragmentManager : FragmentManager = supportFragmentManager
+            val adapter = SetModePager(fragmentManager)
+            pager.adapter=adapter
+
+
+
+
+            /*
+            if(savedInstanceState==null){
+                println("A")
+                //val transaction = supportFragmentManager.beginTransaction()
+                frag=SetModeFragment.createInstance(this)
+                transaction.add(R.id.Constraint,frag)
+                transaction.commit()
+            }
+            */
+
+
+
+            /*
             val intent = Intent(this,MandalaChartHomeActivity::class.java)
             startActivity(intent)
+            */
         }
 
         button_bs.setOnClickListener {
+            println("B")
+            /*
+            transaction.remove(frag)
+            transaction.commit()
+            */
+
+
+
+
             val intent = Intent(this,BrainstormingHomeActivity::class.java)
             startActivity(intent)
+
         }
     }
     override fun onResume(){
