@@ -53,12 +53,12 @@ class SetModeFragment : Fragment() {
 
 
         val pager : ViewPager = r.findViewById<ViewPager>(R.id.pager)
-        val fragmentManager : FragmentManager = ac.supportFragmentManager
+        val fragmentManager : FragmentManager = childFragmentManager//ac.supportFragmentManager
         val adapter = SetModePager(fragmentManager)
         pager.adapter=adapter
 
 
-        activity
+
 
         // Inflate the layout for this fragment
         return r

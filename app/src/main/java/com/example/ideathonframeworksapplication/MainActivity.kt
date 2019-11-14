@@ -9,13 +9,13 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
+import android.support.v7.widget.Toolbar
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TableRow
-import android.widget.TextView
+import android.widget.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONArray
 
@@ -28,7 +28,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        supportActionBar?.hide()
+        //supportActionBar?.hide()
+        val toolbar =findViewById<Toolbar>(R.id.tool_bar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title="アイデア一覧"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
 
         dataStore=getSharedPreferences("DataStore", Context.MODE_PRIVATE)
         editor=dataStore.edit()
@@ -38,12 +43,12 @@ class MainActivity : AppCompatActivity() {
         lateinit var frag : Fragment
 
         button_mandala.setOnClickListener {
-
+/*
             val pager : ViewPager = findViewById<ViewPager>(R.id.pager)
             val fragmentManager : FragmentManager = supportFragmentManager
             val adapter = SetModePager(fragmentManager)
             pager.adapter=adapter
-
+*/
 
 
 
@@ -152,6 +157,24 @@ class MainActivity : AppCompatActivity() {
         }
         println("themes:"+themes)
 
+    }
+
+    //Menu
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        getMenuInflater().inflate(R.menu.menu_brain, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        val id= item!!.itemId
+        if(id==R.id.action_settings){
+            println(1)
+        }
+        else if(id==R.id.action_settings2){
+            println(2)
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 

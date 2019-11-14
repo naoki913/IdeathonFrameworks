@@ -3,34 +3,37 @@
              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".SetModeFragment" android:background="#FFFFFF">
+             tools:context=".SetModeFragment" android:background="#FFFFFFFF">
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <TextView
-                android:text="考えるテーマ"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView11"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@+id/pager"/>
-        <android.support.v4.view.ViewPager
-                android:layout_width="373dp"
-                android:layout_height="388dp" android:id="@+id/pager"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintHorizontal_bias="0.578" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.708"/>
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:ems="10"
                 android:id="@+id/editText"
+                android:hint="考える内容を入力"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toBottomOf="@+id/textView11"
-                app:layout_constraintBottom_toTopOf="@+id/pager" app:layout_constraintVertical_bias="0.208"
-                android:hint="考える内容を入力"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.224"/>
+        <TextView
+                android:text="考えるテーマ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/textView11"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.147"/>
+        <android.support.v4.view.ViewPager
+                android:layout_width="338dp"
+                android:layout_height="383dp" android:id="@+id/pager"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.578"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.696"
+        >
+        </android.support.v4.view.ViewPager>
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

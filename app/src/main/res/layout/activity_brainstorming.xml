@@ -6,10 +6,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".BrainstormingActivity" android:id="@+id/Constraint">
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/tool_bar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            android:minHeight="?attr/actionBarSize"
+            android:background="#E9E9E9" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" app:layout_constraintBottom_toBottomOf="parent">
+    </android.support.v7.widget.Toolbar>
 
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent" android:id="@+id/constraintLayout">
 
         <TextView
                 android:text="time"
@@ -17,9 +28,9 @@
                 android:layout_height="39dp"
                 android:id="@+id/textView_time"
                 android:inputType="numberSigned"
-                app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.311"
                 app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/addCardText" app:layout_constraintVertical_bias="0.043"/>
+                app:layout_constraintBottom_toTopOf="@+id/addCardText" app:layout_constraintVertical_bias="0.115"/>
         <EditText
                 android:layout_width="277dp"
                 android:layout_height="42dp"
@@ -32,12 +43,13 @@
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintVertical_bias="0.947"/>
         <HorizontalScrollView
-                android:layout_width="0dp"
-                android:layout_height="648dp"
+                android:layout_width="404dp"
+                android:layout_height="522dp"
                 android:id="@+id/horizontalScrollView"
-                app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintEnd_toStartOf="@+id/addCardText" app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.497"
+        >
             <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
@@ -64,19 +76,19 @@
                 android:layout_height="52dp"
                 android:id="@+id/button_save"
                 android:textAllCaps="false"
-                app:layout_constraintStart_toEndOf="@+id/textView_time"
-                app:layout_constraintHorizontal_bias="0.473" app:layout_constraintEnd_toStartOf="@+id/button_load"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@+id/button_add"
-                app:layout_constraintVertical_bias="0.048"/>
+                app:layout_constraintHorizontal_bias="0.677"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.083" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
         <Button
                 android:text="load"
                 android:layout_width="60dp"
                 android:layout_height="37dp" android:id="@+id/button_load"
                 android:textAllCaps="false"
                 app:layout_constraintStart_toEndOf="@+id/button_save"
-                app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.043"/>
+                app:layout_constraintVertical_bias="0.095"/>
         <TextView
                 android:text="残り"
                 android:layout_width="wrap_content"
@@ -84,8 +96,8 @@
                 android:id="@+id/textView3"
                 android:textSize="24sp"
                 app:layout_constraintStart_toEndOf="@+id/horizontalScrollView"
-                app:layout_constraintHorizontal_bias="0.494" app:layout_constraintEnd_toStartOf="@+id/textView_time"
+                app:layout_constraintHorizontal_bias="1.0" app:layout_constraintEnd_toStartOf="@+id/textView_time"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toTopOf="@+id/addCardText"
-                app:layout_constraintVertical_bias="0.053"/>
+                app:layout_constraintVertical_bias="0.115"/>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

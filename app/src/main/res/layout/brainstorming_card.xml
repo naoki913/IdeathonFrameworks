@@ -1,11 +1,11 @@
 <TableRow
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-         xmlns:android="http://schemas.android.com/apk/res/android">
+        android:layout_height="wrap_content" android:background="#CBB83636">
     <TextView
             android:text="card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="91dp"
+            android:layout_height="77dp"
             android:id="@+id/textView5"
     />
-    </TableRow>
+</TableRow>

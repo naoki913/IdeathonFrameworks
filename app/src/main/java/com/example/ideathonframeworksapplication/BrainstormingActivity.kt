@@ -41,7 +41,7 @@ class BrainstormingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_brainstorming)
 
-        supportActionBar?.hide()
+        //supportActionBar?.hide()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title="BrainStorming"
 
@@ -131,6 +131,7 @@ class BrainstormingActivity : AppCompatActivity() {
             if(isNotFinished) {
                 //println(vg.childCount)
                 if (addCardText.text.toString() != "") {
+                    /*
                     if(isOnce){
                         vg2 = LinearLayout (this)
                         vg2.setOrientation ( LinearLayout.VERTICAL)
@@ -139,6 +140,8 @@ class BrainstormingActivity : AppCompatActivity() {
                     }
 
                     val index = vg2.childCount
+                    */
+                    val index=chooseIndex
 
                     getLayoutInflater().inflate(R.layout.brainstorming_card, vg2)
                     val tr = vg2.getChildAt(index) as TableRow
@@ -349,7 +352,6 @@ class BrainstormingActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
         if(isChanged==true){
             val dialog = android.support.v7.app.AlertDialog.Builder(this)
             dialog.setTitle("データを保存しますか？")
