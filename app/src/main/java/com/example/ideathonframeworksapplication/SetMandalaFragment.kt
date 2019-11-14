@@ -47,7 +47,7 @@ class SetMandalaFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+        ): View? {
 
         val r=inflater.inflate(R.layout.fragment_set_mandala, container, false)
 
@@ -142,5 +142,8 @@ class SetMandalaFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+        fun newInstance()=SetMandalaFragment().apply{
+
+        }
     }
 }

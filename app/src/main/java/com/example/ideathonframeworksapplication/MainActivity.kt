@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         lateinit var frag : Fragment
 
         button_mandala.setOnClickListener {
+
             val pager : ViewPager = findViewById<ViewPager>(R.id.pager)
             val fragmentManager : FragmentManager = supportFragmentManager
             val adapter = SetModePager(fragmentManager)
@@ -46,15 +47,15 @@ class MainActivity : AppCompatActivity() {
 
 
 
-            /*
+
             if(savedInstanceState==null){
                 println("A")
-                //val transaction = supportFragmentManager.beginTransaction()
-                frag=SetModeFragment.createInstance(this)
+                val transaction = supportFragmentManager.beginTransaction()
+                frag=SetModeFragment.newInstance()
                 transaction.add(R.id.Constraint,frag)
                 transaction.commit()
             }
-            */
+
 
 
 

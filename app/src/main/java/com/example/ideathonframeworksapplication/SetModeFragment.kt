@@ -1,12 +1,16 @@
 package com.example.ideathonframeworksapplication
 
+import android.app.Activity
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
+import android.support.v4.app.FragmentManager
+import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_set_timer.view.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -17,17 +21,19 @@ private const val ARG_PARAM2 = "param2"
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [SetTimerFragment.OnFragmentInteractionListener] interface
+ * [SetModeFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [SetTimerFragment.newInstance] factory method to
+ * Use the [SetModeFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class SetTimerFragment : Fragment() {
+class SetModeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+
+    private lateinit var myContext: FragmentActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,17 +47,20 @@ class SetTimerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val r=inflater.inflate(R.layout.fragment_set_mode, container, false)
+
+        val ac=activity as FragmentActivity
+
+
+        val pager : ViewPager = r.findViewById<ViewPager>(R.id.pager)
+        val fragmentManager : FragmentManager = ac.supportFragmentManager
+        val adapter = SetModePager(fragmentManager)
+        pager.adapter=adapter
+
+
+        activity
+
         // Inflate the layout for this fragment
-        val r=inflater.inflate(R.layout.fragment_set_timer, container, false)
-
-        r.HourPicker.maxValue=59
-        r.HourPicker.minValue=0
-        r.MinutePicker.maxValue=59
-        r.MinutePicker.minValue=0
-        r.SecondPicker.maxValue=59
-        r.SecondPicker.minValue=0
-
-
         return r
     }
 
@@ -59,8 +68,14 @@ class SetTimerFragment : Fragment() {
     fun onButtonPressed(uri: Uri) {
         listener?.onFragmentInteraction(uri)
     }
+/*
+    override fun onAttach(activity:Activity){
+        myContext=activity as FragmentActivity
+        super.onAttach(activity)
 
-    /*
+    }
+*/
+/*
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
@@ -69,8 +84,7 @@ class SetTimerFragment : Fragment() {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
         }
     }
-    */
-
+*/
     override fun onDetach() {
         super.onDetach()
         listener = null
@@ -99,19 +113,18 @@ class SetTimerFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment SetTimerFragment.
+         * @return A new instance of fragment SetModeFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            SetTimerFragment().apply {
+            SetModeFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
                 }
             }
-
-        fun newInstance()=SetTimerFragment().apply{
+        fun newInstance()=SetModeFragment().apply{
 
         }
     }
