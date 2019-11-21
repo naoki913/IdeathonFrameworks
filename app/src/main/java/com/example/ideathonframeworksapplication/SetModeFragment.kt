@@ -87,7 +87,7 @@ class SetModeFragment : Fragment() {
                 1->{
                     if(r.themeText.length()!=0){
                         val transaction = childFragmentManager.beginTransaction()
-                        val frag=SetTimerFragment.newInstance()
+                        val frag=SetTimerFragment.newInstance(r.themeText.text.toString())
                         transaction.add(R.id.root,frag)
                         transaction.commit()
 

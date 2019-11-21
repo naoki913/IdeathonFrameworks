@@ -59,7 +59,7 @@ class SetTimerFragment : Fragment() {
 
         r.noSet.setOnClickListener {
             val intent= Intent(activity,BrainstormingActivity::class.java)
-            intent.putExtra("BS_THEME_KEY",r.themeText.text.toString())
+            intent.putExtra("BS_THEME_KEY",param1)
             intent.putExtra("BS_IS_NEW",true)
 
             startActivity(intent)
@@ -70,7 +70,7 @@ class SetTimerFragment : Fragment() {
             intent.putExtra("Hour",r.HourPicker.value)
             intent.putExtra("MIN",r.MinutePicker.value)
             intent.putExtra("SEC",r.SecondPicker.value)
-            intent.putExtra("BS_THEME_KEY",r.themeText.text.toString())
+            intent.putExtra("BS_THEME_KEY",param1)
             intent.putExtra("BS_IS_NEW",true)
 
             startActivity(intent)
@@ -133,6 +133,13 @@ class SetTimerFragment : Fragment() {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
+                }
+            }
+
+        fun newInstance(param1: String) =
+            SetTimerFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
                 }
             }
 

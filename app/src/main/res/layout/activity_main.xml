@@ -31,7 +31,7 @@
             android:layout_height="match_parent">
         <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="216dp"
                 android:id="@+id/constaint">
 
             <TextView
@@ -45,7 +45,7 @@
                     app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintVertical_bias="0.44"/>
             <Button
-                    android:text="MandalaChart→新規作成"
+                    android:text="新規作成"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/button_mandala"
@@ -54,19 +54,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintHorizontal_bias="0.498" app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintVertical_bias="0.8"/>
-            <Button
-                    android:text="brainstorming"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/button_bs"
-                    android:textAllCaps="false"
-                    android:translationZ="0.2dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button_mandala"
-                    app:layout_constraintVertical_bias="1.0"/>
+                    app:layout_constraintVertical_bias="0.873"/>
         </android.support.constraint.ConstraintLayout>
         <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
