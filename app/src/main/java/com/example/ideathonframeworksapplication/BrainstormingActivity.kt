@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
+import android.support.v7.widget.Toolbar
 import android.view.KeyEvent
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -42,6 +44,9 @@ class BrainstormingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_brainstorming)
 
         //supportActionBar?.hide()
+        val toolbar =findViewById<Toolbar>(R.id.tool_bar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title="アイデア一覧"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title="BrainStorming"
 
@@ -333,6 +338,26 @@ class BrainstormingActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        getMenuInflater().inflate(R.menu.menu_brain, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+
+
+    /*
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        val id= item!!.itemId
+        if(id==R.id.action_settings){
+            println(1)
+        }
+        else if(id==R.id.action_settings2){
+            println(2)
+        }
+
+        return super.onOptionsItemSelected(item)
+    }*/
+
     override fun onBackPressed(){
         if(isChanged==true){
             val dialog = android.support.v7.app.AlertDialog.Builder(this)
@@ -352,22 +377,30 @@ class BrainstormingActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if(isChanged==true){
-            val dialog = android.support.v7.app.AlertDialog.Builder(this)
-            dialog.setTitle("データを保存しますか？")
-            dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
-                // OKボタン押したときの処理
-                println("back")
-                saveManage(true)
-            })
-            dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { _, _->
+        val id= item!!.itemId
+        if(id==R.id.action_settings){
+            println(1)
+        }
+        else if(id==R.id.action_settings2){
+            println(2)
+        }
+        else {
+            if (isChanged == true) {
+                val dialog = android.support.v7.app.AlertDialog.Builder(this)
+                dialog.setTitle("データを保存しますか？")
+                dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
+                    // OKボタン押したときの処理
+                    println("back")
+                    saveManage(true)
+                })
+                dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { _, _ ->
+                    finish()
+                })
+                dialog.show()
+            } else {
                 finish()
-            })
-            dialog.show()
+            }
         }
-        else{
-            finish()
-        }
-        return true
+        return super.onOptionsItemSelected(item)
     }
 }

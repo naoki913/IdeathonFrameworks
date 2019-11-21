@@ -6,11 +6,7 @@ import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.ViewPager
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -24,6 +20,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var dataStore: SharedPreferences
     lateinit var editor:SharedPreferences.Editor
     lateinit var vg:ViewGroup
+    lateinit var vg1:ViewGroup
+    lateinit var vg2:ViewGroup
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +31,14 @@ class MainActivity : AppCompatActivity() {
         val toolbar =findViewById<Toolbar>(R.id.tool_bar)
         setSupportActionBar(toolbar)
         supportActionBar?.title="アイデア一覧"
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
 
         dataStore=getSharedPreferences("DataStore", Context.MODE_PRIVATE)
         editor=dataStore.edit()
-        vg = findViewById<View>(R.id.TableLayout) as ViewGroup
+        vg = findViewById<View>(R.id.TableLayout1) as ViewGroup
+        vg1 = findViewById<View>(R.id.TableLayout1) as ViewGroup
+        vg2 = findViewById<View>(R.id.TableLayout2) as ViewGroup
 
         val transaction = supportFragmentManager.beginTransaction()
         lateinit var frag : Fragment
@@ -70,36 +71,36 @@ class MainActivity : AppCompatActivity() {
             */
         }
 
-        button_bs.setOnClickListener {
-            println("B")
-            /*
-            transaction.remove(frag)
-            transaction.commit()
-            */
 
-
-
-
-            val intent = Intent(this,BrainstormingHomeActivity::class.java)
-            startActivity(intent)
-
-        }
     }
     override fun onResume(){
         super.onResume()
 
         val jsonArray = JSONArray(dataStore.getString("theme","[]"))
-        vg.removeAllViews()
+        vg1.removeAllViews()
+        vg2.removeAllViews()
         themes.clear()
+
+
 
         for(t in 0 .. jsonArray.length()-1) {
             themes.add(jsonArray.get(t).toString())
+
+
+            if(t%2==0){
+                vg=vg1
+            }
+            else{
+                vg=vg2
+            }
+
+
 
             if(themes[t].substring(0,2)=="BS"){
                 val intent= Intent(this,BrainstormingActivity::class.java)
                 getLayoutInflater().inflate(R.layout.brain_storming_load_item, vg)
 
-                val tr=vg.getChildAt(t) as TableRow
+                val tr=vg.getChildAt(t/2) as TableRow
                 val ll=tr.getChildAt(0) as LinearLayout
 
                 (ll.getChildAt(0)as Button).setText(themes[t].substring(3))
@@ -127,7 +128,7 @@ class MainActivity : AppCompatActivity() {
                 val intent= Intent(this,MandalaChartActivity::class.java)
                 getLayoutInflater().inflate(R.layout.mandala_chart_load_item, vg)
 
-                val tr=vg.getChildAt(t) as TableRow
+                val tr=vg.getChildAt(t/2) as TableRow
                 val ll=tr.getChildAt(0) as LinearLayout
 
                 (ll.getChildAt(0)as Button).setText(themes[t].substring(3))
@@ -152,6 +153,7 @@ class MainActivity : AppCompatActivity() {
                     onResume()
                 }
             }
+
 
 
         }

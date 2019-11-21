@@ -4,64 +4,95 @@
              xmlns:app="http://schemas.android.com/apk/res-auto"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".SetTimerFragment" android:background="#88FFFFFF">
+             tools:context=".SetTimerFragment" android:background="#22050505">
 
 
     <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <NumberPicker
-                android:id="@+id/HourPicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintHorizontal_bias="0.25" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
 
-                app:layout_constraintVertical_bias="0.499"/>
-        <NumberPicker
-                android:id="@+id/SecondPicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintHorizontal_bias="0.772" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="314dp"
+                android:layout_height="403dp"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" android:background="#FFFFFF">
+            <TextView
+                    android:text="タイマー"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/textView10"
+                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.184"
+                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.135"/>
+            <NumberPicker
+                    android:id="@+id/HourPicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.25" app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
 
-                app:layout_constraintVertical_bias="0.499"/>
-        <NumberPicker
-                android:id="@+id/MinutePicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintHorizontal_bias="0.498" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0.499"/>
+            <NumberPicker
+                    android:id="@+id/SecondPicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.772" app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
 
-        />
-        <TextView
-                android:text="時"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/HourText"
-                app:layout_constraintHorizontal_bias="0.269"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.653"
-                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-        <TextView
-                android:text="分"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/MinuteText"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.653"
-                app:layout_constraintHorizontal_bias="0.498"/>
-        <TextView
-                android:text="秒"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/SecondText"
-                app:layout_constraintHorizontal_bias="0.732" app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintVertical_bias="0.653"/>
+                    app:layout_constraintVertical_bias="0.499"/>
+            <NumberPicker
+                    android:id="@+id/MinutePicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498" app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+
+            />
+            <TextView
+                    android:text="時"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/HourText"
+                    app:layout_constraintHorizontal_bias="0.269"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0.653"
+                    app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+            <TextView
+                    android:text="分"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/MinuteText"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.653"
+                    app:layout_constraintHorizontal_bias="0.498"/>
+            <TextView
+                    android:text="秒"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/SecondText"
+                    app:layout_constraintHorizontal_bias="0.732" app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintVertical_bias="0.653"/>
+            <Button
+                    android:text="タイマーなし"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/noSet" app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.358" app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0.901"/>
+            <Button
+                    android:text="スタート"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/timeSet" app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.929" app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0.901"/>
+        </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

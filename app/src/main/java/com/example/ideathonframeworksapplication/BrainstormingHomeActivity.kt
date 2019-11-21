@@ -12,11 +12,9 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TableRow
 import kotlinx.android.synthetic.main.activity_brainstorming_home.*
-import kotlinx.android.synthetic.main.activity_mandala_chart_home.*
 import kotlinx.android.synthetic.main.activity_mandala_chart_home.button_new
 import kotlinx.android.synthetic.main.activity_mandala_chart_home.themeText
 import org.json.JSONArray
-import android.view.KeyEvent.KEYCODE_BACK
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
@@ -41,7 +39,7 @@ class BrainstormingHomeActivity : AppCompatActivity() {
 
         dataStore=getSharedPreferences("DataStore", Context.MODE_PRIVATE)
         editor=dataStore.edit()
-        vg = findViewById<View>(R.id.TableLayout) as ViewGroup
+        vg = findViewById<View>(R.id.TableLayout2) as ViewGroup
 
         themeText.setOnKeyListener { v, keyCode, event ->
             if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {

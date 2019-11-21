@@ -5,8 +5,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
-import android.util.Log
 import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
@@ -17,11 +15,9 @@ import android.widget.LinearLayout
 import android.widget.TableRow
 import android.widget.TextView
 //import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_mandala_chart_home.*
 
 import org.json.JSONArray
-import kotlin.properties.Delegates
 
 class MandalaChartHomeActivity : AppCompatActivity() {
     var  themes : ArrayList<String> = arrayListOf()
@@ -41,7 +37,7 @@ class MandalaChartHomeActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title="MandalaChart"
         val intent= Intent(this,MandalaChartActivity::class.java)
-        vg = findViewById<View>(R.id.TableLayout) as ViewGroup
+        vg = findViewById<View>(R.id.TableLayout2) as ViewGroup
 
 
         println(themes)

@@ -1,11 +1,14 @@
 package com.example.ideathonframeworksapplication
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_set_mode.view.*
 import kotlinx.android.synthetic.main.fragment_set_timer.view.*
 
 
@@ -44,12 +47,34 @@ class SetTimerFragment : Fragment() {
         // Inflate the layout for this fragment
         val r=inflater.inflate(R.layout.fragment_set_timer, container, false)
 
+
+
+
         r.HourPicker.maxValue=59
         r.HourPicker.minValue=0
         r.MinutePicker.maxValue=59
         r.MinutePicker.minValue=0
         r.SecondPicker.maxValue=59
         r.SecondPicker.minValue=0
+
+        r.noSet.setOnClickListener {
+            val intent= Intent(activity,BrainstormingActivity::class.java)
+            intent.putExtra("BS_THEME_KEY",r.themeText.text.toString())
+            intent.putExtra("BS_IS_NEW",true)
+
+            startActivity(intent)
+        }
+
+        r.timeSet.setOnClickListener {
+            val intent= Intent(activity,BrainstormingActivity::class.java)
+            intent.putExtra("Hour",r.HourPicker.value)
+            intent.putExtra("MIN",r.MinutePicker.value)
+            intent.putExtra("SEC",r.SecondPicker.value)
+            intent.putExtra("BS_THEME_KEY",r.themeText.text.toString())
+            intent.putExtra("BS_IS_NEW",true)
+
+            startActivity(intent)
+        }
 
 
         return r

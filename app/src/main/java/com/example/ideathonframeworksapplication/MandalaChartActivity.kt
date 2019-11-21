@@ -64,7 +64,7 @@ class MandalaChartActivity : AppCompatActivity() {
         windowManager.defaultDisplay.getMetrics(dm)
         width = dm.widthPixels
 
-        vg = findViewById<View>(R.id.TableLayout) as ViewGroup
+        vg = findViewById<View>(R.id.TableLayout2) as ViewGroup
         isNew=intent.getBooleanExtra("MC_IS_NEW",true)
         theme=intent.getStringExtra("MC_THEME_KEY")
 
@@ -147,6 +147,14 @@ class MandalaChartActivity : AppCompatActivity() {
                 }
             }
         )
+
+
+    }
+
+    private val mOnGestureListener = object : GestureDetector.SimpleOnGestureListener(){
+
+
+
     }
 
     fun save(){
@@ -628,5 +636,7 @@ class MandalaChartActivity : AppCompatActivity() {
             finish()
         }
     }
+
+
 }
 

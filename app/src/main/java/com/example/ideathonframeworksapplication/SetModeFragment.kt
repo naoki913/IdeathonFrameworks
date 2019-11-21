@@ -2,6 +2,7 @@ package com.example.ideathonframeworksapplication
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -11,6 +12,7 @@ import android.support.v4.view.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_set_mode.view.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -56,6 +58,56 @@ class SetModeFragment : Fragment() {
         val fragmentManager : FragmentManager = childFragmentManager//ac.supportFragmentManager
         val adapter = SetModePager(fragmentManager)
         pager.adapter=adapter
+
+        val fragmentTranscation =fragmentManager.beginTransaction()
+
+
+        r.cancelButton.setOnClickListener {
+            //fragmentManager.beginTransaction().remove(this).commit()
+            fragmentTranscation.remove(this).commit()
+        }
+
+        r.createButton.setOnClickListener {
+            val mode =r.pager.currentItem
+
+            when(mode) {
+                0->{
+                    if(r.themeText.length()!=0){
+                        val intent= Intent(activity,MandalaChartActivity::class.java)
+                        intent.putExtra("MC_IS_NEW",true)
+                        intent.putExtra("MC_THEME_KEY",r.themeText.text.toString())
+
+                        startActivity(intent)
+                    }
+                    else{
+                        r.themeText.setError("テーマを入力してください")
+                    }
+
+                }
+                1->{
+                    if(r.themeText.length()!=0){
+                        val transaction = childFragmentManager.beginTransaction()
+                        val frag=SetTimerFragment.newInstance()
+                        transaction.add(R.id.root,frag)
+                        transaction.commit()
+
+
+                        /*
+                        val intent= Intent(activity,BrainstormingActivity::class.java)
+                        intent.putExtra("BS_THEME_KEY",r.themeText.text.toString())
+                        intent.putExtra("BS_IS_NEW",true)
+
+                        startActivity(intent)
+                        */
+                    }
+                    else{
+                        r.themeText.setError("テーマを入力してください")
+                    }
+                }
+
+
+            }
+        }
 
 
 

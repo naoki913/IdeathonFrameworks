@@ -49,6 +49,7 @@ class SetBrainFragment : Fragment() {
         // Inflate the layout for this fragment
         val r=inflater.inflate(R.layout.fragment_set_brain, container, false)
 
+        /*
         r.themeText.setOnKeyListener { v, keyCode, event ->
             if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                 val inputMethodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -58,7 +59,9 @@ class SetBrainFragment : Fragment() {
                 false
             }
         }
+        */
 
+        /*
         r.brainStart.setOnClickListener{
             if(themeText.length()!=0){
                 val intent= Intent(activity,BrainstormingActivity::class.java)
@@ -77,7 +80,7 @@ class SetBrainFragment : Fragment() {
             startActivity(intent)
             */
         }
-
+        */
 
 
         return r

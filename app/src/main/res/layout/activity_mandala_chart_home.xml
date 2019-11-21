@@ -44,7 +44,7 @@
                 <TableLayout
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent" android:id="@+id/TableLayout">
+                        android:layout_height="match_parent" android:id="@+id/TableLayout2">
                 </TableLayout>
             </HorizontalScrollView>
         </ScrollView>
