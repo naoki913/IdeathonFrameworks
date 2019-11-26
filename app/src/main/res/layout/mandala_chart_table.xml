@@ -1,7 +1,7 @@
 <TableLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" android:clickable="true" android:onClick="onClick">
 
     <FrameLayout android:layout_width="wrap_content">
 
@@ -26,7 +26,7 @@
                         app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                >
+                        android:clickable="true" android:onClick="onClickEditText">
 
                     <ScrollView
                             android:layout_width="wrap_content"
@@ -60,6 +60,7 @@
                                 android:text=""
                                 android:id="@+id/no2"
                                 android:ems="2"
+
                         />
                     </ScrollView>
                 </FrameLayout>
@@ -80,7 +81,8 @@
                                 android:inputType="textPersonName|textMultiLine"
                                 android:text=""
                                 android:ems="2"
-                                android:id="@+id/no3"/>
+                                android:id="@+id/no3"
+                        />
                     </ScrollView>
                 </FrameLayout>
             </TableRow>
@@ -102,7 +104,8 @@
                                 android:inputType="textPersonName|textMultiLine"
                                 android:text=""
                                 android:ems="2"
-                                android:id="@+id/no4"/>
+                                android:id="@+id/no4"
+                        />
                     </ScrollView>
                 </FrameLayout>
                 <FrameLayout
@@ -143,7 +146,9 @@
                                 android:inputType="textPersonName|textMultiLine"
                                 android:text=""
                                 android:ems="2"
-                                android:id="@+id/no6"/>
+                                android:id="@+id/no6"
+
+                        />
                     </ScrollView>
                 </FrameLayout>
             </TableRow>
@@ -165,7 +170,9 @@
                                 android:inputType="textPersonName|textMultiLine"
                                 android:text=""
                                 android:ems="2"
-                                android:id="@+id/no7"/>
+                                android:id="@+id/no7"
+
+                        />
                     </ScrollView>
                 </FrameLayout>
                 <FrameLayout
@@ -185,7 +192,9 @@
                                 android:inputType="textPersonName|textMultiLine"
                                 android:text=""
                                 android:ems="2"
-                                android:id="@+id/no8"/>
+                                android:id="@+id/no8"
+
+                        />
                     </ScrollView>
                 </FrameLayout>
                 <FrameLayout
@@ -205,7 +214,9 @@
                                 android:inputType="textPersonName|textMultiLine"
                                 android:text=""
                                 android:ems="2"
-                                android:id="@+id/no9"/>
+                                android:id="@+id/no9"
+
+                        />
                     </ScrollView>
                 </FrameLayout>
             </TableRow>

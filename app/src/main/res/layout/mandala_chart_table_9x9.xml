@@ -16,15 +16,45 @@
                           android:orientation="horizontal">
 
 
-                <include layout="@layout/mandala_chart_table"
-                         android:id="@+id/table1"
-                />
-                <include layout="@layout/mandala_chart_table"
-                         android:id="@+id/table2"
-                />
-                <include layout="@layout/mandala_chart_table"
-                         android:id="@+id/table3"
-                />
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <include layout="@layout/mandala_chart_table"
+                             android:id="@+id/table1"
+                    />
+                    <TextView
+                            android:text="TextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView1"
+                            android:onClick="onClick" android:clickable="true" android:hint="1"/>
+                </FrameLayout>
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <include layout="@layout/mandala_chart_table"
+                             android:id="@+id/table2"
+                    />
+                    <TextView
+                            android:text="TextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView2" android:clickable="true"
+                            android:onClick="onClick" android:hint="2"/>
+                </FrameLayout>
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <include layout="@layout/mandala_chart_table"
+                             android:id="@+id/table3"
+                    />
+                    <TextView
+                            android:text="TextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView3" android:clickable="true"
+                            android:onClick="onClick" android:hint="3"/>
+                </FrameLayout>
 
 
             </LinearLayout>
@@ -32,33 +62,89 @@
                           android:orientation="horizontal">
 
 
-                <include layout="@layout/mandala_chart_table"
-                         android:id="@+id/table4"
-                />
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                <include layout="@layout/mandala_chart_table"
-                         android:id="@+id/table5"
-                />
-                <include layout="@layout/mandala_chart_table"
-                         android:id="@+id/table6"
-                />
+                    <include layout="@layout/mandala_chart_table"
+                             android:id="@+id/table4"
+                    />
+                    <TextView
+                            android:text="TextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView4"
+                            android:onClick="onClick" android:clickable="true" android:hint="4"/>
+                </FrameLayout>
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
+                    <include layout="@layout/mandala_chart_table"
+                             android:id="@+id/table5"
+                    />
+                    <TextView
+                            android:text="TextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView5" android:clickable="true"
+                            android:onClick="onClick" android:hint="5"/>
+                </FrameLayout>
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <include layout="@layout/mandala_chart_table"
+                             android:id="@+id/table6"
+                    />
+                    <TextView
+                            android:text="TextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView6" android:clickable="true"
+                            android:onClick="onClick" android:hint="6"/>
+                </FrameLayout>
 
             </LinearLayout>
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
                           android:orientation="horizontal">
 
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                <include layout="@layout/mandala_chart_table"
-                         android:id="@+id/table7"
-                />
+                    <include layout="@layout/mandala_chart_table"
+                             android:id="@+id/table7"
+                    />
+                    <TextView
+                            android:text="TextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView7"
+                            android:onClick="onClick" android:clickable="true" android:hint="7"/>
+                </FrameLayout>
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                <include layout="@layout/mandala_chart_table"
-                         android:id="@+id/table8"
-                />
-                <include layout="@layout/mandala_chart_table"
-                         android:id="@+id/table9"
-                />
+                    <include layout="@layout/mandala_chart_table"
+                             android:id="@+id/table8"
+                    />
+                    <TextView
+                            android:text="TextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView8" android:clickable="true"
+                            android:onClick="onClick" android:hint="8"/>
+                </FrameLayout>
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <include layout="@layout/mandala_chart_table"
+                             android:id="@+id/table9"
+                    />
+                    <TextView
+                            android:text="TextView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/textView9" android:clickable="true"
+                            android:onClick="onClick" android:hint="9"/>
+                </FrameLayout>
 
 
             </LinearLayout>

@@ -73,7 +73,7 @@ class SetModeFragment : Fragment() {
             when(mode) {
                 0->{
                     if(r.themeText.length()!=0){
-                        val intent= Intent(activity,MandalaChartActivity::class.java)
+                        val intent= Intent(activity,MandalaActivity::class.java)
                         intent.putExtra("MC_IS_NEW",true)
                         intent.putExtra("MC_THEME_KEY",r.themeText.text.toString())
 
