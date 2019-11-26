@@ -49,6 +49,8 @@ class MandalaActivity : AppCompatActivity() {
         isNew=intent.getBooleanExtra("MC_IS_NEW",true)
         theme=intent.getStringExtra("MC_THEME_KEY")
 
+
+
         when(isNew){
             true->{
                 initBoard()
@@ -63,7 +65,29 @@ class MandalaActivity : AppCompatActivity() {
 
     override fun onResume(){
         super.onResume()
+        callOnResume()
+    }
+
+    fun callOnResume(){
         println("onResume")
+    }
+
+    fun save(){
+        val saveDate:String
+        //saveDate=getToday()
+        //println(saveDate)
+
+
+        val gson= Gson()
+        var jsonString:String
+        jsonString=gson.toJson(words)
+
+
+        val keyWords="MC_"+theme+"_words"
+        val keyIsExtended="MC_"+theme+"_isExtended"
+        editor.putString(keyWords,jsonString)
+        editor.apply()
+        isChanged=false
     }
 
     fun initBoard(){
@@ -94,6 +118,10 @@ class MandalaActivity : AppCompatActivity() {
 
 
 
+                        if(i==1&&j==1&&k==1&&l==1){
+                            ed.setText(theme)
+                        }
+                        words[4][4]=theme
 
 
                         ed.setOnKeyListener { v, keyCode, event ->
@@ -124,8 +152,9 @@ class MandalaActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
+
+
 
     fun loadBoard(){
         val keyWords="MC_"+theme+"_words"

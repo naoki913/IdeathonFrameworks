@@ -1,5 +1,6 @@
 package com.example.ideathonframeworksapplication
 
+import android.app.Activity
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -68,6 +69,7 @@ class Mandala3x3Fragment : Fragment() {
 
 
         r.button5.setOnClickListener {
+
 
 
             getFragmentManager()?.beginTransaction()?.remove(this)?.commit()
@@ -152,21 +154,23 @@ class Mandala3x3Fragment : Fragment() {
             }
         }
     }
-/*
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-        }
-    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        println("onDestroy")
+
+        val ac=activity as MandalaActivity
+        ac.callOnResume()
+
+    }
+    /*
     override fun onDetach() {
         super.onDetach()
+        println("onDetach()")
         listener = null
     }
-*/
+    */
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -209,6 +213,7 @@ class Mandala3x3Fragment : Fragment() {
                         index=_index
                     }
                 }
+
 
         fun newInstance()=
             Mandala3x3Fragment().apply{
