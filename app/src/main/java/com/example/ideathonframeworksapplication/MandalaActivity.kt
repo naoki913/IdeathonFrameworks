@@ -26,6 +26,7 @@ class MandalaActivity : AppCompatActivity() {
     var isChanged:Boolean =false
     var width:Int=0
     var words =Array(9,{Array<String>(9,{""})})
+    val eds:ArrayList<EditText> =arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,9 +69,28 @@ class MandalaActivity : AppCompatActivity() {
         callOnResume()
     }
 
+    fun destroyFragment(_index:Int,_isChanged:Boolean,_words:Array<String>){
+        if(_isChanged==true){
+            isChanged=true
+        }
+        words[_index]=_words
+        updateBoard(_index)
+
+        println("destroyFragment")
+    }
+
     fun callOnResume(){
         println("onResume")
     }
+
+    fun updateBoard(index : Int){
+        for(i in(0..2)){
+            for(j in(0..2)){
+                eds[9*index+3*i+j].setText(words[index][i*3+j])
+            }
+        }
+    }
+
 
     fun save(){
         val saveDate:String
@@ -104,6 +124,8 @@ class MandalaActivity : AppCompatActivity() {
             for(j in(0..2)) {
                 val fl1=llh.getChildAt(j) as FrameLayout
                 val tl = fl1.getChildAt(0) as TableLayout
+
+
                 val fl = tl.getChildAt(0) as FrameLayout
                 val ll2 = fl.getChildAt(1) as LinearLayout
 
@@ -116,7 +138,7 @@ class MandalaActivity : AppCompatActivity() {
                         val scv = fl1.getChildAt(0) as ScrollView
                         val ed = scv.getChildAt(0) as EditText
 
-
+                        eds.add(ed)
 
                         if(i==1&&j==1&&k==1&&l==1){
                             ed.setText(theme)
@@ -217,15 +239,22 @@ class MandalaActivity : AppCompatActivity() {
     }
 
     fun onClick(v:View){
+        //println(v.id)
         val text=findViewById<TextView>(v.id)
 
         val temp:Int=text.hint.toString().toInt()
+        //println(text)
+        //println(text.hint)
+
+        val tempIndex:Int=text.hint.toString().toInt()
 
         val transaction = supportFragmentManager.beginTransaction()
-        val frag=Mandala3x3Fragment.newInstance(width,temp)
+        //val frag=Mandala3x3Fragment.newInstance(width,temp)
+        val frag=Mandala3x3Fragment.newInstance(width,tempIndex,words)
         transaction.add(R.id.Frame,frag)
         transaction.commit()
 
-    }
+
+       }
 
 }

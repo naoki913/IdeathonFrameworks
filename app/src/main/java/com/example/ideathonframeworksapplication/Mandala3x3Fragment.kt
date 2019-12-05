@@ -43,8 +43,10 @@ class Mandala3x3Fragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
 
     lateinit var vg:ViewGroup
+    var isChanged:Boolean=false
     var width:Int=0
     var index:Int=0
+    var words=Array(9,{""})
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -137,7 +139,7 @@ class Mandala3x3Fragment : Fragment() {
                 }
                 */
 
-                /*
+
                 ed.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                     }
@@ -147,10 +149,10 @@ class Mandala3x3Fragment : Fragment() {
 
                     override fun afterTextChanged(s: Editable?) {
                         words[i*3+j]= ed.text.toString()
-                        println(ed.text)
+                        //println(ed.text)
                         isChanged=true
                     }
-                })*/
+                })
             }
         }
     }
@@ -160,7 +162,7 @@ class Mandala3x3Fragment : Fragment() {
         println("onDestroy")
 
         val ac=activity as MandalaActivity
-        ac.callOnResume()
+        ac.destroyFragment(index,isChanged,words)
 
     }
     /*
@@ -206,11 +208,12 @@ class Mandala3x3Fragment : Fragment() {
                 }
             }
 
-        fun newInstance(_width:Int,_index:Int)=
+        fun newInstance(_width:Int,_index:Int,_words:Array<Array<String>>)=
                 Mandala3x3Fragment().apply{
                     arguments=Bundle().apply{
                         width=_width
-                        index=_index
+                        index=_index-1
+                        words=_words[index]
                     }
                 }
 
