@@ -243,17 +243,14 @@ class MandalaActivity : AppCompatActivity() {
         val text=findViewById<TextView>(v.id)
 
         val temp:Int=text.hint.toString().toInt()
-        //println(text)
-        //println(text.hint)
+
+
 
         val tempIndex:Int=text.hint.toString().toInt()
-
         val transaction = supportFragmentManager.beginTransaction()
-        //val frag=Mandala3x3Fragment.newInstance(width,temp)
         val frag=Mandala3x3Fragment.newInstance(width,tempIndex,words)
         transaction.add(R.id.Frame,frag)
         transaction.commit()
-
 
        }
 
