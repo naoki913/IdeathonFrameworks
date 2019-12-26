@@ -1,11 +1,11 @@
 <TableRow
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:background="#AE58E215">
+        android:layout_height="wrap_content" android:background="#FFFFFF" android:layout_marginTop="8dp">
     <TextView
             android:text="card"
-            android:layout_width="87dp"
-            android:layout_height="56dp"
+            android:layout_width="139dp"
+            android:layout_height="36dp"
             android:id="@+id/textView5"
     />
     <CheckBox

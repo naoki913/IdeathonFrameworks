@@ -126,13 +126,6 @@ class BrainActivity : AppCompatActivity() {
             num++
         }
 
-        /*
-        card.setOnClickListener {
-            getLayoutInflater().inflate(R.layout.brainstorming_card, boards[0])
-        }
-        */
-
-
 
 
     }
