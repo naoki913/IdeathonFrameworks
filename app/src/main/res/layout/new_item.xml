@@ -20,13 +20,13 @@
 
             <ImageView
                     android:layout_width="106dp"
-                    android:layout_height="120dp" app:srcCompat="@mipmap/ic_launcher"
+                    android:layout_height="120dp" app:srcCompat="@drawable/brainstorm_plus_blue"
                     android:id="@+id/imageView2" app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintHorizontal_bias="0.529" app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintVertical_bias="0.4"/>
             <TextView
-                    android:text="テーマ"
+                    android:text="新規作成"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/textView2"
                     app:layout_constraintStart_toStartOf="parent"

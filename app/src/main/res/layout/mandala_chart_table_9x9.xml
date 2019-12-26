@@ -1,7 +1,7 @@
 <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent" android:layout_height="match_parent"
-        android:scaleX="1" android:scaleY="1">
+        android:scaleX="1" android:scaleY="1" android:layout_marginLeft="8dp" android:layout_marginTop="40dp">
 
     <HorizontalScrollView
             android:layout_width="match_parent"
@@ -27,7 +27,7 @@
                     <TextView
                             android:text="TextView1"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" android:id="@+id/touchView1"
+                            android:layout_height="124dp" android:id="@+id/touchView1"
                             android:onClick="onClick" android:clickable="true" android:hint="1"/>
                 </FrameLayout>
                 <FrameLayout
@@ -152,8 +152,6 @@
 
 
         </LinearLayout>
-
-
 
 
     </HorizontalScrollView>

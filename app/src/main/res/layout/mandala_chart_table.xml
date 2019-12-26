@@ -1,21 +1,22 @@
 <TableLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:clickable="true" android:onClick="onClick">
+        android:layout_height="wrap_content" android:clickable="true" android:onClick="onClick"
+>
 
-    <FrameLayout android:layout_width="wrap_content">
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
 
         <!--枠線を記述する-->
-        <TextView
-                android:text="TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="61dp" android:id="@+id/textView22"/>
 
         <!--枠線終了-->
 
+        <ImageView
+                android:layout_height="135dp" app:srcCompat="@drawable/mandara_table"
+                android:id="@+id/imageView3" android:fitsSystemWindows="true" android:scaleX="1" android:scaleY="1"
+                android:layout_width="135dp"/>
         <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
             <TableRow android:layout_width="wrap_content" android:layout_height="wrap_content">
@@ -32,7 +33,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                         <EditText
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPersonName|textMultiLine"
                                 android:text=""

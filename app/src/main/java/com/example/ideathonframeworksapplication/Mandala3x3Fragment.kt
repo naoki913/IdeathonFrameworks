@@ -18,6 +18,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_mandala_chart.*
 import kotlinx.android.synthetic.main.fragment_mandala3x3.view.*
+import android.opengl.ETC1.getWidth
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.Bitmap
+
+
+
+
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -45,6 +52,7 @@ class Mandala3x3Fragment : Fragment() {
     lateinit var vg:ViewGroup
     var isChanged:Boolean=false
     var width:Int=0
+    var height:Int=0
     var index:Int=0
     var words=Array(9,{""})
 
@@ -97,16 +105,34 @@ class Mandala3x3Fragment : Fragment() {
     fun initBoard(){
         val ac=activity as FragmentActivity
 
+        /*
         val scr : ScrollView = ScrollView(ac)
         val hscr : HorizontalScrollView = HorizontalScrollView(ac)
         vg.addView(scr)
         scr.addView(hscr)
+        */
 
-        getLayoutInflater().inflate(R.layout.mandala_chart_table, hscr)
 
-        val tl=hscr.getChildAt(0)as TableLayout
+
+
+        val fl1=vg.getChildAt(0)as FrameLayout
+
+        getLayoutInflater().inflate(R.layout.mandala_chart_table, fl1)
+
+        val tl=fl1.getChildAt(0)as TableLayout
         val fl=tl.getChildAt(0)as FrameLayout
         val ll=fl.getChildAt(1)as LinearLayout
+
+        val iv=fl.getChildAt(0)as ImageView
+
+        iv.scaleX=iv.scaleX*3
+        iv.scaleY=iv.scaleY*3
+        iv.translationX=(width/3).toFloat()
+        iv.translationY=(width/3).toFloat()
+
+
+
+
 
         for(i in(0..2)){
             val tr=ll.getChildAt(i)as TableRow
@@ -208,10 +234,11 @@ class Mandala3x3Fragment : Fragment() {
                 }
             }
 
-        fun newInstance(_width:Int,_index:Int,_words:Array<Array<String>>)=
+        fun newInstance(_width:Int/*,_height:Int*/,_index:Int,_words:Array<Array<String>>)=
                 Mandala3x3Fragment().apply{
                     arguments=Bundle().apply{
                         width=_width
+                        //height=_height
                         index=_index-1
                         words=_words[index]
                     }

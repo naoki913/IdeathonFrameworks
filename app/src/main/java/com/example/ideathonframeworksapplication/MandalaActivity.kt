@@ -8,9 +8,7 @@ import android.support.v7.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.DisplayMetrics
-import android.view.KeyEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import com.google.gson.Gson
@@ -32,10 +30,13 @@ class MandalaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mandala)
 
+        vg = findViewById<View>(R.id.TableLayout1) as ViewGroup
+        isNew=intent.getBooleanExtra("MC_IS_NEW",true)
+        theme=intent.getStringExtra("MC_THEME_KEY")
 
         val toolbar =findViewById<Toolbar>(R.id.tool_bar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title="MandalaChart"
+        supportActionBar?.title=theme
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
 
@@ -46,9 +47,7 @@ class MandalaActivity : AppCompatActivity() {
         windowManager.defaultDisplay.getMetrics(dm)
         width = dm.widthPixels
 
-        vg = findViewById<View>(R.id.TableLayout1) as ViewGroup
-        isNew=intent.getBooleanExtra("MC_IS_NEW",true)
-        theme=intent.getStringExtra("MC_THEME_KEY")
+
 
 
 
@@ -124,8 +123,6 @@ class MandalaActivity : AppCompatActivity() {
             for(j in(0..2)) {
                 val fl1=llh.getChildAt(j) as FrameLayout
                 val tl = fl1.getChildAt(0) as TableLayout
-
-
                 val fl = tl.getChildAt(0) as FrameLayout
                 val ll2 = fl.getChildAt(1) as LinearLayout
 
@@ -134,7 +131,6 @@ class MandalaActivity : AppCompatActivity() {
 
                     for (l in (0..2)) {
                         val fl1 = tr.getChildAt(l) as FrameLayout
-
                         val scv = fl1.getChildAt(0) as ScrollView
                         val ed = scv.getChildAt(0) as EditText
 
@@ -144,7 +140,6 @@ class MandalaActivity : AppCompatActivity() {
                             ed.setText(theme)
                         }
                         words[4][4]=theme
-
 
                         ed.setOnKeyListener { v, keyCode, event ->
                             println("keyCode:"+keyCode)
@@ -244,8 +239,6 @@ class MandalaActivity : AppCompatActivity() {
 
         val temp:Int=text.hint.toString().toInt()
 
-
-
         val tempIndex:Int=text.hint.toString().toInt()
         val transaction = supportFragmentManager.beginTransaction()
         val frag=Mandala3x3Fragment.newInstance(width,tempIndex,words)
@@ -254,4 +247,22 @@ class MandalaActivity : AppCompatActivity() {
 
        }
 
+    //Menu
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        getMenuInflater().inflate(R.menu.menu_brain, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        val id= item!!.itemId
+        if(id==R.id.action_settings){
+            println(1)
+        }
+        else if(id==R.id.action_settings2){
+            println(2)
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
 }
+

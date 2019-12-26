@@ -1,25 +1,53 @@
-<LinearLayout
+<android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
-    <Button
-            android:text="ジャンル名"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/button2"
-            android:textAllCaps="false"/>
-    <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="350dp">
-        <LinearLayout
-                android:orientation="vertical"
+    <ImageView
+            android:layout_width="216dp"
+            android:layout_height="604dp" app:srcCompat="@drawable/gray_long_" android:id="@+id/imageView10"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.0"
+            android:background="#00000000"/>
+    <LinearLayout
+            android:layout_width="203dp"
+            android:layout_height="550dp" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical" app:layout_constraintHorizontal_bias="0.5"
+            android:layout_marginTop="24dp">
+
+        <TextView
+                android:text="全般"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" android:id="@+id/textView7"/>
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="486dp">
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+            </LinearLayout>
+        </ScrollView>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="68dp">
+            <EditText
+                    android:layout_width="335dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:text="Name"
+                    android:ems="10"
+                    android:id="@+id/editText" android:layout_weight="1"/>
+            <ImageButton
+                    android:layout_width="203dp"
+                    android:layout_height="49dp" app:srcCompat="@drawable/brainstorm_button_enter"
+                    android:id="@+id/imageButton3" android:layout_weight="1" android:background="#00B3B3B3"/>
         </LinearLayout>
-    </ScrollView>
-    <Button
-            android:text="Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/button3"/>
-</LinearLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

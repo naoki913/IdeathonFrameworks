@@ -3,16 +3,15 @@ package com.example.ideathonframeworksapplication
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.LinearLayout
-import android.widget.ScrollView
-import android.widget.TableRow
+import android.widget.*
 import kotlinx.android.synthetic.main.activity_brain.*
+import kotlinx.android.synthetic.main.brainstorming_new_board.*
 import kotlin.properties.Delegates
 
 class BrainActivity : AppCompatActivity() {
@@ -25,7 +24,7 @@ class BrainActivity : AppCompatActivity() {
     val boards:ArrayList<LinearLayout> =arrayListOf()
 
 
-    var num=1
+    var num=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +36,49 @@ class BrainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         vg = findViewById<View>(R.id.Linear) as LinearLayout
-        val a=vg.getChildAt(0)as LinearLayout
-        val b = a.getChildAt(1)as ScrollView
+
+        getLayoutInflater().inflate(R.layout.brain_storming_board, vg)
+        val a=vg.getChildAt(num)as ConstraintLayout
+        val b=a.getChildAt(1)as LinearLayout
+        val c=b.getChildAt(1)as ScrollView
+        val vg1=c.getChildAt(0)as LinearLayout
+        boards.add(vg1)
+
+        val d=b.getChildAt(2)as LinearLayout
+        val text=d.getChildAt(0)as EditText
+        text.hint=num.toString()
+        val enter=d.getChildAt(1)as ImageButton
+
+        println(boards.size)
+        println(num)
+
+        enter.setOnClickListener {
+            getLayoutInflater().inflate(R.layout.brainstorming_card, boards[Integer.parseInt(text.hint.toString())])
+        }
+
+        num++
+
+        /*
+
+        val a=vg.getChildAt(0)as ConstraintLayout
+        val d=a.getChildAt(1)as LinearLayout
+        val b = d.getChildAt(1)as ScrollView
         val c = b.getChildAt(0)as LinearLayout
         boards.add(c)
+
+        val e=d.getChildAt(2)as LinearLayout
+        val text=d.getChildAt(0)as EditText
+        val enter=d.getChildAt(1)as ImageButton
+
+        enter.setOnClickListener {
+            println("aaaaaaaaaa")
+            getLayoutInflater().inflate(R.layout.brainstorming_card, boards[num])
+        }
+
+        num++
+        */
+
+
 
         val hour = intent.getIntExtra("HOUR",0)
         val min=intent.getIntExtra("MIN",0)
@@ -68,20 +106,31 @@ class BrainActivity : AppCompatActivity() {
         start()
 
 
-
-        board.setOnClickListener {
+        newBoardButton.setOnClickListener {
             getLayoutInflater().inflate(R.layout.brain_storming_board, vg)
-            val a=vg.getChildAt(num)as LinearLayout
-            val b=a.getChildAt(1)as ScrollView
-            val vg1=b.getChildAt(0)as LinearLayout
+            val a=vg.getChildAt(num)as ConstraintLayout
+            val b=a.getChildAt(1)as LinearLayout
+            val c=b.getChildAt(1)as ScrollView
+            val vg1=c.getChildAt(0)as LinearLayout
             boards.add(vg1)
+
+            val d=b.getChildAt(2)as LinearLayout
+            val text=d.getChildAt(0)as EditText
+            text.hint=num.toString()
+            val enter=d.getChildAt(1)as ImageButton
+
+            enter.setOnClickListener {
+                getLayoutInflater().inflate(R.layout.brainstorming_card, boards[Integer.parseInt(text.hint.toString())])
+            }
 
             num++
         }
 
+        /*
         card.setOnClickListener {
             getLayoutInflater().inflate(R.layout.brainstorming_card, boards[0])
         }
+        */
 
 
 
@@ -107,6 +156,7 @@ class BrainActivity : AppCompatActivity() {
                 }
             }
         }
+
         else if(id==R.id.action_settings2){
             //println(2)
             for(i in boards){
@@ -116,7 +166,7 @@ class BrainActivity : AppCompatActivity() {
                     val cb =tl.getChildAt(1)as CheckBox
                     cb.visibility=View.INVISIBLE
                     cb.isChecked=false
-                   
+
                 }
             }
         }

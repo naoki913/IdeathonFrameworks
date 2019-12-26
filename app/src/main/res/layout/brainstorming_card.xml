@@ -4,8 +4,8 @@
         android:layout_height="wrap_content" android:background="#AE58E215">
     <TextView
             android:text="card"
-            android:layout_width="91dp"
-            android:layout_height="77dp"
+            android:layout_width="87dp"
+            android:layout_height="56dp"
             android:id="@+id/textView5"
     />
     <CheckBox

@@ -5,10 +5,9 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.support.constraint.ConstraintLayout
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.Toolbar
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -41,8 +40,9 @@ class MainActivity : AppCompatActivity() {
         vg2 = findViewById<View>(R.id.TableLayout2) as ViewGroup
 
         val transaction = supportFragmentManager.beginTransaction()
-        lateinit var frag : Fragment
+        //lateinit var frag : Fragment
 
+        /*
         button_mandala.setOnClickListener {
 /*
             val pager : ViewPager = findViewById<ViewPager>(R.id.pager)
@@ -50,15 +50,10 @@ class MainActivity : AppCompatActivity() {
             val adapter = SetModePager(fragmentManager)
             pager.adapter=adapter
 */
-
-
-
-
             if(savedInstanceState==null){
                 println("A")
                 val transaction = supportFragmentManager.beginTransaction()
-                frag=SetModeFragment.newInstance()
-                transaction.add(R.id.Constraint,frag)
+                transaction.add(R.id.Constraint,SetModeFragment.newInstance())
                 transaction.commit()
             }
 
@@ -70,6 +65,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             */
         }
+        */
 
 
     }
@@ -81,26 +77,58 @@ class MainActivity : AppCompatActivity() {
         vg2.removeAllViews()
         themes.clear()
 
+        vg=vg1
+        getLayoutInflater().inflate(R.layout.new_item, vg)
 
+        val cl =vg.getChildAt(0)as ConstraintLayout
+        val fl=cl.getChildAt(0)as FrameLayout
+        val new_button=fl.getChildAt(2)as ImageButton
+
+        new_button.setOnClickListener {
+            val transaction = supportFragmentManager.beginTransaction()
+            val frag=SetModeFragment.newInstance()
+            transaction.add(R.id.Constraint,frag)
+            transaction.commit()
+        }
 
         for(t in 0 .. jsonArray.length()-1) {
             themes.add(jsonArray.get(t).toString())
 
 
-            if(t%2==0){
+            if((t+1)%2==0){
                 vg=vg1
+                println("vg=vg1")
             }
             else{
                 vg=vg2
+                println("vg=vg2")
             }
-
-
+            println("count:"+vg.childCount)
 
             if(themes[t].substring(0,2)=="BS"){
                 val intent= Intent(this,BrainstormingActivity::class.java)
                 getLayoutInflater().inflate(R.layout.brain_storming_load_item, vg)
 
-                val tr=vg.getChildAt(t/2) as TableRow
+
+
+                val cl =vg.getChildAt((t+1)/2)as ConstraintLayout
+                val fl=cl.getChildAt(0)as FrameLayout
+                val cl2=fl.getChildAt(1)as ConstraintLayout
+                val tv=cl2.getChildAt(1)as TextView
+
+                tv.setText(themes[t].substring(3))
+
+                val load_button=fl.getChildAt(2)as ImageButton
+                load_button.setOnClickListener {
+                    intent.putExtra("BS_IS_NEW",false)
+                    intent.putExtra("BS_THEME_KEY",themes[t])
+                    startActivity(intent)
+                }
+
+                /*
+                println(vg.childCount)
+
+                val tr=vg.getChildAt((t+1)/2) as TableRow
                 val ll=tr.getChildAt(0) as LinearLayout
 
                 (ll.getChildAt(0)as Button).setText(themes[t].substring(3))
@@ -123,12 +151,28 @@ class MainActivity : AppCompatActivity() {
 
                     onResume()
                 }
+                */
             }
             else if(themes[t].substring(0,2)=="MC"){
                 val intent= Intent(this,MandalaChartActivity::class.java)
                 getLayoutInflater().inflate(R.layout.mandala_chart_load_item, vg)
 
-                val tr=vg.getChildAt(t/2) as TableRow
+                val cl =vg.getChildAt((t+1)/2)as ConstraintLayout
+                val fl=cl.getChildAt(0)as FrameLayout
+                val cl2=fl.getChildAt(1)as ConstraintLayout
+                val tv=cl2.getChildAt(1)as TextView
+
+                tv.setText(themes[t].substring(3))
+
+                val load_button=fl.getChildAt(2)as ImageButton
+                load_button.setOnClickListener {
+                    intent.putExtra("MC_IS_NEW",false)
+                    intent.putExtra("MC_THEME_KEY",themes[t])
+                    startActivity(intent)
+                }
+
+                /*
+                val tr=vg.getChildAt((t+1)/2) as TableRow
                 val ll=tr.getChildAt(0) as LinearLayout
 
                 (ll.getChildAt(0)as Button).setText(themes[t].substring(3))
@@ -152,15 +196,18 @@ class MainActivity : AppCompatActivity() {
 
                     onResume()
                 }
+                */
             }
 
 
 
         }
+
         println("themes:"+themes)
 
     }
 
+    /*
     //Menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         getMenuInflater().inflate(R.menu.menu_brain, menu)
@@ -178,9 +225,13 @@ class MainActivity : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
+    */
 
 
     override fun onBackPressed(){
         super.onBackPressed()
     }
+
 }
+
+
