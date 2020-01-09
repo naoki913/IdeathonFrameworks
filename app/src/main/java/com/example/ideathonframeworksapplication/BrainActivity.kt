@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.support.constraint.ConstraintLayout
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
@@ -26,6 +27,7 @@ class BrainActivity : AppCompatActivity() {
 
     var boardNum=0
     var cardNums:ArrayList<Int> =arrayListOf()
+    val genreList:ArrayList<String> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +43,11 @@ class BrainActivity : AppCompatActivity() {
         getLayoutInflater().inflate(R.layout.brain_storming_board, vg)
         val a=vg.getChildAt(boardNum)as ConstraintLayout
         val b=a.getChildAt(1)as LinearLayout
+
+        val e=b.getChildAt(0)as TextView
+
+        genreList.add(e.text.toString())
+
         val c=b.getChildAt(1)as ScrollView
         val vg1=c.getChildAt(0)as LinearLayout
         boards.add(vg1)
@@ -49,6 +56,7 @@ class BrainActivity : AppCompatActivity() {
         val text=d.getChildAt(0)as EditText
         text.hint=boardNum.toString()
         val enter=d.getChildAt(1)as ImageButton
+
 
 
 
@@ -118,6 +126,8 @@ class BrainActivity : AppCompatActivity() {
 
             val e=b.getChildAt(0)as TextView
             e.text=genreText.text
+            genreList.add(genreText.text.toString())
+            genreText.setText("")
 
             val c=b.getChildAt(1)as ScrollView
             val vg1=c.getChildAt(0)as LinearLayout
@@ -134,6 +144,7 @@ class BrainActivity : AppCompatActivity() {
                 val card =tr.getChildAt(0)as TextView
                 println(card.text)
                 card.text=text.text
+
                 println(card.text)
 
                 cardNums[Integer.parseInt(text.hint.toString())]++
@@ -165,6 +176,8 @@ class BrainActivity : AppCompatActivity() {
 
                 }
             }
+
+            println(genreList.size)
         }
 
         else if(id==R.id.action_settings2){
@@ -179,6 +192,23 @@ class BrainActivity : AppCompatActivity() {
 
                 }
             }
+        }
+
+        else if(id==R.id.action_settings3){
+            val strList = arrayOfNulls<String>(genreList.size)
+            genreList.toArray(strList)
+
+            AlertDialog.Builder(this)
+                .setCancelable(true)
+                .setTitle("ラジオボタン選択ダイアログ")
+                .setSingleChoiceItems(strList, 0, { dialog, which ->
+                    //アイテム選択時の挙動
+                })
+                .setPositiveButton("OK", { dialog, which ->
+                    //Yesが押された時の挙動
+                })
+                .show()
+
         }
 
         return super.onOptionsItemSelected(item)
