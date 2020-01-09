@@ -5,19 +5,32 @@
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent" android:layout_marginTop="84dp">
     <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:srcCompat="@drawable/gray_short"
+            android:layout_width="218dp"
+            android:layout_height="82dp" app:srcCompat="@drawable/gray_short"
             android:id="@+id/newBoardButton"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.066"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintVertical_bias="0.089"
             android:background="#FFFFFF"/>
     <TextView
-            android:text="TextView"
-            android:layout_width="143dp"
-            android:layout_height="37dp"
-            android:id="@+id/textView9" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.126" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.116"/>
+            android:text="新規項目を追加する"
+            android:layout_width="145dp"
+            android:layout_height="20dp"
+            android:id="@+id/textView9" app:layout_constraintStart_toStartOf="@id/newBoardButton"
+            app:layout_constraintHorizontal_bias="0.461" app:layout_constraintEnd_toEndOf="@id/newBoardButton"
+            app:layout_constraintTop_toTopOf="@id/newBoardButton"
+            app:layout_constraintBottom_toBottomOf="@id/newBoardButton"
+            app:layout_constraintVertical_bias="0.233" android:textSize="12sp"/>
+    <EditText
+            android:layout_width="151dp"
+            android:layout_height="36dp"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:ems="10"
+            android:id="@+id/genreText"
+            android:textSize="12sp" android:hint="項目名を入力してください" app:layout_constraintTop_toBottomOf="@+id/textView9"
+            app:layout_constraintBottom_toTopOf="@+id/newBoardButton"
+            app:layout_constraintStart_toEndOf="@+id/newBoardButton"
+            app:layout_constraintEnd_toStartOf="@+id/newBoardButton" app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.506"/>
 </android.support.constraint.ConstraintLayout>

@@ -43,7 +43,7 @@
                     android:inputType="textPersonName"
                     android:text="Name"
                     android:ems="10"
-                    android:id="@+id/editText" android:layout_weight="1"/>
+                    android:id="@+id/editText" android:layout_weight="1" android:background="#FFFFFF"/>
             <ImageButton
                     android:layout_width="203dp"
                     android:layout_height="49dp" app:srcCompat="@drawable/brainstorm_button_enter"

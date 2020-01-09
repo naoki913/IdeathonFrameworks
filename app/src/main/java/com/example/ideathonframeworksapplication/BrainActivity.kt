@@ -24,7 +24,8 @@ class BrainActivity : AppCompatActivity() {
     val boards:ArrayList<LinearLayout> =arrayListOf()
 
 
-    var num=0
+    var boardNum=0
+    var cardNums:ArrayList<Int> =arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +39,7 @@ class BrainActivity : AppCompatActivity() {
         vg = findViewById<View>(R.id.Linear) as LinearLayout
 
         getLayoutInflater().inflate(R.layout.brain_storming_board, vg)
-        val a=vg.getChildAt(num)as ConstraintLayout
+        val a=vg.getChildAt(boardNum)as ConstraintLayout
         val b=a.getChildAt(1)as LinearLayout
         val c=b.getChildAt(1)as ScrollView
         val vg1=c.getChildAt(0)as LinearLayout
@@ -46,20 +47,24 @@ class BrainActivity : AppCompatActivity() {
 
         val d=b.getChildAt(2)as LinearLayout
         val text=d.getChildAt(0)as EditText
-        text.hint=num.toString()
+        text.hint=boardNum.toString()
         val enter=d.getChildAt(1)as ImageButton
 
-        println(boards.size)
-        println(num)
+
+
 
         enter.setOnClickListener {
             getLayoutInflater().inflate(R.layout.brainstorming_card, boards[Integer.parseInt(text.hint.toString())])
+
+            cardNums[Integer.parseInt(text.hint.toString())]++
+
+            println("boardNum:"+Integer.parseInt(text.hint.toString())+"num:"+cardNums[Integer.parseInt(text.hint.toString())])
         }
 
-        num++
+        boardNum++
+        cardNums.add(0)
 
         /*
-
         val a=vg.getChildAt(0)as ConstraintLayout
         val d=a.getChildAt(1)as LinearLayout
         val b = d.getChildAt(1)as ScrollView
@@ -108,25 +113,37 @@ class BrainActivity : AppCompatActivity() {
 
         newBoardButton.setOnClickListener {
             getLayoutInflater().inflate(R.layout.brain_storming_board, vg)
-            val a=vg.getChildAt(num)as ConstraintLayout
+            val a=vg.getChildAt(boardNum)as ConstraintLayout
             val b=a.getChildAt(1)as LinearLayout
+
+            val e=b.getChildAt(0)as TextView
+            e.text=genreText.text
+
             val c=b.getChildAt(1)as ScrollView
             val vg1=c.getChildAt(0)as LinearLayout
             boards.add(vg1)
 
             val d=b.getChildAt(2)as LinearLayout
             val text=d.getChildAt(0)as EditText
-            text.hint=num.toString()
+            text.hint=boardNum.toString()
             val enter=d.getChildAt(1)as ImageButton
 
             enter.setOnClickListener {
                 getLayoutInflater().inflate(R.layout.brainstorming_card, boards[Integer.parseInt(text.hint.toString())])
+                val tr=boards[Integer.parseInt(text.hint.toString())].getChildAt(cardNums[Integer.parseInt(text.hint.toString())]) as TableRow
+                val card =tr.getChildAt(0)as TextView
+                println(card.text)
+                card.text=text.text
+                println(card.text)
+
+                cardNums[Integer.parseInt(text.hint.toString())]++
+
+                println("boardNum:"+Integer.parseInt(text.hint.toString())+"num:"+cardNums[Integer.parseInt(text.hint.toString())])
             }
 
-            num++
+            boardNum++
+            cardNums.add(0)
         }
-
-
 
     }
 

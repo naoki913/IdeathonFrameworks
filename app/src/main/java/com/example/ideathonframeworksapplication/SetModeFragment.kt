@@ -54,10 +54,10 @@ class SetModeFragment : Fragment() {
         val ac=activity as FragmentActivity
 
 
-        val pager : ViewPager = r.findViewById<ViewPager>(R.id.pager)
+        val pager1 : ViewPager = r.findViewById<ViewPager>(R.id.pager)
         val fragmentManager : FragmentManager = childFragmentManager//ac.supportFragmentManager
         val adapter = SetModePager(fragmentManager)
-        pager.adapter=adapter
+        pager1.adapter=adapter
 
         val fragmentTranscation =fragmentManager.beginTransaction()
 
