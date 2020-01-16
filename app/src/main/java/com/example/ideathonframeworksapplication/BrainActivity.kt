@@ -123,6 +123,11 @@ class BrainActivity : AppCompatActivity() {
                     else if(it=="00:00:00"){
                         timeText.text = it
                         passedTime++
+                        for(i in inputText){
+                            i.setKeyListener(null)
+                        }
+
+
                         val dialog = android.support.v7.app.AlertDialog.Builder(this@BrainActivity)
                         dialog.setTitle("制限時間になりました")
                         println(inputText.size)
