@@ -61,17 +61,19 @@ class SetTimerFragment : Fragment() {
             val intent= Intent(activity,BrainActivity::class.java)
             intent.putExtra("BS_THEME_KEY",param1)
             intent.putExtra("BS_IS_NEW",true)
+            intent.putExtra("BS_IS_SET_TIME",false)
 
             startActivity(intent)
         }
 
         r.timeSet.setOnClickListener {
             val intent= Intent(activity,BrainActivity::class.java)
-            intent.putExtra("Hour",r.HourPicker.value)
+            intent.putExtra("HOUR",r.HourPicker.value)
             intent.putExtra("MIN",r.MinutePicker.value)
             intent.putExtra("SEC",r.SecondPicker.value)
             intent.putExtra("BS_THEME_KEY",param1)
             intent.putExtra("BS_IS_NEW",true)
+            intent.putExtra("BS_IS_SET_TIME",true)
 
             startActivity(intent)
         }

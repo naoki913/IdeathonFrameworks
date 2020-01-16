@@ -1,5 +1,6 @@
 package com.example.ideathonframeworksapplication
 
+import android.content.DialogInterface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -12,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_brain.*
+import kotlinx.android.synthetic.main.activity_brainstorming.*
 import kotlinx.android.synthetic.main.brainstorming_new_board.*
 import kotlin.properties.Delegates
 
@@ -20,10 +22,13 @@ class BrainActivity : AppCompatActivity() {
     lateinit var vg1: LinearLayout
     var theme:String by Delegates.notNull()
     var isNew:Boolean by Delegates.notNull()
+    var isSetTime:Boolean by Delegates.notNull()
     var timeValue=0
+    var passedTime=0
+    var isFinished=false
     val handler= Handler()
     val boards:ArrayList<LinearLayout> =arrayListOf()
-
+    val inputText:ArrayList<EditText> = arrayListOf()
 
     var boardNum=0
     var cardNums:ArrayList<Int> =arrayListOf()
@@ -41,6 +46,8 @@ class BrainActivity : AppCompatActivity() {
 
         vg = findViewById<View>(R.id.Linear) as LinearLayout
 
+        inputText.add(genreText)
+
         getLayoutInflater().inflate(R.layout.brain_storming_board, vg)
         val a=vg.getChildAt(boardNum)as ConstraintLayout
         val b=a.getChildAt(1)as LinearLayout
@@ -55,97 +62,14 @@ class BrainActivity : AppCompatActivity() {
 
         val d=b.getChildAt(2)as LinearLayout
         val text=d.getChildAt(0)as EditText
+        inputText.add(text)
         text.hint=boardNum.toString()
         val enter=d.getChildAt(1)as ImageButton
 
 
 
         enter.setOnClickListener {
-
-
-            getLayoutInflater().inflate(R.layout.brainstorming_card, boards[Integer.parseInt(text.hint.toString())])
-            val tr=boards[Integer.parseInt(text.hint.toString())].getChildAt(cardNums[Integer.parseInt(text.hint.toString())]) as TableRow
-            val card =tr.getChildAt(0)as TextView
-            println(card.text)
-            card.text=text.text
-
-            println(card.text)
-
-            cardNums[Integer.parseInt(text.hint.toString())]++
-
-            println("boardNum:"+Integer.parseInt(text.hint.toString())+"num:"+cardNums[Integer.parseInt(text.hint.toString())])
-        }
-
-        boardNum++
-        cardNums.add(0)
-
-        /*
-        val a=vg.getChildAt(0)as ConstraintLayout
-        val d=a.getChildAt(1)as LinearLayout
-        val b = d.getChildAt(1)as ScrollView
-        val c = b.getChildAt(0)as LinearLayout
-        boards.add(c)
-
-        val e=d.getChildAt(2)as LinearLayout
-        val text=d.getChildAt(0)as EditText
-        val enter=d.getChildAt(1)as ImageButton
-
-        enter.setOnClickListener {
-            println("aaaaaaaaaa")
-            getLayoutInflater().inflate(R.layout.brainstorming_card, boards[num])
-        }
-
-        num++
-        */
-
-
-
-        val hour = intent.getIntExtra("HOUR",0)
-        val min=intent.getIntExtra("MIN",0)
-        val sec=intent.getIntExtra("SEC",0)
-        theme=intent.getStringExtra("BS_THEME_KEY")
-        isNew=intent.getBooleanExtra("BS_IS_NEW",true)
-
-        timeValue=hour*60*60+min*60+sec
-
-        lateinit var runnable: Runnable
-        fun start(){
-            handler.post(runnable)
-        }
-
-        fun stop(){
-            println("stop")
-            handler.removeCallbacks(runnable)
-        }
-        runnable= object :Runnable{
-            override fun run() {
-
-                handler.postDelayed(this, 1000)
-            }
-        }
-        start()
-
-
-        newBoardButton.setOnClickListener {
-            getLayoutInflater().inflate(R.layout.brain_storming_board, vg)
-            val a=vg.getChildAt(boardNum)as ConstraintLayout
-            val b=a.getChildAt(1)as LinearLayout
-
-            val e=b.getChildAt(0)as TextView
-            e.text=genreText.text
-            genreList.add(genreText.text.toString())
-            genreText.setText("")
-
-            val c=b.getChildAt(1)as ScrollView
-            val vg1=c.getChildAt(0)as LinearLayout
-            boards.add(vg1)
-
-            val d=b.getChildAt(2)as LinearLayout
-            val text=d.getChildAt(0)as EditText
-            text.hint=boardNum.toString()
-            val enter=d.getChildAt(1)as ImageButton
-
-            enter.setOnClickListener {
+            if(!isFinished){
                 getLayoutInflater().inflate(R.layout.brainstorming_card, boards[Integer.parseInt(text.hint.toString())])
                 val tr=boards[Integer.parseInt(text.hint.toString())].getChildAt(cardNums[Integer.parseInt(text.hint.toString())]) as TableRow
                 val card =tr.getChildAt(0)as TextView
@@ -158,9 +82,109 @@ class BrainActivity : AppCompatActivity() {
 
                 println("boardNum:"+Integer.parseInt(text.hint.toString())+"num:"+cardNums[Integer.parseInt(text.hint.toString())])
             }
+        }
 
-            boardNum++
-            cardNums.add(0)
+        boardNum++
+        cardNums.add(0)
+
+
+        val hour = intent.getIntExtra("HOUR",0)
+        val min=intent.getIntExtra("MIN",0)
+        val sec=intent.getIntExtra("SEC",0)
+        theme=intent.getStringExtra("BS_THEME_KEY")
+        isNew=intent.getBooleanExtra("BS_IS_NEW",true)
+        isSetTime=intent.getBooleanExtra("BS_IS_SET_TIME",false)
+
+        timeValue=hour*60*60+min*60+sec
+
+        if(isSetTime){
+            timeText.text=time2Text(timeValue)
+        }
+        else{
+            timeText.text="無制限"
+        }
+
+
+
+        lateinit var runnable: Runnable
+        fun start(){
+            handler.post(runnable)
+        }
+
+        fun stop(){
+            println("stop")
+            handler.removeCallbacks(runnable)
+        }
+        runnable= object :Runnable{
+            override fun run() {
+                time2Text(timeValue - passedTime).let {
+                    if (it == "null") {
+                    }
+                    else if(it=="00:00:00"){
+                        timeText.text = it
+                        passedTime++
+                        val dialog = android.support.v7.app.AlertDialog.Builder(this@BrainActivity)
+                        dialog.setTitle("制限時間になりました")
+                        println(inputText.size)
+                        dialog.setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
+                            // OKボタン押したときの処理
+                        })
+                        dialog.show()
+                        isFinished=true
+                        //addCardText.setKeyListener(null)
+                    }
+                    else {
+                        timeText.text = it
+                        passedTime++
+                    }
+                }
+                handler.postDelayed(this, 1000)
+            }
+        }
+        start()
+
+
+        newBoardButton.setOnClickListener {
+            if(!isFinished){
+                getLayoutInflater().inflate(R.layout.brain_storming_board, vg)
+                val a=vg.getChildAt(boardNum)as ConstraintLayout
+                val b=a.getChildAt(1)as LinearLayout
+
+                val e=b.getChildAt(0)as TextView
+                e.text=genreText.text
+                genreList.add(genreText.text.toString())
+                genreText.setText("")
+
+                val c=b.getChildAt(1)as ScrollView
+                val vg1=c.getChildAt(0)as LinearLayout
+                boards.add(vg1)
+
+                val d=b.getChildAt(2)as LinearLayout
+                val text=d.getChildAt(0)as EditText
+                inputText.add(text)
+                text.hint=boardNum.toString()
+                val enter=d.getChildAt(1)as ImageButton
+
+                enter.setOnClickListener {
+                    if(!isFinished){
+                        getLayoutInflater().inflate(R.layout.brainstorming_card, boards[Integer.parseInt(text.hint.toString())])
+                        val tr=boards[Integer.parseInt(text.hint.toString())].getChildAt(cardNums[Integer.parseInt(text.hint.toString())]) as TableRow
+                        val card =tr.getChildAt(0)as TextView
+                        println(card.text)
+                        card.text=text.text
+
+                        println(card.text)
+
+                        cardNums[Integer.parseInt(text.hint.toString())]++
+
+                        println("boardNum:"+Integer.parseInt(text.hint.toString())+"num:"+cardNums[Integer.parseInt(text.hint.toString())])
+                    }
+                }
+
+                boardNum++
+                cardNums.add(0)
+            }
+
         }
 
     }
@@ -214,7 +238,6 @@ class BrainActivity : AppCompatActivity() {
                     selectedItam=which
                 })
                 .setPositiveButton("OK", { dialog, which ->
-                    //Yesが押された時の挙動
                     println("size:"+boards.size)
                     for(i in (0..boards.size-1)){
                         for(j in(0..boards[i].childCount-1)){
@@ -233,11 +256,9 @@ class BrainActivity : AppCompatActivity() {
                                     val card2 =tr2.getChildAt(0)as TextView
                                     card2.text=card1.text
                                     cardNums[selectedItam]++
-
                                     deleteView.add(tr1)
                                 }
                             }
-
                         }
 
                         for(j in deleteView){
@@ -249,9 +270,20 @@ class BrainActivity : AppCompatActivity() {
                     }
                 })
                 .show()
-
         }
-
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun time2Text(time:Int =0):String{
+        return if(time<0){
+            "null"
+        }else if(time==0){
+            "00:00:00"
+        }else {
+            val h = time / 3600
+            val m= time%3600 /60
+            val s = time %60
+            "%1$02d:%2$02d:%3$02d".format(h,m,s)
+        }
     }
 }
