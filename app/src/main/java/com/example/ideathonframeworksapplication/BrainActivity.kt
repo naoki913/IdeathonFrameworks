@@ -28,6 +28,7 @@ class BrainActivity : AppCompatActivity() {
     var boardNum=0
     var cardNums:ArrayList<Int> =arrayListOf()
     val genreList:ArrayList<String> = arrayListOf()
+    val deleteView:ArrayList<TableRow> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,10 +60,16 @@ class BrainActivity : AppCompatActivity() {
 
 
 
-
-
         enter.setOnClickListener {
+
+
             getLayoutInflater().inflate(R.layout.brainstorming_card, boards[Integer.parseInt(text.hint.toString())])
+            val tr=boards[Integer.parseInt(text.hint.toString())].getChildAt(cardNums[Integer.parseInt(text.hint.toString())]) as TableRow
+            val card =tr.getChildAt(0)as TextView
+            println(card.text)
+            card.text=text.text
+
+            println(card.text)
 
             cardNums[Integer.parseInt(text.hint.toString())]++
 
@@ -197,15 +204,49 @@ class BrainActivity : AppCompatActivity() {
         else if(id==R.id.action_settings3){
             val strList = arrayOfNulls<String>(genreList.size)
             genreList.toArray(strList)
+            var selectedItam=0
 
             AlertDialog.Builder(this)
                 .setCancelable(true)
                 .setTitle("ラジオボタン選択ダイアログ")
                 .setSingleChoiceItems(strList, 0, { dialog, which ->
                     //アイテム選択時の挙動
+                    selectedItam=which
                 })
                 .setPositiveButton("OK", { dialog, which ->
                     //Yesが押された時の挙動
+                    println("size:"+boards.size)
+                    for(i in (0..boards.size-1)){
+                        for(j in(0..boards[i].childCount-1)){
+                            //カードのチェックボックスを確認→ONなら選択されたボードにそのカードを追加し、元のボードからカードを削除する
+                            val tr1=boards[i].getChildAt(j)as TableRow
+                            val card1=tr1.getChildAt(0)as TextView
+                            val check=tr1.getChildAt(1)as CheckBox
+
+                            if(check.isChecked){
+
+                                boards[selectedItam]
+
+                                if(!(i==selectedItam)){
+                                    getLayoutInflater().inflate(R.layout.brainstorming_card, boards[selectedItam])
+                                    val tr2=boards[selectedItam].getChildAt(cardNums[selectedItam]) as TableRow
+                                    val card2 =tr2.getChildAt(0)as TextView
+                                    card2.text=card1.text
+                                    cardNums[selectedItam]++
+
+                                    deleteView.add(tr1)
+                                }
+                            }
+
+                        }
+
+                        for(j in deleteView){
+                            boards[i].removeView(j)
+                            cardNums[i]--
+                        }
+                        deleteView.clear()
+
+                    }
                 })
                 .show()
 
