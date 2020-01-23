@@ -117,36 +117,137 @@ class BrainActivity : AppCompatActivity() {
         }
         runnable= object :Runnable{
             override fun run() {
-                time2Text(timeValue - passedTime).let {
-                    if (it == "null") {
-                    }
-                    else if(it=="00:00:00"){
-                        timeText.text = it
-                        passedTime++
-                        for(i in inputText){
-                            i.setKeyListener(null)
+                if(isSetTime){
+                    time2Text(timeValue - passedTime).let {
+                        if (it == "null") {
                         }
+                        else if(it=="00:00:00"){
+                            timeText.text = it
+                            passedTime++
+                            for(i in inputText){
+                                i.setKeyListener(null)
+                            }
 
 
-                        val dialog = android.support.v7.app.AlertDialog.Builder(this@BrainActivity)
-                        dialog.setTitle("制限時間になりました")
-                        println(inputText.size)
-                        dialog.setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
-                            // OKボタン押したときの処理
-                        })
-                        dialog.show()
-                        isFinished=true
-                        //addCardText.setKeyListener(null)
-                    }
-                    else {
-                        timeText.text = it
-                        passedTime++
+                            val dialog = android.support.v7.app.AlertDialog.Builder(this@BrainActivity)
+                            dialog.setTitle("制限時間になりました")
+                            println(inputText.size)
+                            dialog.setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
+                                // OKボタン押したときの処理
+                            })
+                            dialog.show()
+                            isFinished=true
+                            //addCardText.setKeyListener(null)
+                        }
+                        else {
+                            timeText.text = it
+                            passedTime++
+                        }
                     }
                 }
+
                 handler.postDelayed(this, 1000)
             }
         }
         start()
+
+        deleteButton.setOnClickListener {
+            for(i in (0..boards.size-1)){
+                for(j in(0..boards[i].childCount-1)){
+                    val tr1=boards[i].getChildAt(j)as TableRow
+                    val card1=tr1.getChildAt(0)as TextView
+                    val check=tr1.getChildAt(1)as CheckBox
+
+                    if(check.isChecked){
+                        deleteView.add(tr1)
+                    }
+                }
+                for(j in deleteView){
+                    boards[i].removeView(j)
+                    cardNums[i]--
+                }
+                deleteView.clear()
+            }
+        }
+
+        cancelButton.setOnClickListener{
+            println("cancel")
+
+            for(i in boards){
+                //println(i.childCount)
+                for(j in (0..i.childCount-1)){
+                    val tl=i.getChildAt(j)as TableRow
+                    val cb =tl.getChildAt(1)as CheckBox
+                    cb.visibility=View.INVISIBLE
+                    cb.isChecked=false
+
+                }
+            }
+
+            EditBar.visibility=View.INVISIBLE
+
+        }
+
+        moveButton.setOnClickListener {
+            println("move")
+
+            val strList = arrayOfNulls<String>(genreList.size)
+            genreList.toArray(strList)
+            var selectedItam=0
+
+            AlertDialog.Builder(this)
+                .setCancelable(true)
+                .setTitle("ラジオボタン選択ダイアログ")
+                .setSingleChoiceItems(strList, 0, { dialog, which ->
+                    //アイテム選択時の挙動
+                    selectedItam=which
+                })
+                .setPositiveButton("OK", { dialog, which ->
+                    println("size:"+boards.size)
+                    for(i in (0..boards.size-1)){
+                        for(j in(0..boards[i].childCount-1)){
+                            //カードのチェックボックスを確認→ONなら選択されたボードにそのカードを追加し、元のボードからカードを削除する
+                            val tr1=boards[i].getChildAt(j)as TableRow
+                            val card1=tr1.getChildAt(0)as TextView
+                            val check=tr1.getChildAt(1)as CheckBox
+
+                            if(check.isChecked){
+
+                                boards[selectedItam]
+
+                                if(!(i==selectedItam)){
+                                    getLayoutInflater().inflate(R.layout.brainstorming_card, boards[selectedItam])
+                                    val tr2=boards[selectedItam].getChildAt(cardNums[selectedItam]) as TableRow
+                                    val card2 =tr2.getChildAt(0)as TextView
+                                    card2.text=card1.text
+                                    cardNums[selectedItam]++
+                                    deleteView.add(tr1)
+                                }
+                            }
+                        }
+                        for(j in deleteView){
+                            boards[i].removeView(j)
+                            cardNums[i]--
+                        }
+                        deleteView.clear()
+                    }
+
+                    for(i in boards){
+                        for(j in (0..i.childCount-1)){
+                            val tl=i.getChildAt(j)as TableRow
+                            val cb =tl.getChildAt(1)as CheckBox
+                            cb.visibility=View.VISIBLE
+
+                        }
+                    }
+
+                })
+                .show()
+
+
+
+            //EditBar.visibility=View.INVISIBLE
+        }
 
 
         newBoardButton.setOnClickListener {
@@ -204,7 +305,6 @@ class BrainActivity : AppCompatActivity() {
         if(id==R.id.action_settings){
             //println(1)
             for(i in boards){
-                //println(i.childCount)
                 for(j in (0..i.childCount-1)){
                     val tl=i.getChildAt(j)as TableRow
                     val cb =tl.getChildAt(1)as CheckBox
@@ -214,6 +314,8 @@ class BrainActivity : AppCompatActivity() {
             }
 
             println(genreList.size)
+
+            EditBar.visibility=View.VISIBLE
         }
 
         else if(id==R.id.action_settings2){
@@ -230,52 +332,7 @@ class BrainActivity : AppCompatActivity() {
             }
         }
 
-        else if(id==R.id.action_settings3){
-            val strList = arrayOfNulls<String>(genreList.size)
-            genreList.toArray(strList)
-            var selectedItam=0
 
-            AlertDialog.Builder(this)
-                .setCancelable(true)
-                .setTitle("ラジオボタン選択ダイアログ")
-                .setSingleChoiceItems(strList, 0, { dialog, which ->
-                    //アイテム選択時の挙動
-                    selectedItam=which
-                })
-                .setPositiveButton("OK", { dialog, which ->
-                    println("size:"+boards.size)
-                    for(i in (0..boards.size-1)){
-                        for(j in(0..boards[i].childCount-1)){
-                            //カードのチェックボックスを確認→ONなら選択されたボードにそのカードを追加し、元のボードからカードを削除する
-                            val tr1=boards[i].getChildAt(j)as TableRow
-                            val card1=tr1.getChildAt(0)as TextView
-                            val check=tr1.getChildAt(1)as CheckBox
-
-                            if(check.isChecked){
-
-                                boards[selectedItam]
-
-                                if(!(i==selectedItam)){
-                                    getLayoutInflater().inflate(R.layout.brainstorming_card, boards[selectedItam])
-                                    val tr2=boards[selectedItam].getChildAt(cardNums[selectedItam]) as TableRow
-                                    val card2 =tr2.getChildAt(0)as TextView
-                                    card2.text=card1.text
-                                    cardNums[selectedItam]++
-                                    deleteView.add(tr1)
-                                }
-                            }
-                        }
-
-                        for(j in deleteView){
-                            boards[i].removeView(j)
-                            cardNums[i]--
-                        }
-                        deleteView.clear()
-
-                    }
-                })
-                .show()
-        }
         return super.onOptionsItemSelected(item)
     }
 

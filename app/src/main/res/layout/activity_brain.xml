@@ -32,7 +32,7 @@
                     app:titleTextColor="#BC1D1D1D"
                     app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.0">
+                    app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="1.0">
 
             </android.support.v7.widget.Toolbar>
             <TextView
@@ -64,6 +64,38 @@
         </HorizontalScrollView>
 
     </LinearLayout>
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:id="@+id/EditBar" android:visibility="invisible">
+        <View
+                android:layout_width="405dp"
+                android:layout_height="55dp" android:id="@+id/view" android:background="#C9FFFB6C"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="1.0" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="1.0" android:visibility="visible"/>
+        <Button
+                android:text="削除"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/deleteButton"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.727"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="1.0"/>
+        <Button
+                android:text="キャンセル"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/cancelButton"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.049"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.991"/>
+        <Button
+                android:text="移動"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/moveButton"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.991"/>
+    </android.support.constraint.ConstraintLayout>
 </FrameLayout>
 
 
