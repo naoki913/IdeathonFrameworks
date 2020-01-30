@@ -145,6 +145,7 @@ class Mandala3x3Fragment : Fragment() {
 
                 ed.setHeight((DELTA_3x3*width).toInt())
                 ed.setWidth((DELTA_3x3*width).toInt())
+                ed.setText(words[i*3+j])
 /*
                 if(i==1&&j==1){
                     ed.setText(theme)

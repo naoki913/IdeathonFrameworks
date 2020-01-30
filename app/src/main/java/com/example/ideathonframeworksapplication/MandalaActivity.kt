@@ -14,6 +14,9 @@ import android.widget.*
 import com.google.gson.Gson
 import kotlin.properties.Delegates
 
+const val DELTA_3x3=0.31944444444
+const val DELTA_9x9=0.11111111111
+
 class MandalaActivity : AppCompatActivity() {
 
     lateinit var vg:ViewGroup
@@ -48,9 +51,6 @@ class MandalaActivity : AppCompatActivity() {
         width = dm.widthPixels
 
 
-
-
-
         when(isNew){
             true->{
                 initBoard()
@@ -59,8 +59,6 @@ class MandalaActivity : AppCompatActivity() {
                 loadBoard()
             }
         }
-
-
     }
 
     override fun onResume(){

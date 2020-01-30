@@ -21,8 +21,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
 
-const val DELTA_3x3=0.31944444444
-const val DELTA_9x9=0.11111111111
+
 
 class MandalaChartActivity : AppCompatActivity() {
 
