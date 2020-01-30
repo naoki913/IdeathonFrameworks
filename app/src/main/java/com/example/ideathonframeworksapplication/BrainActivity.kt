@@ -47,9 +47,17 @@ class BrainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_brain)
 
+        val hour = intent.getIntExtra("HOUR",0)
+        val min=intent.getIntExtra("MIN",0)
+        val sec=intent.getIntExtra("SEC",0)
+        theme=intent.getStringExtra("BS_THEME_KEY")
+        isNew=intent.getBooleanExtra("BS_IS_NEW",true)
+        isSetTime=intent.getBooleanExtra("BS_IS_SET_TIME",false)
+
+
         val toolbar =findViewById<Toolbar>(R.id.tool_bar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title="BrainStorming"
+        supportActionBar?.title=theme
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         dataStore =getSharedPreferences("DataStore", Context.MODE_PRIVATE)
@@ -60,12 +68,7 @@ class BrainActivity : AppCompatActivity() {
         inputText.add(genreText)
 
 
-        val hour = intent.getIntExtra("HOUR",0)
-        val min=intent.getIntExtra("MIN",0)
-        val sec=intent.getIntExtra("SEC",0)
-        theme=intent.getStringExtra("BS_THEME_KEY")
-        isNew=intent.getBooleanExtra("BS_IS_NEW",true)
-        isSetTime=intent.getBooleanExtra("BS_IS_SET_TIME",false)
+
 
         timeValue=hour*60*60+min*60+sec
 
@@ -453,14 +456,7 @@ class BrainActivity : AppCompatActivity() {
             }
 
 
-
         }
-
-
-
-
-
-
 
     }
 
