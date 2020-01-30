@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
             println("count:"+vg.childCount)
 
             if(themes[t].substring(0,2)=="BS"){
-                val intent= Intent(this,BrainstormingActivity::class.java)
+                val intent= Intent(this,BrainActivity::class.java)
                 getLayoutInflater().inflate(R.layout.brain_storming_load_item, vg)
 
 
@@ -154,7 +154,7 @@ class MainActivity : AppCompatActivity() {
                 */
             }
             else if(themes[t].substring(0,2)=="MC"){
-                val intent= Intent(this,MandalaChartActivity::class.java)
+                val intent= Intent(this,MandalaActivity::class.java)
                 getLayoutInflater().inflate(R.layout.mandala_chart_load_item, vg)
 
                 val cl =vg.getChildAt((t+1)/2)as ConstraintLayout

@@ -1,6 +1,8 @@
 package com.example.ideathonframeworksapplication
 
+import android.content.Context
 import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -12,9 +14,11 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_brain.*
 import kotlinx.android.synthetic.main.activity_brainstorming.*
 import kotlinx.android.synthetic.main.brainstorming_new_board.*
+import org.json.JSONArray
 import kotlin.properties.Delegates
 
 class BrainActivity : AppCompatActivity() {
@@ -27,11 +31,15 @@ class BrainActivity : AppCompatActivity() {
     var passedTime=0
     var isFinished=false
     val handler= Handler()
+    lateinit var dataStore: SharedPreferences
+    lateinit var editor: SharedPreferences.Editor
+
     val boards:ArrayList<LinearLayout> =arrayListOf()
     val inputText:ArrayList<EditText> = arrayListOf()
 
     var boardNum=0
     var cardNums:ArrayList<Int> =arrayListOf()
+    val cardWords:ArrayList<ArrayList<String>> = arrayListOf()
     val genreList:ArrayList<String> = arrayListOf()
     val deleteView:ArrayList<TableRow> = arrayListOf()
 
@@ -44,48 +52,12 @@ class BrainActivity : AppCompatActivity() {
         supportActionBar?.title="BrainStorming"
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
+        dataStore =getSharedPreferences("DataStore", Context.MODE_PRIVATE)
+        editor = dataStore.edit()
+
         vg = findViewById<View>(R.id.Linear) as LinearLayout
 
         inputText.add(genreText)
-
-        getLayoutInflater().inflate(R.layout.brain_storming_board, vg)
-        val a=vg.getChildAt(boardNum)as ConstraintLayout
-        val b=a.getChildAt(1)as LinearLayout
-
-        val e=b.getChildAt(0)as TextView
-
-        genreList.add(e.text.toString())
-
-        val c=b.getChildAt(1)as ScrollView
-        val vg1=c.getChildAt(0)as LinearLayout
-        boards.add(vg1)
-
-        val d=b.getChildAt(2)as LinearLayout
-        val text=d.getChildAt(0)as EditText
-        inputText.add(text)
-        text.hint=boardNum.toString()
-        val enter=d.getChildAt(1)as ImageButton
-
-
-
-        enter.setOnClickListener {
-            if(!isFinished){
-                getLayoutInflater().inflate(R.layout.brainstorming_card, boards[Integer.parseInt(text.hint.toString())])
-                val tr=boards[Integer.parseInt(text.hint.toString())].getChildAt(cardNums[Integer.parseInt(text.hint.toString())]) as TableRow
-                val card =tr.getChildAt(0)as TextView
-                println(card.text)
-                card.text=text.text
-
-                println(card.text)
-
-                cardNums[Integer.parseInt(text.hint.toString())]++
-
-                println("boardNum:"+Integer.parseInt(text.hint.toString())+"num:"+cardNums[Integer.parseInt(text.hint.toString())])
-            }
-        }
-
-        boardNum++
-        cardNums.add(0)
 
 
         val hour = intent.getIntExtra("HOUR",0)
@@ -103,6 +75,60 @@ class BrainActivity : AppCompatActivity() {
         else{
             timeText.text="無制限"
         }
+
+        if(isNew){
+            //初期ボード設置
+            getLayoutInflater().inflate(R.layout.brain_storming_board, vg)
+            val a=vg.getChildAt(boardNum)as ConstraintLayout
+            val b=a.getChildAt(1)as LinearLayout
+
+            val e=b.getChildAt(0)as TextView
+
+            genreList.add(e.text.toString())
+
+            val c=b.getChildAt(1)as ScrollView
+            val vg1=c.getChildAt(0)as LinearLayout
+            boards.add(vg1)
+            cardWords.add(arrayListOf())
+
+            val d=b.getChildAt(2)as LinearLayout
+            val text=d.getChildAt(0)as EditText
+            inputText.add(text)
+            text.hint=boardNum.toString()
+            val enter=d.getChildAt(1)as ImageButton
+
+
+
+            enter.setOnClickListener {
+                if(!isFinished){
+                    getLayoutInflater().inflate(R.layout.brainstorming_card, boards[Integer.parseInt(text.hint.toString())])
+                    val tr=boards[Integer.parseInt(text.hint.toString())].getChildAt(cardNums[Integer.parseInt(text.hint.toString())]) as TableRow
+                    val card =tr.getChildAt(0)as TextView
+                    println(card.text)
+                    card.text=text.text
+
+                    println(card.text)
+
+                    cardNums[Integer.parseInt(text.hint.toString())]++
+                    cardWords[Integer.parseInt(text.hint.toString())].add(card.text.toString())
+
+
+                    println("boardNum:"+Integer.parseInt(text.hint.toString())+"num:"+cardNums[Integer.parseInt(text.hint.toString())])
+                }
+            }
+
+            boardNum++
+            cardNums.add(0)
+
+            //初期ボード設置ここまで
+        }
+        else{
+            load()
+        }
+
+
+
+
 
 
 
@@ -197,7 +223,7 @@ class BrainActivity : AppCompatActivity() {
 
             AlertDialog.Builder(this)
                 .setCancelable(true)
-                .setTitle("ラジオボタン選択ダイアログ")
+                .setTitle("移動先のボードを選択してください")
                 .setSingleChoiceItems(strList, 0, { dialog, which ->
                     //アイテム選択時の挙動
                     selectedItam=which
@@ -237,16 +263,13 @@ class BrainActivity : AppCompatActivity() {
                             val tl=i.getChildAt(j)as TableRow
                             val cb =tl.getChildAt(1)as CheckBox
                             cb.visibility=View.VISIBLE
-
                         }
                     }
+                })
+                .setNegativeButton("キャンセル",{dialog,which ->
 
                 })
                 .show()
-
-
-
-            //EditBar.visibility=View.INVISIBLE
         }
 
 
@@ -264,6 +287,7 @@ class BrainActivity : AppCompatActivity() {
                 val c=b.getChildAt(1)as ScrollView
                 val vg1=c.getChildAt(0)as LinearLayout
                 boards.add(vg1)
+                cardWords.add(arrayListOf())
 
                 val d=b.getChildAt(2)as LinearLayout
                 val text=d.getChildAt(0)as EditText
@@ -282,6 +306,7 @@ class BrainActivity : AppCompatActivity() {
                         println(card.text)
 
                         cardNums[Integer.parseInt(text.hint.toString())]++
+                        cardWords[Integer.parseInt(text.hint.toString())].add(card.text.toString())
 
                         println("boardNum:"+Integer.parseInt(text.hint.toString())+"num:"+cardNums[Integer.parseInt(text.hint.toString())])
                     }
@@ -303,37 +328,140 @@ class BrainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val id= item!!.itemId
         if(id==R.id.action_settings){
-            //println(1)
+            //ロード処理
+            load()
+
+            //以下正常コード（編集）
+            /*
             for(i in boards){
                 for(j in (0..i.childCount-1)){
                     val tl=i.getChildAt(j)as TableRow
                     val cb =tl.getChildAt(1)as CheckBox
                     cb.visibility=View.VISIBLE
-
                 }
             }
 
             println(genreList.size)
 
             EditBar.visibility=View.VISIBLE
+            */
         }
 
         else if(id==R.id.action_settings2){
-            //println(2)
-            for(i in boards){
-                //println(i.childCount)
-                for(j in (0..i.childCount-1)){
-                    val tl=i.getChildAt(j)as TableRow
-                    val cb =tl.getChildAt(1)as CheckBox
-                    cb.visibility=View.INVISIBLE
-                    cb.isChecked=false
+           save()
 
-                }
-            }
+
         }
 
 
         return super.onOptionsItemSelected(item)
+    }
+
+    fun save(){
+        val gson= Gson()
+        var jsonString:String
+
+        val keyCardWords="BS_"+theme+"_cardWords"
+        jsonString=gson.toJson(cardWords)
+        editor.putString(keyCardWords,jsonString)
+
+        val keyGenreList="BS_"+theme+"_genreList"
+        jsonString=gson.toJson(genreList)
+        editor.putString(keyGenreList,jsonString)
+
+        val themes:ArrayList<String> = arrayListOf()
+        val jsonArray = JSONArray(dataStore.getString("theme","[]"))
+        println(jsonArray)
+        for(i in 0..jsonArray.length()-1){
+            themes.add(jsonArray[i].toString())
+        }
+        themes.add("BS_"+theme)
+        val themesJsonString=gson.toJson(themes)
+        editor.putString("theme",themesJsonString)
+
+        editor.apply()
+    }
+
+    fun load(){
+        //ロード処理
+        //セーブデータの取得
+        val gson= Gson()
+        var jsonString:String=""
+
+        val keyCardWords=theme+"_cardWords"
+        jsonString=dataStore.getString(keyCardWords,"nothing")
+        val tempCardWords = gson.fromJson(jsonString,Array<Array<String>>::class.java)
+
+        cardWords.clear()
+        for(i in 0..tempCardWords.size-1){
+            cardWords.add(arrayListOf())
+            for(j in 0..tempCardWords[i].size-1){
+                cardWords[i].add(tempCardWords[i][j])
+            }
+        }
+
+        val keyGenreList = theme+"_genreList"
+        jsonString=dataStore.getString(keyGenreList,"nothing")
+        val tempGenreList=gson.fromJson(jsonString,Array<String>::class.java)
+
+        genreList.clear()
+        for(i in tempGenreList){
+            genreList.add(i)
+        }
+
+
+        for(i in 0..cardWords.size-1){
+
+            getLayoutInflater().inflate(R.layout.brain_storming_board, vg)
+            val a=vg.getChildAt(boardNum)as ConstraintLayout
+            val b=a.getChildAt(1)as LinearLayout
+
+            val e=b.getChildAt(0)as TextView
+            e.text=genreList[i]
+
+            val c=b.getChildAt(1)as ScrollView
+            val vg1=c.getChildAt(0)as LinearLayout
+            boards.add(vg1)
+            cardWords.add(arrayListOf())
+
+            val d=b.getChildAt(2)as LinearLayout
+            val text=d.getChildAt(0)as EditText
+            inputText.add(text)
+            text.hint=boardNum.toString()
+            val enter=d.getChildAt(1)as ImageButton
+
+            boardNum++
+            cardNums.add(0)
+
+            for(j in 0..cardWords[i].size-1){
+                getLayoutInflater().inflate(R.layout.brainstorming_card, boards[Integer.parseInt(text.hint.toString())])
+
+                println(boards[Integer.parseInt(text.hint.toString())])
+                println(cardNums[Integer.parseInt(text.hint.toString())])
+
+                val tr=boards[Integer.parseInt(text.hint.toString())].getChildAt(cardNums[Integer.parseInt(text.hint.toString())]) as TableRow
+                val card =tr.getChildAt(0)as TextView
+                println(card.text)
+                card.text=cardWords[i][j]
+
+                println(card.text)
+
+                cardNums[Integer.parseInt(text.hint.toString())]++
+                cardWords[Integer.parseInt(text.hint.toString())].add(card.text.toString())
+
+                println("boardNum:"+Integer.parseInt(text.hint.toString())+"num:"+cardNums[Integer.parseInt(text.hint.toString())])
+            }
+
+
+
+        }
+
+
+
+
+
+
+
     }
 
     private fun time2Text(time:Int =0):String{
