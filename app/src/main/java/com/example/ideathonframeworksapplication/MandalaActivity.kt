@@ -12,6 +12,7 @@ import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import com.google.gson.Gson
+import org.json.JSONArray
 import kotlin.properties.Delegates
 
 const val DELTA_3x3=0.31944444444
@@ -76,6 +77,7 @@ class MandalaActivity : AppCompatActivity() {
         println("destroyFragment")
     }
 
+
     fun callOnResume(){
         println("onResume")
     }
@@ -101,8 +103,19 @@ class MandalaActivity : AppCompatActivity() {
 
 
         val keyWords="MC_"+theme+"_words"
-        val keyIsExtended="MC_"+theme+"_isExtended"
+        //val keyIsExtended="MC_"+theme+"_isExtended"
         editor.putString(keyWords,jsonString)
+
+        val themes:ArrayList<String> = arrayListOf()
+        val jsonArray = JSONArray(dataStore.getString("theme","[]"))
+        println(jsonArray)
+        for(i in 0..jsonArray.length()-1){
+            themes.add(jsonArray[i].toString())
+        }
+        themes.add("MC_"+theme)
+        val themesJsonString=gson.toJson(themes)
+        editor.putString("theme",themesJsonString)
+
         editor.apply()
         isChanged=false
     }
@@ -172,7 +185,7 @@ class MandalaActivity : AppCompatActivity() {
 
 
     fun loadBoard(){
-        val keyWords="MC_"+theme+"_words"
+        val keyWords=theme+"_words"
         val jsonString=dataStore.getString(keyWords,"nothing")
         val gson= Gson()
         words = gson.fromJson(jsonString,Array<Array<String>>::class.java)
@@ -187,7 +200,8 @@ class MandalaActivity : AppCompatActivity() {
             val llh=ll1.getChildAt(i)as LinearLayout
 
             for(j in(0..2)) {
-                val tl = llh.getChildAt(j) as TableLayout
+                val fl1=llh.getChildAt(j) as FrameLayout
+                val tl = fl1.getChildAt(0) as TableLayout
                 val fl = tl.getChildAt(0) as FrameLayout
                 val ll2 = fl.getChildAt(1) as LinearLayout
 
@@ -199,6 +213,8 @@ class MandalaActivity : AppCompatActivity() {
                         val scv = fl1.getChildAt(0) as ScrollView
                         //val hscv = scv.getChildAt(0) as HorizontalScrollView
                         val ed = scv.getChildAt(0) as EditText
+
+                        eds.add(ed)
 
                         ed.setText(words[i*3+j][k*3+l])
 
@@ -258,6 +274,7 @@ class MandalaActivity : AppCompatActivity() {
         }
         else if(id==R.id.action_settings2){
             println(2)
+            save()
         }
 
         return super.onOptionsItemSelected(item)
