@@ -40,7 +40,15 @@ class MandalaActivity : AppCompatActivity() {
 
         val toolbar =findViewById<Toolbar>(R.id.tool_bar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title=theme
+
+        if(theme.substring(0,3)=="MC_"){
+            supportActionBar?.title=theme.substring(3)
+        }
+        else{
+            supportActionBar?.title=theme
+        }
+
+
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
 
@@ -248,7 +256,6 @@ class MandalaActivity : AppCompatActivity() {
     }
 
     fun onClick(v:View){
-        //println(v.id)
         val text=findViewById<TextView>(v.id)
 
         val temp:Int=text.hint.toString().toInt()

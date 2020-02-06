@@ -57,7 +57,15 @@ class BrainActivity : AppCompatActivity() {
 
         val toolbar =findViewById<Toolbar>(R.id.tool_bar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title=theme
+
+        if(theme.substring(0,3)=="BS_"){
+            supportActionBar?.title=theme.substring(3)
+        }
+        else{
+            supportActionBar?.title=theme
+        }
+
+
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         dataStore =getSharedPreferences("DataStore", Context.MODE_PRIVATE)
