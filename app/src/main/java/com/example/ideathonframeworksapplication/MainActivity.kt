@@ -40,32 +40,7 @@ class MainActivity : AppCompatActivity() {
         vg2 = findViewById<View>(R.id.TableLayout2) as ViewGroup
 
         val transaction = supportFragmentManager.beginTransaction()
-        //lateinit var frag : Fragment
 
-        /*
-        button_mandala.setOnClickListener {
-/*
-            val pager : ViewPager = findViewById<ViewPager>(R.id.pager)
-            val fragmentManager : FragmentManager = supportFragmentManager
-            val adapter = SetModePager(fragmentManager)
-            pager.adapter=adapter
-*/
-            if(savedInstanceState==null){
-                println("A")
-                val transaction = supportFragmentManager.beginTransaction()
-                transaction.add(R.id.Constraint,SetModeFragment.newInstance())
-                transaction.commit()
-            }
-
-
-
-
-            /*
-            val intent = Intent(this,MandalaChartHomeActivity::class.java)
-            startActivity(intent)
-            */
-        }
-        */
 
 
     }
@@ -93,6 +68,7 @@ class MainActivity : AppCompatActivity() {
 
         for(t in 0 .. jsonArray.length()-1) {
             themes.add(jsonArray.get(t).toString())
+
 
 
             if((t+1)%2==0){

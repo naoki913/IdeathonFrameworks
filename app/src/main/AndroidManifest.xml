@@ -9,22 +9,28 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".BrainActivity">
+        <activity android:name=".BrainActivity"
+                  android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".MandalaActivity">
+        <activity android:name=".MandalaActivity"
+                  android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".BrainstormingActivity">
+        <activity android:name=".BrainstormingActivity"
+                  android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".BrainstormingHomeActivity">
+        <activity android:name=".BrainstormingHomeActivity"
+                  android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".MandalaChartActivity">
+        <activity android:name=".MandalaChartActivity"
+                  android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".MandalaChartHomeActivity">
+        <activity android:name=".MandalaChartHomeActivity"
+                  android:windowSoftInputMode="adjustPan">
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
