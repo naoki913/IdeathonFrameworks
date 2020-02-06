@@ -25,10 +25,9 @@
                              android:id="@+id/table1"
                     />
                     <TextView
-                            android:text="TextView1"
                             android:layout_width="match_parent"
-                            android:layout_height="124dp" android:id="@+id/touchView1"
-                            android:onClick="onClick" android:clickable="true" android:hint="1"/>
+                            android:layout_height="match_parent" android:id="@+id/touchView1"
+                            android:onClick="onClick" android:clickable="true" android:hint="1" android:text="    "/>
                 </FrameLayout>
                 <FrameLayout
                         android:layout_width="match_parent"
@@ -38,7 +37,7 @@
                              android:id="@+id/table2"
                     />
                     <TextView
-                            android:text="TextView2"
+                            android:text="  "
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" android:id="@+id/touchView2"
                             android:onClick="onClick" android:clickable="true" android:hint="2"/>
@@ -51,7 +50,7 @@
                              android:id="@+id/table3"
                     />
                     <TextView
-                            android:text="TextView3"
+                            android:text=" "
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" android:id="@+id/touchView3" android:clickable="true"
                             android:onClick="onClick" android:hint="3"/>
@@ -71,7 +70,7 @@
                              android:id="@+id/table4"
                     />
                     <TextView
-                            android:text="TextView"
+                            android:text=" "
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" android:id="@+id/touchView4"
                             android:onClick="onClick" android:clickable="true" android:hint="4"/>
@@ -84,7 +83,7 @@
                              android:id="@+id/table5"
                     />
                     <TextView
-                            android:text="TextView"
+                            android:text=" "
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" android:id="@+id/touchView5" android:clickable="true"
                             android:onClick="onClick" android:hint="5"/>
@@ -97,7 +96,7 @@
                              android:id="@+id/table6"
                     />
                     <TextView
-                            android:text="TextView"
+                            android:text=" "
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" android:id="@+id/touchView6" android:clickable="true"
                             android:onClick="onClick" android:hint="6"/>
@@ -115,7 +114,7 @@
                              android:id="@+id/table7"
                     />
                     <TextView
-                            android:text="TextView"
+                            android:text=" "
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" android:id="@+id/touchView7"
                             android:onClick="onClick" android:clickable="true" android:hint="7"/>
@@ -128,7 +127,7 @@
                              android:id="@+id/table8"
                     />
                     <TextView
-                            android:text="TextView"
+                            android:text=" "
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" android:id="@+id/touchView8" android:clickable="true"
                             android:onClick="onClick" android:hint="8"/>
@@ -141,7 +140,7 @@
                              android:id="@+id/table9"
                     />
                     <TextView
-                            android:text="@string/textview"
+                            android:text=" "
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" android:id="@+id/touchView9" android:clickable="true"
                             android:onClick="onClick" android:hint="9"/>
