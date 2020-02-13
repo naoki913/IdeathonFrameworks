@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
@@ -131,9 +132,16 @@ class MandalaActivity : AppCompatActivity() {
     fun initBoard(){
         getLayoutInflater().inflate(R.layout.mandala_chart_table_9x9, vg)
 
+
         val scv=vg.getChildAt(0)as ScrollView
+
+
+
         val hscv=scv.getChildAt(0)as HorizontalScrollView
+
         val ll1=hscv.getChildAt(0)as LinearLayout
+
+
 
         for(i in(0..2)){
             val llh=ll1.getChildAt(i)as LinearLayout
@@ -141,8 +149,30 @@ class MandalaActivity : AppCompatActivity() {
 
             for(j in(0..2)) {
                 val fl1=llh.getChildAt(j) as FrameLayout
+
                 val tl = fl1.getChildAt(0) as TableLayout
+
+                /*
+                tl.scaleX=tl.scaleX/3
+                tl.scaleY=tl.scaleY/3
+
+                tl.translationX=-width/3+300*j.toFloat()
+                tl.translationY=-width/3+300*j.toFloat()
+                */
+
+
                 val fl = tl.getChildAt(0) as FrameLayout
+
+
+
+
+                val img=fl.getChildAt(0) as ImageView
+
+                /*
+                img.scaleX=img.scaleX/3
+                img.scaleY=img.scaleY/3
+                */
+
                 val ll2 = fl.getChildAt(1) as LinearLayout
 
                 for (k in (0..2)) {

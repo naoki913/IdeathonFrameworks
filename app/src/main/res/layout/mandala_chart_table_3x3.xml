@@ -12,9 +12,9 @@
         <!--枠線終了-->
 
         <ImageView
-                android:layout_height="130dp" app:srcCompat="@drawable/mandara_table"
+                android:layout_height="390dp" app:srcCompat="@drawable/mandara_table"
                 android:id="@+id/imageView3" android:fitsSystemWindows="true" android:scaleX="1" android:scaleY="1"
-                android:layout_width="130dp" android:background="#00000000"/>
+                android:layout_width="390dp" android:background="#00000000"/>
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -32,10 +32,10 @@
                         android:clickable="true" android:onClick="onClickEditText" android:background="#00000000">
 
                     <ScrollView
-                            android:layout_width="43dp"
-                            android:layout_height="43dp" android:background="#00000000">
+                            android:layout_width="130dp"
+                            android:layout_height="130dp" android:background="#00000000">
                         <EditText
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPersonName|textMultiLine"
                                 android:background="#00000000"
@@ -44,7 +44,7 @@
                                 android:ems="1"
 
                                 android:singleLine="true" android:gravity="center_horizontal|center_vertical"
-                                android:layout_gravity="center_horizontal|center_vertical" android:textSize="12sp"/>
+                                android:layout_gravity="center_horizontal|center_vertical"/>
                     </ScrollView>
                 </FrameLayout>
                 <FrameLayout
@@ -56,10 +56,10 @@
                         android:background="#00000000">
 
                     <ScrollView
-                            android:layout_width="43dp"
-                            android:layout_height="43dp" android:background="#00000000">
+                            android:layout_width="130dp"
+                            android:layout_height="130dp" android:background="#00000000">
                         <EditText
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPersonName|textMultiLine"
                                 android:background="#00000000"
@@ -67,8 +67,7 @@
                                 android:id="@+id/no2"
                                 android:ems="1"
 
-                                android:gravity="center_horizontal|center_vertical" android:layout_gravity="center"
-                                android:textSize="12sp"/>
+                                android:gravity="center_horizontal|center_vertical" android:layout_gravity="center"/>
                     </ScrollView>
                 </FrameLayout>
                 <FrameLayout
@@ -80,17 +79,17 @@
                         android:background="#00000000">
 
                     <ScrollView
-                            android:layout_width="43dp"
-                            android:layout_height="43dp" android:background="#00000000">
+                            android:layout_width="130dp"
+                            android:layout_height="130dp" android:background="#00000000">
                         <EditText
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPersonName|textMultiLine"
                                 android:text=""
                                 android:background="#00000000"
                                 android:ems="1"
                                 android:id="@+id/no3"
-                                android:gravity="center" android:layout_gravity="center" android:textSize="12sp"/>
+                                android:gravity="center" android:layout_gravity="center"/>
                     </ScrollView>
                 </FrameLayout>
             </TableRow>
@@ -105,17 +104,17 @@
                         android:background="#00000000">
 
                     <ScrollView
-                            android:layout_width="43dp"
-                            android:layout_height="43dp" android:background="#00000000">
+                            android:layout_width="130dp"
+                            android:layout_height="130dp" android:background="#00000000">
                         <EditText
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPersonName|textMultiLine"
                                 android:text=""
                                 android:background="#00000000"
                                 android:ems="1"
                                 android:id="@+id/no4"
-                                android:gravity="center" android:layout_gravity="center" android:textSize="12sp"/>
+                                android:gravity="center" android:layout_gravity="center"/>
                     </ScrollView>
                 </FrameLayout>
                 <FrameLayout
@@ -127,17 +126,17 @@
                         android:background="#00000000">
 
                     <ScrollView
-                            android:layout_width="43dp"
-                            android:layout_height="43dp" android:background="#00000000">
+                            android:layout_width="130dp"
+                            android:layout_height="130dp" android:background="#00000000">
                         <EditText
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPersonName|textMultiLine"
                                 android:text=""
                                 android:background="#00000000"
                                 android:ems="1"
                                 android:id="@+id/no5"
-                                android:gravity="center" android:layout_gravity="center" android:textSize="12sp"/>
+                                android:gravity="center" android:layout_gravity="center"/>
                     </ScrollView>
                 </FrameLayout>
                 <FrameLayout
@@ -149,10 +148,10 @@
                         android:background="#00000000">
 
                     <ScrollView
-                            android:layout_width="43dp"
-                            android:layout_height="43dp" android:background="#00000000">
+                            android:layout_width="130dp"
+                            android:layout_height="130dp" android:background="#00000000">
                         <EditText
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPersonName|textMultiLine"
                                 android:text=""
@@ -160,7 +159,7 @@
                                 android:ems="1"
                                 android:id="@+id/no6"
 
-                                android:gravity="center" android:layout_gravity="center" android:textSize="12sp"/>
+                                android:gravity="center" android:layout_gravity="center"/>
                     </ScrollView>
                 </FrameLayout>
             </TableRow>
@@ -175,10 +174,10 @@
                 >
 
                     <ScrollView
-                            android:layout_width="43dp"
-                            android:layout_height="43dp">
+                            android:layout_width="130dp"
+                            android:layout_height="130dp">
                         <EditText
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPersonName|textMultiLine"
                                 android:text=""
@@ -186,7 +185,7 @@
                                 android:ems="1"
                                 android:id="@+id/no7"
 
-                                android:gravity="center" android:layout_gravity="center" android:textSize="12sp"/>
+                                android:gravity="center" android:layout_gravity="center"/>
                     </ScrollView>
                 </FrameLayout>
                 <FrameLayout
@@ -198,10 +197,10 @@
                 >
 
                     <ScrollView
-                            android:layout_width="43dp"
-                            android:layout_height="43dp">
+                            android:layout_width="130dp"
+                            android:layout_height="130dp">
                         <EditText
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPersonName|textMultiLine"
                                 android:text=""
@@ -209,7 +208,7 @@
                                 android:ems="1"
                                 android:id="@+id/no8"
 
-                                android:gravity="center" android:layout_gravity="center" android:textSize="12sp"/>
+                                android:gravity="center" android:layout_gravity="center"/>
                     </ScrollView>
                 </FrameLayout>
                 <FrameLayout
@@ -221,10 +220,10 @@
                 >
 
                     <ScrollView
-                            android:layout_width="43dp"
-                            android:layout_height="43dp">
+                            android:layout_width="130dp"
+                            android:layout_height="130dp">
                         <EditText
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPersonName|textMultiLine"
                                 android:text=""
@@ -232,7 +231,7 @@
                                 android:ems="1"
                                 android:id="@+id/no9"
 
-                                android:gravity="center" android:layout_gravity="center" android:textSize="12sp"/>
+                                android:gravity="center" android:layout_gravity="center"/>
                     </ScrollView>
                 </FrameLayout>
             </TableRow>

@@ -5,114 +5,117 @@
 
     <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
         <LinearLayout
 
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" android:scaleX="1" android:scaleY="1"
-                android:orientation="vertical">
+                android:layout_height="wrap_content" android:scaleX="1" android:scaleY="1"
+                android:orientation="vertical" android:background="#00000000">
 
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:orientation="horizontal">
+                          android:orientation="horizontal" android:background="#00000000">
 
 
                 <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent" android:background="#00000000">
 
                     <include layout="@layout/mandala_chart_table"
                              android:id="@+id/table1"
-                    />
+                             android:background="#00000000"/>
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" android:id="@+id/touchView1"
-                            android:onClick="onClick" android:clickable="true" android:hint="1" android:text="    "/>
+                            android:onClick="onClick" android:clickable="true" android:hint="1" android:text="    "
+                            android:background="#00000000"/>
                 </FrameLayout>
                 <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent" android:background="#00000000">
 
                     <include layout="@layout/mandala_chart_table"
                              android:id="@+id/table2"
-                    />
+                             android:background="#00000000"/>
                     <TextView
                             android:text="  "
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" android:id="@+id/touchView2"
-                            android:onClick="onClick" android:clickable="true" android:hint="2"/>
+                            android:onClick="onClick" android:clickable="true" android:hint="2"
+                            android:background="#00000000"/>
                 </FrameLayout>
                 <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent" android:background="#00000000">
 
                     <include layout="@layout/mandala_chart_table"
                              android:id="@+id/table3"
-                    />
+                             android:background="#00000000"/>
                     <TextView
                             android:text=" "
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" android:id="@+id/touchView3" android:clickable="true"
-                            android:onClick="onClick" android:hint="3"/>
+                            android:onClick="onClick" android:hint="3" android:background="#00000000"/>
                 </FrameLayout>
 
 
             </LinearLayout>
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:orientation="horizontal">
+                          android:orientation="horizontal" android:background="#00000000">
 
 
                 <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent" android:background="#00000000">
 
                     <include layout="@layout/mandala_chart_table"
                              android:id="@+id/table4"
-                    />
+                             android:background="#00000000"/>
                     <TextView
                             android:text=" "
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" android:id="@+id/touchView4"
-                            android:onClick="onClick" android:clickable="true" android:hint="4"/>
+                            android:onClick="onClick" android:clickable="true" android:hint="4"
+                            android:background="#00000000"/>
                 </FrameLayout>
                 <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent" android:background="#00000000">
 
                     <include layout="@layout/mandala_chart_table"
                              android:id="@+id/table5"
-                    />
+                             android:background="#00000000"/>
                     <TextView
                             android:text=" "
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" android:id="@+id/touchView5" android:clickable="true"
-                            android:onClick="onClick" android:hint="5"/>
+                            android:onClick="onClick" android:hint="5" android:background="#00000000"/>
                 </FrameLayout>
                 <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent" android:background="#00000000">
 
                     <include layout="@layout/mandala_chart_table"
                              android:id="@+id/table6"
-                    />
+                             android:background="#00000000"/>
                     <TextView
                             android:text=" "
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" android:id="@+id/touchView6" android:clickable="true"
-                            android:onClick="onClick" android:hint="6"/>
+                            android:onClick="onClick" android:hint="6" android:background="#00000000"/>
                 </FrameLayout>
 
             </LinearLayout>
             <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                          android:orientation="horizontal">
+                          android:orientation="horizontal" android:background="#00000000">
 
                 <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent" android:background="#00000000">
 
                     <include layout="@layout/mandala_chart_table"
                              android:id="@+id/table7"
-                    />
+                             android:background="#00000000"/>
                     <TextView
                             android:text=" "
                             android:layout_width="match_parent"

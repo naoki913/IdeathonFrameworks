@@ -117,17 +117,18 @@ class Mandala3x3Fragment : Fragment() {
 
         val fl1=vg.getChildAt(0)as FrameLayout
 
-        getLayoutInflater().inflate(R.layout.mandala_chart_table, fl1)
+        getLayoutInflater().inflate(R.layout.mandala_chart_table_3x3, fl1)
 
         val tl=fl1.getChildAt(0)as TableLayout
 
+        /*
         tl.scaleX=tl.scaleX*3
         tl.scaleY=tl.scaleY*3
 
 
         tl.translationX=(width-24).toFloat()
         tl.translationY=(width-24).toFloat()
-
+        */
 
         val fl=tl.getChildAt(0)as FrameLayout
         val ll=fl.getChildAt(1)as LinearLayout
