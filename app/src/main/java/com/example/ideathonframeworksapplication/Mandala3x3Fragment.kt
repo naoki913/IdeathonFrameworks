@@ -120,16 +120,26 @@ class Mandala3x3Fragment : Fragment() {
         getLayoutInflater().inflate(R.layout.mandala_chart_table, fl1)
 
         val tl=fl1.getChildAt(0)as TableLayout
+
+        tl.scaleX=tl.scaleX*3
+        tl.scaleY=tl.scaleY*3
+
+
+        tl.translationX=(width-24).toFloat()
+        tl.translationY=(width-24).toFloat()
+
+
         val fl=tl.getChildAt(0)as FrameLayout
         val ll=fl.getChildAt(1)as LinearLayout
 
         val iv=fl.getChildAt(0)as ImageView
 
+        /*
         iv.scaleX=iv.scaleX*3
         iv.scaleY=iv.scaleY*3
         iv.translationX=(width/3).toFloat()
         iv.translationY=(width/3).toFloat()
-
+        */
 
 
 
@@ -140,6 +150,7 @@ class Mandala3x3Fragment : Fragment() {
             for(j in(0..2)){
                 val fl1=tr.getChildAt(j)as FrameLayout
                 val scv=fl1.getChildAt(0)as ScrollView
+
                 //val hscv=scv.getChildAt(0)as HorizontalScrollView
                 val ed=scv.getChildAt(0)as EditText
 

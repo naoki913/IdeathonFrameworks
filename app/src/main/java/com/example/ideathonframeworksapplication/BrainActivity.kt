@@ -339,11 +339,6 @@ class BrainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val id= item!!.itemId
         if(id==R.id.action_settings){
-            //ロード処理
-            load()
-
-            //以下正常コード（編集）
-            /*
             for(i in boards){
                 for(j in (0..i.childCount-1)){
                     val tl=i.getChildAt(j)as TableRow
@@ -351,17 +346,10 @@ class BrainActivity : AppCompatActivity() {
                     cb.visibility=View.VISIBLE
                 }
             }
-
-            println(genreList.size)
-
             EditBar.visibility=View.VISIBLE
-            */
         }
-
         else if(id==R.id.action_settings2){
            save()
-
-
         }
 
 
@@ -420,9 +408,7 @@ class BrainActivity : AppCompatActivity() {
             genreList.add(i)
         }
 
-
         for(i in 0..cardWords.size-1){
-
             getLayoutInflater().inflate(R.layout.brain_storming_board, vg)
             val a=vg.getChildAt(boardNum)as ConstraintLayout
             val b=a.getChildAt(1)as LinearLayout
@@ -440,6 +426,21 @@ class BrainActivity : AppCompatActivity() {
             inputText.add(text)
             text.hint=boardNum.toString()
             val enter=d.getChildAt(1)as ImageButton
+
+            enter.setOnClickListener {
+                if(!isFinished){
+                    getLayoutInflater().inflate(R.layout.brainstorming_card, boards[Integer.parseInt(text.hint.toString())])
+                    val tr=boards[Integer.parseInt(text.hint.toString())].getChildAt(cardNums[Integer.parseInt(text.hint.toString())]) as TableRow
+                    val card =tr.getChildAt(0)as TextView
+                    println(card.text)
+                    card.text=text.text
+
+                    println(card.text)
+
+                    cardNums[Integer.parseInt(text.hint.toString())]++
+                    cardWords[Integer.parseInt(text.hint.toString())].add(card.text.toString())
+                }
+            }
 
             boardNum++
             cardNums.add(0)
@@ -462,10 +463,7 @@ class BrainActivity : AppCompatActivity() {
 
                 println("boardNum:"+Integer.parseInt(text.hint.toString())+"num:"+cardNums[Integer.parseInt(text.hint.toString())])
             }
-
-
         }
-
     }
 
     private fun time2Text(time:Int =0):String{

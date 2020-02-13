@@ -158,6 +158,7 @@ class MandalaActivity : AppCompatActivity() {
                         if(i==1&&j==1&&k==1&&l==1){
                             ed.setText(theme)
                         }
+                        //ed.setTextSize(16f)
                         words[4][4]=theme
 
                         ed.setOnKeyListener { v, keyCode, event ->

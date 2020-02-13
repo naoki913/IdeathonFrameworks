@@ -69,15 +69,11 @@ class MainActivity : AppCompatActivity() {
         for(t in 0 .. jsonArray.length()-1) {
             themes.add(jsonArray.get(t).toString())
 
-
-
             if((t+1)%2==0){
                 vg=vg1
-                println("vg=vg1")
             }
             else{
                 vg=vg2
-                println("vg=vg2")
             }
             println("count:"+vg.childCount)
 
@@ -101,33 +97,6 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
 
-                /*
-                println(vg.childCount)
-
-                val tr=vg.getChildAt((t+1)/2) as TableRow
-                val ll=tr.getChildAt(0) as LinearLayout
-
-                (ll.getChildAt(0)as Button).setText(themes[t].substring(3))
-                (ll.getChildAt(0)as Button).setOnClickListener {
-                    intent.putExtra("BS_IS_NEW",false)
-                    intent.putExtra("BS_THEME_KEY",themes[t])
-                    startActivity(intent)
-                    //println(themes[t])
-                }
-
-                (ll.getChildAt(1)as TextView).setText(themes[t]+"に関する説明")
-
-                (ll.getChildAt(2)as Button).setOnClickListener {
-                    val keyWords=themes[t]+"_words"
-                    editor.remove(keyWords)
-                    themes.remove(themes[t])
-                    val jsonArray =JSONArray(themes)
-                    editor.putString("theme",jsonArray.toString())
-                    editor.apply()
-
-                    onResume()
-                }
-                */
             }
             else if(themes[t].substring(0,2)=="MC"){
                 val intent= Intent(this,MandalaActivity::class.java)
@@ -146,68 +115,16 @@ class MainActivity : AppCompatActivity() {
                     intent.putExtra("MC_THEME_KEY",themes[t])
                     startActivity(intent)
                 }
-
-                /*
-                val tr=vg.getChildAt((t+1)/2) as TableRow
-                val ll=tr.getChildAt(0) as LinearLayout
-
-                (ll.getChildAt(0)as Button).setText(themes[t].substring(3))
-                (ll.getChildAt(0)as Button).setOnClickListener {
-                    intent.putExtra("MC_IS_NEW",false)
-                    intent.putExtra("MC_THEME_KEY",themes[t])
-                    startActivity(intent)
-                }
-
-                (ll.getChildAt(1)as TextView).setText(themes[t]+"に関する説明")
-
-                (ll.getChildAt(2)as Button).setOnClickListener {
-                    val keyWords=themes[t]+"_words"
-                    editor.remove(keyWords)
-                    val keyIsExtended=themes[t]+"_isExtended"
-                    editor.remove(keyIsExtended)
-                    themes.remove(themes[t])
-                    val jsonArray =JSONArray(themes)
-                    editor.putString("theme",jsonArray.toString())
-                    editor.apply()
-
-                    onResume()
-                }
-                */
             }
-
-
-
         }
 
         println("themes:"+themes)
 
     }
 
-    /*
-    //Menu
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        getMenuInflater().inflate(R.menu.menu_brain, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        val id= item!!.itemId
-        if(id==R.id.action_settings){
-            println(1)
-        }
-        else if(id==R.id.action_settings2){
-            println(2)
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
-    */
-
-
     override fun onBackPressed(){
         super.onBackPressed()
     }
-
 }
 
 
