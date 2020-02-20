@@ -30,6 +30,7 @@ class BrainActivity : AppCompatActivity() {
     var timeValue=0
     var passedTime=0
     var isFinished=false
+    var isFirstSave=true
     val handler= Handler()
     lateinit var dataStore: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
@@ -58,12 +59,10 @@ class BrainActivity : AppCompatActivity() {
         val toolbar =findViewById<Toolbar>(R.id.tool_bar)
         setSupportActionBar(toolbar)
 
-        if(theme.substring(0,3)=="BS_"){
-            supportActionBar?.title=theme.substring(3)
+        if(isNew==false){
+            theme=theme.substring(3)
         }
-        else{
-            supportActionBar?.title=theme
-        }
+        supportActionBar?.title=theme
 
 
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
@@ -122,6 +121,7 @@ class BrainActivity : AppCompatActivity() {
 
                     cardNums[Integer.parseInt(text.hint.toString())]++
                     cardWords[Integer.parseInt(text.hint.toString())].add(card.text.toString())
+
 
 
                     println("boardNum:"+Integer.parseInt(text.hint.toString())+"num:"+cardNums[Integer.parseInt(text.hint.toString())])
@@ -336,6 +336,20 @@ class BrainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    override fun onBackPressed(){
+            val dialog = android.support.v7.app.AlertDialog.Builder(this)
+            dialog.setTitle("データを保存しますか？")
+            dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
+                // OKボタン押したときの処理
+                saveManage(true)
+            })
+            dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { _, _->
+                finish()
+            })
+            dialog.show()
+
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         val id= item!!.itemId
         if(id==R.id.action_settings){
@@ -349,19 +363,97 @@ class BrainActivity : AppCompatActivity() {
             EditBar.visibility=View.VISIBLE
         }
         else if(id==R.id.action_settings2){
-           save()
+            val dialog = android.support.v7.app.AlertDialog.Builder(this)
+            dialog.setTitle("データを保存しますか？")
+            dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
+                // OKボタン押したときの処理
+                println("back")
+                saveManage(false)
+            })
+            dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { _, _ ->
+                //finish()
+            })
+            dialog.show()
         }
 
 
         return super.onOptionsItemSelected(item)
     }
 
+    fun saveManage(_isFinish:Boolean){
+        if(isFirstSave&&isNew){
+            var isAlreadyTheme=false
+            val tempThemes: ArrayList<String> = arrayListOf()
+            val jsonTempArray = JSONArray(dataStore.getString("theme","[]"))
+            for(t in 0 .. jsonTempArray.length()-1) {
+                tempThemes.add(jsonTempArray.get(t).toString())
+                println("jsonTempArray.get(t).toString():"+jsonTempArray.get(t).toString())
+                println("theme:"+theme)
+                if(jsonTempArray.get(t).toString()=="BS_"+theme){
+                    isAlreadyTheme=true
+                }
+            }
+            if(isAlreadyTheme){
+                val dialog = android.app.AlertDialog.Builder(this)
+                dialog.setTitle("既に同じテーマがあります．上書きしますか？")
+                dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { dialog, which ->
+                    if(_isFinish){
+                        finish()
+                    }
+                })
+                dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
+                    // OKボタン押したときの処理
+
+                    tempThemes.remove("BS_"+theme)
+
+                    val jsonArray = JSONArray(tempThemes)
+                    editor.putString("theme",jsonArray.toString())
+                    editor.apply()
+
+                    save()
+                    if(_isFinish){
+                        finish()
+                    }
+                })
+                dialog.show()
+            }
+            else {
+                save()
+                if(_isFinish){
+                    finish()
+                }
+            }
+        }
+        else{
+            save()
+            if(_isFinish){
+                finish()
+            }
+        }
+
+
+
+
+
+    }
+
     fun save(){
         val gson= Gson()
         var jsonString:String
 
+
+        println("ooooooooo:"+cardWords.size)
+        for(i in 0 .. cardWords.size-1){
+            println("ooooooooo:"+cardWords[i].size)
+            for(j in 0..cardWords[i].size-1){
+                println("kkkkkkkk:"+cardWords[i][j])
+            }
+        }
+
+
         val keyCardWords="BS_"+theme+"_cardWords"
         jsonString=gson.toJson(cardWords)
+        println(jsonString)
         editor.putString(keyCardWords,jsonString)
 
         val keyGenreList="BS_"+theme+"_genreList"
@@ -374,6 +466,7 @@ class BrainActivity : AppCompatActivity() {
         for(i in 0..jsonArray.length()-1){
             themes.add(jsonArray[i].toString())
         }
+        themes.remove("BS_"+theme)
         themes.add("BS_"+theme)
         val themesJsonString=gson.toJson(themes)
         editor.putString("theme",themesJsonString)
@@ -387,9 +480,12 @@ class BrainActivity : AppCompatActivity() {
         val gson= Gson()
         var jsonString:String=""
 
-        val keyCardWords=theme+"_cardWords"
+        val keyCardWords="BS_"+theme+"_cardWords"
         jsonString=dataStore.getString(keyCardWords,"nothing")
         val tempCardWords = gson.fromJson(jsonString,Array<Array<String>>::class.java)
+
+
+
 
         cardWords.clear()
         for(i in 0..tempCardWords.size-1){
@@ -399,7 +495,16 @@ class BrainActivity : AppCompatActivity() {
             }
         }
 
-        val keyGenreList = theme+"_genreList"
+        println("ooooooooo:"+cardWords.size)
+        for(i in 0 .. cardWords.size-1){
+            println("ooooooooo:"+cardWords[i].size)
+            for(j in 0..cardWords[i].size-1){
+                println("kkkkkkkk:"+cardWords[i][j])
+            }
+        }
+
+
+        val keyGenreList = "BS_"+theme+"_genreList"
         jsonString=dataStore.getString(keyGenreList,"nothing")
         val tempGenreList=gson.fromJson(jsonString,Array<String>::class.java)
 
@@ -408,7 +513,9 @@ class BrainActivity : AppCompatActivity() {
             genreList.add(i)
         }
 
-        for(i in 0..cardWords.size-1){
+        println("genreList.size:"+genreList.size)
+
+        for(i in 0..genreList.size-1){
             getLayoutInflater().inflate(R.layout.brain_storming_board, vg)
             val a=vg.getChildAt(boardNum)as ConstraintLayout
             val b=a.getChildAt(1)as LinearLayout
@@ -419,7 +526,7 @@ class BrainActivity : AppCompatActivity() {
             val c=b.getChildAt(1)as ScrollView
             val vg1=c.getChildAt(0)as LinearLayout
             boards.add(vg1)
-            cardWords.add(arrayListOf())
+            //cardWords.add(arrayListOf())
 
             val d=b.getChildAt(2)as LinearLayout
             val text=d.getChildAt(0)as EditText
@@ -445,8 +552,11 @@ class BrainActivity : AppCompatActivity() {
             boardNum++
             cardNums.add(0)
 
+            println("cardWord["+i+"]:"+cardWords[i].size)
+
             for(j in 0..cardWords[i].size-1){
                 getLayoutInflater().inflate(R.layout.brainstorming_card, boards[Integer.parseInt(text.hint.toString())])
+                println("aaaaaaaaaaaaaaaaaaaaaaaaaa")
 
                 println(boards[Integer.parseInt(text.hint.toString())])
                 println(cardNums[Integer.parseInt(text.hint.toString())])
@@ -459,11 +569,20 @@ class BrainActivity : AppCompatActivity() {
                 println(card.text)
 
                 cardNums[Integer.parseInt(text.hint.toString())]++
-                cardWords[Integer.parseInt(text.hint.toString())].add(card.text.toString())
+                //cardWords[Integer.parseInt(text.hint.toString())].add(card.text.toString())
 
                 println("boardNum:"+Integer.parseInt(text.hint.toString())+"num:"+cardNums[Integer.parseInt(text.hint.toString())])
             }
         }
+
+        println("ooooooooo:"+cardWords.size)
+        for(i in 0 .. cardWords.size-1){
+            println("ooooooooo:"+cardWords[i].size)
+            for(j in 0..cardWords[i].size-1){
+                println("kkkkkkkk:"+cardWords[i][j])
+            }
+        }
+
     }
 
     private fun time2Text(time:Int =0):String{

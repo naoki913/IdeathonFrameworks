@@ -47,6 +47,11 @@ class MainActivity : AppCompatActivity() {
     override fun onResume(){
         super.onResume()
 
+        /*
+        editor.putString("theme","[]")
+        editor.apply()
+        */
+
         val jsonArray = JSONArray(dataStore.getString("theme","[]"))
         vg1.removeAllViews()
         vg2.removeAllViews()
