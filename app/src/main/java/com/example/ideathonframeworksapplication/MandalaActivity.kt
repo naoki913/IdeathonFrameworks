@@ -1,6 +1,7 @@
 package com.example.ideathonframeworksapplication
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -27,6 +28,7 @@ class MandalaActivity : AppCompatActivity() {
     var isNew:Boolean by Delegates.notNull()
     var theme:String by Delegates.notNull()
     var isChanged:Boolean =false
+    var isFirstSave=true
     var width:Int=0
     var words =Array(9,{Array<String>(9,{""})})
     val eds:ArrayList<EditText> =arrayListOf()
@@ -42,13 +44,10 @@ class MandalaActivity : AppCompatActivity() {
         val toolbar =findViewById<Toolbar>(R.id.tool_bar)
         setSupportActionBar(toolbar)
 
-        if(theme.substring(0,3)=="MC_"){
-            supportActionBar?.title=theme.substring(3)
+        if(isNew==false){
+            theme=theme.substring(3)
         }
-        else{
-            supportActionBar?.title=theme
-        }
-
+        supportActionBar?.title=theme
 
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
@@ -81,6 +80,15 @@ class MandalaActivity : AppCompatActivity() {
             isChanged=true
         }
         words[_index]=_words
+
+
+        if(_index==4){
+            for(i in (0..8)){
+                words[i][4]=words[4][i]
+            }
+        }
+
+
         updateBoard(_index)
 
         println("destroyFragment")
@@ -88,13 +96,70 @@ class MandalaActivity : AppCompatActivity() {
 
 
     fun callOnResume(){
-        println("onResume")
+        println("---------------MandalaActivity_1----------------")
     }
 
     fun updateBoard(index : Int){
         for(i in(0..2)){
             for(j in(0..2)){
                 eds[9*index+3*i+j].setText(words[index][i*3+j])
+            }
+        }
+        if(index==4){
+            for(i in(0..8)){
+                eds[9*i+4].setText(words[4][i])
+            }
+        }
+    }
+
+    fun saveManage(_isFinish:Boolean){
+        if(isFirstSave&&isNew){
+            var isAlreadyTheme=false
+            val tempThemes: ArrayList<String> = arrayListOf()
+            val jsonTempArray = JSONArray(dataStore.getString("theme","[]"))
+            for(t in 0 .. jsonTempArray.length()-1) {
+                tempThemes.add(jsonTempArray.get(t).toString())
+                println("jsonTempArray.get(t).toString():"+jsonTempArray.get(t).toString())
+                println("theme:"+theme)
+                if(jsonTempArray.get(t).toString()=="MC_"+theme){
+                    isAlreadyTheme=true
+                }
+            }
+            if(isAlreadyTheme){
+                val dialog = android.app.AlertDialog.Builder(this)
+                dialog.setTitle("既に同じテーマがあります．上書きしますか？")
+                dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { dialog, which ->
+                    if(_isFinish){
+                        finish()
+                    }
+                })
+                dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
+                    // OKボタン押したときの処理
+
+                    tempThemes.remove("MC_"+theme)
+
+                    val jsonArray = JSONArray(tempThemes)
+                    editor.putString("theme",jsonArray.toString())
+                    editor.apply()
+
+                    save()
+                    if(_isFinish){
+                        finish()
+                    }
+                })
+                dialog.show()
+            }
+            else {
+                save()
+                if(_isFinish){
+                    finish()
+                }
+            }
+        }
+        else{
+            save()
+            if(_isFinish){
+                finish()
             }
         }
     }
@@ -121,6 +186,7 @@ class MandalaActivity : AppCompatActivity() {
         for(i in 0..jsonArray.length()-1){
             themes.add(jsonArray[i].toString())
         }
+        themes.remove("MC_"+theme)
         themes.add("MC_"+theme)
         val themesJsonString=gson.toJson(themes)
         editor.putString("theme",themesJsonString)
@@ -182,6 +248,7 @@ class MandalaActivity : AppCompatActivity() {
                         val fl1 = tr.getChildAt(l) as FrameLayout
                         val scv = fl1.getChildAt(0) as ScrollView
                         val ed = scv.getChildAt(0) as EditText
+                        ed.setKeyListener(null)
 
                         eds.add(ed)
 
@@ -224,7 +291,7 @@ class MandalaActivity : AppCompatActivity() {
 
 
     fun loadBoard(){
-        val keyWords=theme+"_words"
+        val keyWords="MC_"+theme+"_words"
         val jsonString=dataStore.getString(keyWords,"nothing")
         val gson= Gson()
         words = gson.fromJson(jsonString,Array<Array<String>>::class.java)
@@ -252,6 +319,7 @@ class MandalaActivity : AppCompatActivity() {
                         val scv = fl1.getChildAt(0) as ScrollView
                         //val hscv = scv.getChildAt(0) as HorizontalScrollView
                         val ed = scv.getChildAt(0) as EditText
+                        ed.setKeyListener(null)
 
                         eds.add(ed)
 
@@ -312,10 +380,24 @@ class MandalaActivity : AppCompatActivity() {
         }
         else if(id==R.id.action_settings2){
             println(2)
-            save()
+            saveManage(false)
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed(){
+        val dialog = android.support.v7.app.AlertDialog.Builder(this)
+        dialog.setTitle("データを保存しますか？")
+        dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
+            // OKボタン押したときの処理
+            saveManage(true)
+        })
+        dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { _, _->
+            finish()
+        })
+        dialog.show()
+
     }
 }
 
