@@ -57,6 +57,16 @@ class SetTimerFragment : Fragment() {
         r.SecondPicker.maxValue=59
         r.SecondPicker.minValue=0
 
+
+        //val fragmentManager : FragmentManager = childFragmentManager
+        //val fragmentTranscation =fragmentManager.beginTransaction()
+
+        r.cancel.setOnClickListener {
+            //fragmentManager.beginTransaction().remove(this).commit()
+            //fragmentTranscation.remove(this).commit()
+            getFragmentManager()?.beginTransaction()?.remove(this)?.commit();
+        }
+
         r.noSet.setOnClickListener {
             val intent= Intent(activity,BrainActivity::class.java)
             intent.putExtra("BS_THEME_KEY",param1)

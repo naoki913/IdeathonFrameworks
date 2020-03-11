@@ -25,23 +25,24 @@
                 android:hint="考える内容を入力"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.224" android:background="#FFFFFF"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.041" android:background="#FFFFFF"
+                app:layout_constraintTop_toBottomOf="@id/textView11" app:layout_constraintHorizontal_bias="0.496"/>
         <TextView
                 android:text="考えるテーマ"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:id="@+id/textView11"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintVertical_bias="0.147"/>
+                app:layout_constraintTop_toTopOf="@id/imageView4" app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.04"/>
         <android.support.v4.view.ViewPager
                 android:layout_width="286dp"
                 android:layout_height="327dp" android:id="@+id/pager"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.496"
-                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.564"
-        >
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/themeText" app:layout_constraintVertical_bias="0.168">
         </android.support.v4.view.ViewPager>
         <Button
                 android:text="作成"

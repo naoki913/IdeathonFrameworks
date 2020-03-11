@@ -30,7 +30,7 @@
             app:layout_constraintHorizontal_bias="0.25" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
 
-            app:layout_constraintVertical_bias="0.455"/>
+            app:layout_constraintVertical_bias="0.393"/>
     <NumberPicker
             android:id="@+id/SecondPicker"
             android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
             app:layout_constraintHorizontal_bias="0.772" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
 
-            app:layout_constraintVertical_bias="0.455"/>
+            app:layout_constraintVertical_bias="0.393"/>
     <NumberPicker
             android:id="@+id/MinutePicker"
             android:layout_width="wrap_content"
@@ -46,15 +46,15 @@
             app:layout_constraintHorizontal_bias="0.498" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
 
-            app:layout_constraintVertical_bias="0.455"/>
+            app:layout_constraintVertical_bias="0.393"/>
     <TextView
             android:text="時"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/HourText"
-            app:layout_constraintHorizontal_bias="0.269"
+            app:layout_constraintHorizontal_bias="0.272"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.653"
+            app:layout_constraintVertical_bias="0.609"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" android:textSize="18sp"/>
     <TextView
@@ -65,7 +65,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.653"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintVertical_bias="0.605"
             app:layout_constraintHorizontal_bias="0.498"/>
     <TextView
             android:text="秒"
@@ -75,22 +75,30 @@
             app:layout_constraintHorizontal_bias="0.732" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.653"/>
+            app:layout_constraintVertical_bias="0.605"/>
     <ImageButton
             android:src="@drawable/timer_button_no"
-            android:layout_width="101dp"
-            android:layout_height="39dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/noSet" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.438" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.467" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.761" android:background="#00000000"/>
+            app:layout_constraintVertical_bias="0.709" android:background="#00000000"/>
     <ImageButton
             android:src="@drawable/timer_button_set"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/timeSet" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.769" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_bias="0.761" android:background="#00000000"/>
+            app:layout_constraintHorizontal_bias="0.805" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0.709" android:background="#00000000"/>
+    <Button
+            android:text="キャンセル"
+            android:layout_width="85dp"
+            android:layout_height="41dp"
+            android:id="@+id/cancel" android:textSize="12sp" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.202" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.788"/>
 </android.support.constraint.ConstraintLayout>
 

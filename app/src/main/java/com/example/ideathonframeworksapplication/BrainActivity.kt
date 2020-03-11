@@ -34,6 +34,7 @@ class BrainActivity : AppCompatActivity() {
     val handler= Handler()
     lateinit var dataStore: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
+    lateinit var runnable: Runnable
 
     val boards:ArrayList<LinearLayout> =arrayListOf()
     val inputText:ArrayList<EditText> = arrayListOf()
@@ -48,43 +49,59 @@ class BrainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_brain)
 
-        val hour = intent.getIntExtra("HOUR",0)
-        val min=intent.getIntExtra("MIN",0)
-        val sec=intent.getIntExtra("SEC",0)
-        theme=intent.getStringExtra("BS_THEME_KEY")
-        isNew=intent.getBooleanExtra("BS_IS_NEW",true)
-        isSetTime=intent.getBooleanExtra("BS_IS_SET_TIME",false)
-
-
         val toolbar =findViewById<Toolbar>(R.id.tool_bar)
         setSupportActionBar(toolbar)
+
+        theme=intent.getStringExtra("BS_THEME_KEY")
+        isNew=intent.getBooleanExtra("BS_IS_NEW",true)
 
         if(isNew==false){
             theme=theme.substring(3)
         }
         supportActionBar?.title=theme
 
-
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         dataStore =getSharedPreferences("DataStore", Context.MODE_PRIVATE)
         editor = dataStore.edit()
 
-        vg = findViewById<View>(R.id.Linear) as LinearLayout
-
-        inputText.add(genreText)
 
 
+        var hour=0
+        var min=0
+        var sec=0
+        if(isNew){
+            isSetTime=intent.getBooleanExtra("BS_IS_SET_TIME",false)
+            hour = intent.getIntExtra("HOUR",0)
+            min=intent.getIntExtra("MIN",0)
+            sec=intent.getIntExtra("SEC",0)
 
-
-        timeValue=hour*60*60+min*60+sec
+            timeValue=hour*60*60+min*60+sec
+        }
+        else{
+            val keyIsSetTime="BS_"+theme+"_isSetTime"
+            isSetTime=dataStore.getBoolean(keyIsSetTime,false)
+            val keyTimeValue="BS_"+theme+"_timeValue"
+            val keyPassedTime="BS_"+theme+"_passedTime"
+            timeValue=dataStore.getInt(keyTimeValue,0)
+            passedTime=dataStore.getInt(keyPassedTime,0)
+        }
 
         if(isSetTime){
-            timeText.text=time2Text(timeValue)
+            timeText.text=time2Text(timeValue-passedTime)
         }
         else{
             timeText.text="無制限"
         }
+
+
+
+        vg = findViewById<View>(R.id.Linear) as LinearLayout
+
+        //inputText.add(genreText)
+
+
+
 
         if(isNew){
             //初期ボード設置
@@ -143,15 +160,12 @@ class BrainActivity : AppCompatActivity() {
 
 
 
-        lateinit var runnable: Runnable
+
         fun start(){
             handler.post(runnable)
         }
 
-        fun stop(){
-            println("stop")
-            handler.removeCallbacks(runnable)
-        }
+
         runnable= object :Runnable{
             override fun run() {
                 if(isSetTime){
@@ -285,7 +299,7 @@ class BrainActivity : AppCompatActivity() {
 
 
         newBoardButton.setOnClickListener {
-            if(!isFinished){
+            //if(!isFinished){
                 getLayoutInflater().inflate(R.layout.brain_storming_board, vg)
                 val a=vg.getChildAt(boardNum)as ConstraintLayout
                 val b=a.getChildAt(1)as LinearLayout
@@ -325,10 +339,14 @@ class BrainActivity : AppCompatActivity() {
 
                 boardNum++
                 cardNums.add(0)
-            }
+            //}
 
         }
 
+    }
+    fun stop(){
+        println("stop")
+        handler.removeCallbacks(runnable)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -337,16 +355,17 @@ class BrainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed(){
-            val dialog = android.support.v7.app.AlertDialog.Builder(this)
-            dialog.setTitle("データを保存しますか？")
-            dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
-                // OKボタン押したときの処理
-                saveManage(true)
-            })
-            dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { _, _->
-                finish()
-            })
-            dialog.show()
+        stop()
+        val dialog = android.support.v7.app.AlertDialog.Builder(this)
+        dialog.setTitle("データを保存しますか？")
+        dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
+            // OKボタン押したときの処理
+            saveManage(true)
+        })
+        dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { _, _->
+            finish()
+        })
+        dialog.show()
 
     }
 
@@ -441,19 +460,17 @@ class BrainActivity : AppCompatActivity() {
         val gson= Gson()
         var jsonString:String
 
+        val keyTimeValue="BS_"+theme+"_timeValue"
+        editor.putInt(keyTimeValue,timeValue)
 
-        println("ooooooooo:"+cardWords.size)
-        for(i in 0 .. cardWords.size-1){
-            println("ooooooooo:"+cardWords[i].size)
-            for(j in 0..cardWords[i].size-1){
-                println("kkkkkkkk:"+cardWords[i][j])
-            }
-        }
+        val keyPassedTime="BS_"+theme+"_passedTime"
+        editor.putInt(keyPassedTime,passedTime)
 
+        val keyIsSetTime ="BS_"+theme+"_isSetTime"
+        editor.putBoolean(keyIsSetTime,isSetTime)
 
         val keyCardWords="BS_"+theme+"_cardWords"
         jsonString=gson.toJson(cardWords)
-        println(jsonString)
         editor.putString(keyCardWords,jsonString)
 
         val keyGenreList="BS_"+theme+"_genreList"
@@ -462,7 +479,7 @@ class BrainActivity : AppCompatActivity() {
 
         val themes:ArrayList<String> = arrayListOf()
         val jsonArray = JSONArray(dataStore.getString("theme","[]"))
-        println(jsonArray)
+
         for(i in 0..jsonArray.length()-1){
             themes.add(jsonArray[i].toString())
         }
@@ -484,22 +501,11 @@ class BrainActivity : AppCompatActivity() {
         jsonString=dataStore.getString(keyCardWords,"nothing")
         val tempCardWords = gson.fromJson(jsonString,Array<Array<String>>::class.java)
 
-
-
-
         cardWords.clear()
         for(i in 0..tempCardWords.size-1){
             cardWords.add(arrayListOf())
             for(j in 0..tempCardWords[i].size-1){
                 cardWords[i].add(tempCardWords[i][j])
-            }
-        }
-
-        println("ooooooooo:"+cardWords.size)
-        for(i in 0 .. cardWords.size-1){
-            println("ooooooooo:"+cardWords[i].size)
-            for(j in 0..cardWords[i].size-1){
-                println("kkkkkkkk:"+cardWords[i][j])
             }
         }
 
@@ -512,8 +518,6 @@ class BrainActivity : AppCompatActivity() {
         for(i in tempGenreList){
             genreList.add(i)
         }
-
-        println("genreList.size:"+genreList.size)
 
         for(i in 0..genreList.size-1){
             getLayoutInflater().inflate(R.layout.brain_storming_board, vg)
@@ -542,8 +546,6 @@ class BrainActivity : AppCompatActivity() {
                     println(card.text)
                     card.text=text.text
 
-                    println(card.text)
-
                     cardNums[Integer.parseInt(text.hint.toString())]++
                     cardWords[Integer.parseInt(text.hint.toString())].add(card.text.toString())
                 }
@@ -552,14 +554,11 @@ class BrainActivity : AppCompatActivity() {
             boardNum++
             cardNums.add(0)
 
-            println("cardWord["+i+"]:"+cardWords[i].size)
+
 
             for(j in 0..cardWords[i].size-1){
                 getLayoutInflater().inflate(R.layout.brainstorming_card, boards[Integer.parseInt(text.hint.toString())])
-                println("aaaaaaaaaaaaaaaaaaaaaaaaaa")
 
-                println(boards[Integer.parseInt(text.hint.toString())])
-                println(cardNums[Integer.parseInt(text.hint.toString())])
 
                 val tr=boards[Integer.parseInt(text.hint.toString())].getChildAt(cardNums[Integer.parseInt(text.hint.toString())]) as TableRow
                 val card =tr.getChildAt(0)as TextView

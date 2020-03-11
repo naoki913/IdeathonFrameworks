@@ -38,12 +38,19 @@ class SetModeFragment : Fragment() {
     private lateinit var myContext: FragmentActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        println("---------------setModeFragment_1----------------")
         super.onCreate(savedInstanceState)
+        println("---------------setModeFragment_2----------------")
         arguments?.let {
+            println("---------------setModeFragment_3----------------")
             param1 = it.getString(ARG_PARAM1)
+            println("---------------setModeFragment_4----------------")
             param2 = it.getString(ARG_PARAM2)
         }
+        println("---------------setModeFragment_5----------------")
     }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

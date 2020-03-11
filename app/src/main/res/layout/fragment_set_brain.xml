@@ -13,28 +13,28 @@
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
+    <ImageView
+            android:src="@drawable/brain_sumple"
+            android:layout_width="149dp"
+            android:layout_height="150dp" android:id="@+id/imageView9"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="@id/imageView5"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="0.07"/>
     <TextView
-            android:text="テーマを入力"
+            android:text="ブレインストーミング"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toBottomOf="@id/imageView9"
+            app:layout_constraintVertical_bias="0.0"/>
     <TextView
-            android:text="イメージ画像をはいち"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:text="テーマに関連したアイデアを思いつくままに書き出します。アイデアの良し悪しの判断は後に回してアイデアを出していくことが重要です。"
+            android:layout_width="210dp"
+            android:layout_height="102dp"
             android:id="@+id/textView4" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
-            app:layout_constraintBottom_toTopOf="@+id/textView6"/>
-    <TextView
-            android:text="ブレストのせつめい。あああああああああああああああああああああああああああああああああああああああああああああああああああ"
-            android:layout_width="187dp"
-            android:layout_height="54dp"
-            android:id="@+id/textView6" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4"
     />
 </android.support.constraint.ConstraintLayout>
