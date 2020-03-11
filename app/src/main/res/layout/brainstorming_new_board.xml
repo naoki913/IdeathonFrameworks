@@ -25,7 +25,6 @@
             android:layout_width="151dp"
             android:layout_height="36dp"
             android:inputType="textPersonName"
-            android:text="Name"
             android:ems="10"
             android:id="@+id/genreText"
             android:textSize="12sp" android:hint="項目名を入力してください" app:layout_constraintTop_toBottomOf="@+id/textView9"

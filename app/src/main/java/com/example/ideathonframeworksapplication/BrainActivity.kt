@@ -94,14 +94,7 @@ class BrainActivity : AppCompatActivity() {
             timeText.text="無制限"
         }
 
-
-
         vg = findViewById<View>(R.id.Linear) as LinearLayout
-
-        //inputText.add(genreText)
-
-
-
 
         if(isNew){
             //初期ボード設置
@@ -124,42 +117,27 @@ class BrainActivity : AppCompatActivity() {
             text.hint=boardNum.toString()
             val enter=d.getChildAt(1)as ImageButton
 
-
-
             enter.setOnClickListener {
-                if(!isFinished){
+                if(!isFinished&&text.text.toString()!=""){
                     getLayoutInflater().inflate(R.layout.brainstorming_card, boards[Integer.parseInt(text.hint.toString())])
                     val tr=boards[Integer.parseInt(text.hint.toString())].getChildAt(cardNums[Integer.parseInt(text.hint.toString())]) as TableRow
                     val card =tr.getChildAt(0)as TextView
                     println(card.text)
                     card.text=text.text
-
-                    println(card.text)
+                    text.setText("")
 
                     cardNums[Integer.parseInt(text.hint.toString())]++
                     cardWords[Integer.parseInt(text.hint.toString())].add(card.text.toString())
-
-
-
-                    println("boardNum:"+Integer.parseInt(text.hint.toString())+"num:"+cardNums[Integer.parseInt(text.hint.toString())])
                 }
             }
 
             boardNum++
             cardNums.add(0)
-
             //初期ボード設置ここまで
         }
         else{
             load()
         }
-
-
-
-
-
-
-
 
         fun start(){
             handler.post(runnable)
@@ -178,7 +156,6 @@ class BrainActivity : AppCompatActivity() {
                             for(i in inputText){
                                 i.setKeyListener(null)
                             }
-
 
                             val dialog = android.support.v7.app.AlertDialog.Builder(this@BrainActivity)
                             dialog.setTitle("制限時間になりました")
@@ -222,8 +199,6 @@ class BrainActivity : AppCompatActivity() {
         }
 
         cancelButton.setOnClickListener{
-            println("cancel")
-
             for(i in boards){
                 //println(i.childCount)
                 for(j in (0..i.childCount-1)){
@@ -231,17 +206,13 @@ class BrainActivity : AppCompatActivity() {
                     val cb =tl.getChildAt(1)as CheckBox
                     cb.visibility=View.INVISIBLE
                     cb.isChecked=false
-
                 }
             }
 
             EditBar.visibility=View.INVISIBLE
-
         }
 
         moveButton.setOnClickListener {
-            println("move")
-
             val strList = arrayOfNulls<String>(genreList.size)
             genreList.toArray(strList)
             var selectedItam=0
@@ -254,7 +225,6 @@ class BrainActivity : AppCompatActivity() {
                     selectedItam=which
                 })
                 .setPositiveButton("OK", { dialog, which ->
-                    println("size:"+boards.size)
                     for(i in (0..boards.size-1)){
                         for(j in(0..boards[i].childCount-1)){
                             //カードのチェックボックスを確認→ONなら選択されたボードにそのカードを追加し、元のボードからカードを削除する
@@ -321,22 +291,18 @@ class BrainActivity : AppCompatActivity() {
                 val enter=d.getChildAt(1)as ImageButton
 
                 enter.setOnClickListener {
-                    if(!isFinished){
+                    if(!isFinished&&text.text.toString()!=""){
                         getLayoutInflater().inflate(R.layout.brainstorming_card, boards[Integer.parseInt(text.hint.toString())])
                         val tr=boards[Integer.parseInt(text.hint.toString())].getChildAt(cardNums[Integer.parseInt(text.hint.toString())]) as TableRow
                         val card =tr.getChildAt(0)as TextView
-                        println(card.text)
-                        card.text=text.text
 
-                        println(card.text)
+                        card.text=text.text
+                        text.setText("")
 
                         cardNums[Integer.parseInt(text.hint.toString())]++
                         cardWords[Integer.parseInt(text.hint.toString())].add(card.text.toString())
-
-                        println("boardNum:"+Integer.parseInt(text.hint.toString())+"num:"+cardNums[Integer.parseInt(text.hint.toString())])
                     }
                 }
-
                 boardNum++
                 cardNums.add(0)
             //}
@@ -345,7 +311,6 @@ class BrainActivity : AppCompatActivity() {
 
     }
     fun stop(){
-        println("stop")
         handler.removeCallbacks(runnable)
     }
 
@@ -386,7 +351,6 @@ class BrainActivity : AppCompatActivity() {
             dialog.setTitle("データを保存しますか？")
             dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
                 // OKボタン押したときの処理
-                println("back")
                 saveManage(false)
             })
             dialog.setNegativeButton("いいえ", DialogInterface.OnClickListener { _, _ ->
@@ -394,7 +358,6 @@ class BrainActivity : AppCompatActivity() {
             })
             dialog.show()
         }
-
 
         return super.onOptionsItemSelected(item)
     }
@@ -406,8 +369,6 @@ class BrainActivity : AppCompatActivity() {
             val jsonTempArray = JSONArray(dataStore.getString("theme","[]"))
             for(t in 0 .. jsonTempArray.length()-1) {
                 tempThemes.add(jsonTempArray.get(t).toString())
-                println("jsonTempArray.get(t).toString():"+jsonTempArray.get(t).toString())
-                println("theme:"+theme)
                 if(jsonTempArray.get(t).toString()=="BS_"+theme){
                     isAlreadyTheme=true
                 }
@@ -422,7 +383,6 @@ class BrainActivity : AppCompatActivity() {
                 })
                 dialog.setPositiveButton("はい", DialogInterface.OnClickListener { _, _ ->
                     // OKボタン押したときの処理
-
                     tempThemes.remove("BS_"+theme)
 
                     val jsonArray = JSONArray(tempThemes)
@@ -449,11 +409,6 @@ class BrainActivity : AppCompatActivity() {
                 finish()
             }
         }
-
-
-
-
-
     }
 
     fun save(){
@@ -539,12 +494,13 @@ class BrainActivity : AppCompatActivity() {
             val enter=d.getChildAt(1)as ImageButton
 
             enter.setOnClickListener {
-                if(!isFinished){
+                if(!isFinished&&text.text.toString()!=""){
                     getLayoutInflater().inflate(R.layout.brainstorming_card, boards[Integer.parseInt(text.hint.toString())])
                     val tr=boards[Integer.parseInt(text.hint.toString())].getChildAt(cardNums[Integer.parseInt(text.hint.toString())]) as TableRow
                     val card =tr.getChildAt(0)as TextView
                     println(card.text)
                     card.text=text.text
+                    text.setText("")
 
                     cardNums[Integer.parseInt(text.hint.toString())]++
                     cardWords[Integer.parseInt(text.hint.toString())].add(card.text.toString())
@@ -554,34 +510,19 @@ class BrainActivity : AppCompatActivity() {
             boardNum++
             cardNums.add(0)
 
-
-
             for(j in 0..cardWords[i].size-1){
                 getLayoutInflater().inflate(R.layout.brainstorming_card, boards[Integer.parseInt(text.hint.toString())])
 
-
                 val tr=boards[Integer.parseInt(text.hint.toString())].getChildAt(cardNums[Integer.parseInt(text.hint.toString())]) as TableRow
                 val card =tr.getChildAt(0)as TextView
-                println(card.text)
-                card.text=cardWords[i][j]
 
-                println(card.text)
+                card.text=cardWords[i][j]
 
                 cardNums[Integer.parseInt(text.hint.toString())]++
                 //cardWords[Integer.parseInt(text.hint.toString())].add(card.text.toString())
 
-                println("boardNum:"+Integer.parseInt(text.hint.toString())+"num:"+cardNums[Integer.parseInt(text.hint.toString())])
             }
         }
-
-        println("ooooooooo:"+cardWords.size)
-        for(i in 0 .. cardWords.size-1){
-            println("ooooooooo:"+cardWords[i].size)
-            for(j in 0..cardWords[i].size-1){
-                println("kkkkkkkk:"+cardWords[i][j])
-            }
-        }
-
     }
 
     private fun time2Text(time:Int =0):String{

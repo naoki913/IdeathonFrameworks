@@ -21,7 +21,6 @@ const val DELTA_3x3=0.31944444444
 const val DELTA_9x9=0.11111111111
 
 class MandalaActivity : AppCompatActivity() {
-
     lateinit var vg:ViewGroup
     lateinit var dataStore: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
@@ -72,7 +71,7 @@ class MandalaActivity : AppCompatActivity() {
 
     override fun onResume(){
         super.onResume()
-        callOnResume()
+
     }
 
     fun destroyFragment(_index:Int,_isChanged:Boolean,_words:Array<String>){
@@ -81,23 +80,15 @@ class MandalaActivity : AppCompatActivity() {
         }
         words[_index]=_words
 
-
         if(_index==4){
             for(i in (0..8)){
                 words[i][4]=words[4][i]
             }
         }
 
-
         updateBoard(_index)
-
-        println("destroyFragment")
     }
 
-
-    fun callOnResume(){
-        println("---------------MandalaActivity_1----------------")
-    }
 
     fun updateBoard(index : Int){
         for(i in(0..2)){
@@ -119,8 +110,6 @@ class MandalaActivity : AppCompatActivity() {
             val jsonTempArray = JSONArray(dataStore.getString("theme","[]"))
             for(t in 0 .. jsonTempArray.length()-1) {
                 tempThemes.add(jsonTempArray.get(t).toString())
-                println("jsonTempArray.get(t).toString():"+jsonTempArray.get(t).toString())
-                println("theme:"+theme)
                 if(jsonTempArray.get(t).toString()=="MC_"+theme){
                     isAlreadyTheme=true
                 }
@@ -177,12 +166,10 @@ class MandalaActivity : AppCompatActivity() {
 
 
         val keyWords="MC_"+theme+"_words"
-        //val keyIsExtended="MC_"+theme+"_isExtended"
         editor.putString(keyWords,jsonString)
 
         val themes:ArrayList<String> = arrayListOf()
         val jsonArray = JSONArray(dataStore.getString("theme","[]"))
-        println(jsonArray)
         for(i in 0..jsonArray.length()-1){
             themes.add(jsonArray[i].toString())
         }
@@ -198,16 +185,9 @@ class MandalaActivity : AppCompatActivity() {
     fun initBoard(){
         getLayoutInflater().inflate(R.layout.mandala_chart_table_9x9, vg)
 
-
         val scv=vg.getChildAt(0)as ScrollView
-
-
-
         val hscv=scv.getChildAt(0)as HorizontalScrollView
-
         val ll1=hscv.getChildAt(0)as LinearLayout
-
-
 
         for(i in(0..2)){
             val llh=ll1.getChildAt(i)as LinearLayout
@@ -226,11 +206,7 @@ class MandalaActivity : AppCompatActivity() {
                 tl.translationY=-width/3+300*j.toFloat()
                 */
 
-
                 val fl = tl.getChildAt(0) as FrameLayout
-
-
-
 
                 val img=fl.getChildAt(0) as ImageView
 
@@ -255,7 +231,6 @@ class MandalaActivity : AppCompatActivity() {
                         if(i==1&&j==1&&k==1&&l==1){
                             ed.setText(theme)
                         }
-                        //ed.setTextSize(16f)
                         words[4][4]=theme
 
                         ed.setOnKeyListener { v, keyCode, event ->

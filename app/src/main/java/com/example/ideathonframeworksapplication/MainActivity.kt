@@ -47,11 +47,6 @@ class MainActivity : AppCompatActivity() {
     override fun onResume(){
         super.onResume()
 
-        /*
-        editor.putString("theme","[]")
-        editor.apply()
-        */
-
         val jsonArray = JSONArray(dataStore.getString("theme","[]"))
         vg1.removeAllViews()
         vg2.removeAllViews()
@@ -80,13 +75,10 @@ class MainActivity : AppCompatActivity() {
             else{
                 vg=vg2
             }
-            println("count:"+vg.childCount)
 
             if(themes[t].substring(0,2)=="BS"){
                 val intent= Intent(this,BrainActivity::class.java)
                 getLayoutInflater().inflate(R.layout.brain_storming_load_item, vg)
-
-
 
                 val cl =vg.getChildAt((t+1)/2)as ConstraintLayout
                 val fl=cl.getChildAt(0)as FrameLayout
@@ -122,9 +114,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-        println("themes:"+themes)
-
     }
 
     override fun onBackPressed(){
