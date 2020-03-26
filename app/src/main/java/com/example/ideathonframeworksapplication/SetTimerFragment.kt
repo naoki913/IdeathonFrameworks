@@ -47,9 +47,6 @@ class SetTimerFragment : Fragment() {
         // Inflate the layout for this fragment
         val r=inflater.inflate(R.layout.fragment_set_timer, container, false)
 
-
-
-
         r.HourPicker.maxValue=59
         r.HourPicker.minValue=0
         r.MinutePicker.maxValue=59
@@ -133,7 +130,6 @@ class SetTimerFragment : Fragment() {
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
-         *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
          * @return A new instance of fragment SetTimerFragment.

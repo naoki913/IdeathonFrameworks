@@ -62,7 +62,7 @@ class SetModeFragment : Fragment() {
 
 
         val pager1 : ViewPager = r.findViewById<ViewPager>(R.id.pager)
-        val fragmentManager : FragmentManager = childFragmentManager//ac.supportFragmentManager
+        val fragmentManager : FragmentManager = childFragmentManager
         val adapter = SetModePager(fragmentManager)
         pager1.adapter=adapter
 
@@ -70,7 +70,6 @@ class SetModeFragment : Fragment() {
 
 
         r.cancelButton.setOnClickListener {
-            //fragmentManager.beginTransaction().remove(this).commit()
             fragmentTranscation.remove(this).commit()
         }
 
@@ -97,29 +96,16 @@ class SetModeFragment : Fragment() {
                         val frag=SetTimerFragment.newInstance(r.themeText.text.toString())
                         transaction.add(R.id.root,frag)
                         transaction.commit()
-
-
-                        /*
-                        val intent= Intent(activity,BrainstormingActivity::class.java)
-                        intent.putExtra("BS_THEME_KEY",r.themeText.text.toString())
-                        intent.putExtra("BS_IS_NEW",true)
-
-                        startActivity(intent)
-                        */
                     }
                     else{
                         r.themeText.setError("テーマを入力してください")
                     }
                 }
-
-
             }
         }
 
 
 
-
-        // Inflate the layout for this fragment
         return r
     }
 

@@ -58,12 +58,7 @@ class Mandala3x3Fragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        /*
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-        */
+
     }
 
     override fun onCreateView(
@@ -73,14 +68,7 @@ class Mandala3x3Fragment : Fragment() {
         val r=inflater.inflate(R.layout.fragment_mandala3x3, container, false)
 
 
-
-
-
-
-
         r.button5.setOnClickListener {
-
-
 
             getFragmentManager()?.beginTransaction()?.remove(this)?.commit()
 
@@ -90,8 +78,6 @@ class Mandala3x3Fragment : Fragment() {
         vg = r.findViewById<View>(R.id.Constraint) as ViewGroup
 
         initBoard()
-
-
 
         // Inflate the layout for this fragment
         return r
@@ -105,45 +91,16 @@ class Mandala3x3Fragment : Fragment() {
     fun initBoard(){
         val ac=activity as FragmentActivity
 
-        /*
-        val scr : ScrollView = ScrollView(ac)
-        val hscr : HorizontalScrollView = HorizontalScrollView(ac)
-        vg.addView(scr)
-        scr.addView(hscr)
-        */
-
-
-
-
         val fl1=vg.getChildAt(0)as FrameLayout
 
         getLayoutInflater().inflate(R.layout.mandala_chart_table_3x3, fl1)
 
         val tl=fl1.getChildAt(0)as TableLayout
 
-        /*
-        tl.scaleX=tl.scaleX*3
-        tl.scaleY=tl.scaleY*3
-
-
-        tl.translationX=(width-24).toFloat()
-        tl.translationY=(width-24).toFloat()
-        */
-
         val fl=tl.getChildAt(0)as FrameLayout
         val ll=fl.getChildAt(1)as LinearLayout
 
         val iv=fl.getChildAt(0)as ImageView
-
-        /*
-        iv.scaleX=iv.scaleX*3
-        iv.scaleY=iv.scaleY*3
-        iv.translationX=(width/3).toFloat()
-        iv.translationY=(width/3).toFloat()
-        */
-
-
-
 
         for(i in(0..2)){
             val tr=ll.getChildAt(i)as TableRow
@@ -152,7 +109,6 @@ class Mandala3x3Fragment : Fragment() {
                 val fl1=tr.getChildAt(j)as FrameLayout
                 val scv=fl1.getChildAt(0)as ScrollView
 
-                //val hscv=scv.getChildAt(0)as HorizontalScrollView
                 val ed=scv.getChildAt(0)as EditText
 
                 ed.setHeight((DELTA_3x3*width).toInt())
@@ -164,20 +120,6 @@ class Mandala3x3Fragment : Fragment() {
                     ed.setKeyListener(null)
                 }
 
-
-                /*
-                ed.setOnKeyListener { v, keyCode, event ->
-                    if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                        val inputMethodManager = .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                        inputMethodManager.hideSoftInputFromWindow(v.windowToken, 0)
-                        true
-                    } else {
-                        false
-                    }
-                }
-                */
-
-
                 ed.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                     }
@@ -187,7 +129,6 @@ class Mandala3x3Fragment : Fragment() {
 
                     override fun afterTextChanged(s: Editable?) {
                         words[i*3+j]= ed.text.toString()
-                        //println(ed.text)
                         isChanged=true
                     }
                 })
@@ -203,13 +144,6 @@ class Mandala3x3Fragment : Fragment() {
         ac.destroyFragment(index,isChanged,words)
 
     }
-    /*
-    override fun onDetach() {
-        super.onDetach()
-        println("onDetach()")
-        listener = null
-    }
-    */
 
     /**
      * This interface must be implemented by activities that contain this
@@ -231,7 +165,6 @@ class Mandala3x3Fragment : Fragment() {
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
-         *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
          * @return A new instance of fragment Mandala3x3Fragment.
@@ -250,7 +183,6 @@ class Mandala3x3Fragment : Fragment() {
                 Mandala3x3Fragment().apply{
                     arguments=Bundle().apply{
                         width=_width
-                        //height=_height
                         index=_index-1
                         words=_words[index]
                     }
@@ -259,8 +191,6 @@ class Mandala3x3Fragment : Fragment() {
 
         fun newInstance()=
             Mandala3x3Fragment().apply{
-
-
         }
     }
 }

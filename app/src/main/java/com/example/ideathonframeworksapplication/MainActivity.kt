@@ -82,7 +82,12 @@ class MainActivity : AppCompatActivity() {
 
                 val cl =vg.getChildAt((t+1)/2)as ConstraintLayout
                 val fl=cl.getChildAt(0)as FrameLayout
+
                 val cl2=fl.getChildAt(1)as ConstraintLayout
+
+                val iv=cl2.getChildAt(0) as ImageView
+                iv.setImageResource(R.drawable.brain_sumple)
+
                 val tv=cl2.getChildAt(1)as TextView
 
                 tv.setText(themes[t].substring(3))
@@ -101,7 +106,12 @@ class MainActivity : AppCompatActivity() {
 
                 val cl =vg.getChildAt((t+1)/2)as ConstraintLayout
                 val fl=cl.getChildAt(0)as FrameLayout
+
                 val cl2=fl.getChildAt(1)as ConstraintLayout
+
+                val iv=cl2.getChildAt(0) as ImageView
+                iv.setImageResource(R.drawable.mandala_sumple)
+
                 val tv=cl2.getChildAt(1)as TextView
 
                 tv.setText(themes[t].substring(3))

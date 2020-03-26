@@ -156,7 +156,6 @@ class MandalaActivity : AppCompatActivity() {
 
     fun save(){
         val saveDate:String
-        //saveDate=getToday()
         //println(saveDate)
 
 
@@ -198,22 +197,11 @@ class MandalaActivity : AppCompatActivity() {
 
                 val tl = fl1.getChildAt(0) as TableLayout
 
-                /*
-                tl.scaleX=tl.scaleX/3
-                tl.scaleY=tl.scaleY/3
-
-                tl.translationX=-width/3+300*j.toFloat()
-                tl.translationY=-width/3+300*j.toFloat()
-                */
 
                 val fl = tl.getChildAt(0) as FrameLayout
 
                 val img=fl.getChildAt(0) as ImageView
 
-                /*
-                img.scaleX=img.scaleX/3
-                img.scaleY=img.scaleY/3
-                */
 
                 val ll2 = fl.getChildAt(1) as LinearLayout
 
@@ -342,7 +330,6 @@ class MandalaActivity : AppCompatActivity() {
 
        }
 
-    //Menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         getMenuInflater().inflate(R.menu.menu_brain, menu)
         return super.onCreateOptionsMenu(menu)
@@ -372,7 +359,6 @@ class MandalaActivity : AppCompatActivity() {
             finish()
         })
         dialog.show()
-
     }
 }
 
